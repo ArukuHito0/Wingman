@@ -10,16 +10,26 @@ public class LoadingManager : MonoBehaviour
     public Slider slider;
     public Text text;
 
-    IEnumerator Start()
+    float current = 0f;
+
+    void Start()
     {
+        NetworkManagerMock.Init(this);
+        StartCoroutine(Load());
+    }
+
+    IEnumerator Load()
+    {
+        // 通信開始
+        NetworkManagerMock.ReceiveData();
+
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
 
         float timer = 0f;
         float minTime = 2f;
-        float current = 0f;
 
-        while (!op.isDone)
+        while (true)
         {
             float progress = Mathf.Clamp01(op.progress / 0.9f);
             current = Mathf.Lerp(current, progress, Time.deltaTime * 5f);
@@ -29,9 +39,15 @@ public class LoadingManager : MonoBehaviour
 
             timer += Time.deltaTime;
 
-            if (progress >= 1f && timer >= minTime)
+            bool isLoadDone = (progress >= 1f);
+            bool isNetworkDone = NetworkManagerMock.isReceived;
+            bool isMinTime = (timer >= minTime);
+
+            // ★ここが今回のキモ
+            if (isLoadDone && isNetworkDone && isMinTime)
             {
                 op.allowSceneActivation = true;
+                break;
             }
 
             yield return null;
