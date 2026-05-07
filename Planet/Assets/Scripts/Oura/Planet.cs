@@ -4,11 +4,50 @@ public class Planet : MonoBehaviour
 {
     public int level;
 
-    private bool isMerging = false; 
+    public bool isSettled = false;
 
+    private Rigidbody2D rb;
+
+    public float dropTime;
+
+    bool notified = false;
+
+    private bool isMerging = false;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        // 落下後止まったら積み上がった扱い
+        if (!isSettled && rb.bodyType == RigidbodyType2D.Dynamic)
+        {
+            if (rb.linearVelocity.magnitude < 0.05f)
+            {
+                isSettled = true;
+            }
+        }
+    }
+
+    // 着地通知だけ
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //  すでに合体中なら無視
+        isSettled = true;
+
+        if (!notified)
+        {
+            notified = true;
+
+            PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
+            spawner.OnPlanetLanded();
+        }
+    }
+
+    // 合体判定
+    void OnCollisionStay2D(Collision2D collision)
+    {
         if (isMerging) return;
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -17,7 +56,6 @@ public class Planet : MonoBehaviour
         Planet other = collision.gameObject.GetComponent<Planet>();
         if (other == null) return;
 
-        //  相手も合体中なら無視
         if (other.isMerging) return;
 
         Rigidbody2D otherRb = other.GetComponent<Rigidbody2D>();
@@ -29,7 +67,7 @@ public class Planet : MonoBehaviour
 
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
 
-        // 合体フラグON
+        // 合体開始
         isMerging = true;
         other.isMerging = true;
 
@@ -41,7 +79,8 @@ public class Planet : MonoBehaviour
             return;
         }
 
-        Vector2 pos = (transform.position + other.transform.position) / 2f;
+        Vector2 pos =
+            (transform.position + other.transform.position) / 2f;
 
         GameObject next = Instantiate(
             spawner.smallPlanets[level + 1],
@@ -50,7 +89,9 @@ public class Planet : MonoBehaviour
         );
 
         next.GetComponent<Planet>().level = level + 1;
+
         PlanetCounter.Instance.Add(level + 1);
+
         Destroy(other.gameObject);
         Destroy(gameObject);
     }
