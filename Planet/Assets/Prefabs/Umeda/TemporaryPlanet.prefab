@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6622003651944167907}
   m_Layer: 6
   m_Name: TemporaryPlanet
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

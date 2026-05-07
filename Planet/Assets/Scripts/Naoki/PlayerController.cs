@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public ShootingController shooter;
 
+    [Header("移動制限設定")]
+    private float moveLimitX = 8f;
+    private float moveLimitY = 4f;
+
     // 内部計算用
     private Vector2 targetDirection;
 
@@ -63,5 +67,52 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
             rb.rotation = angle;
         }
+
+        // 現在の速度を一時保存
+        Vector2 currentVelocity = rb.linearVelocity;
+
+        // X方向の制限
+        if (transform.position.x >= moveLimitX && currentVelocity.x > 0)
+        {
+            currentVelocity.x = 0;
+        }
+        else if (transform.position.x <= -moveLimitX && currentVelocity.x < 0)
+        {
+            currentVelocity.x = 0;
+        }
+        // Y方向の制限
+        if (transform.position.y >= moveLimitY && currentVelocity.y > 0)
+        {
+            currentVelocity.y = 0;
+        }
+        else if (transform.position.y <= -moveLimitY && currentVelocity.y < 0)
+        {
+            currentVelocity.y = 0;
+        }
+
+        // 修正した速度をrbに戻す
+        rb.linearVelocity = currentVelocity;
+
+
+        // 現在の座標を取り出す
+        Vector3 currentPos = transform.position;
+
+        // X座標を制限 (-moveLimitX から moveLimitX の間に収める)
+        currentPos.x = Mathf.Clamp(currentPos.x, -moveLimitX, moveLimitX);
+        // Y座標を制限 (-moveLimitY から moveLimitY の間に収める)
+        currentPos.y = Mathf.Clamp(currentPos.y, -moveLimitY, moveLimitY);
+
+        // 制限した値をプレイヤーの座標に戻す
+        transform.position = currentPos;
+    }
+
+    private void RestrictMovement()
+    {
+
+    }
+
+    private void ClampVelocityAtBoundaries()
+    {
+
     }
 }
