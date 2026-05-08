@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 public class BulletController : MonoBehaviour
 {
     public ObjectPool<GameObject> myPool;
+    private IObjectPool<GameObject> hitEffectPool;
     public Rigidbody2D rb;
 
     [Header("弾丸設定")]
@@ -12,9 +13,9 @@ public class BulletController : MonoBehaviour
     private Vector2 inheritedVelocity;  // プレイヤーの速度を受け取る変数
 
     // [UnitHeaderInspectable("破壊座標")]
-    [Header("破壊座標")]
+    [Header("破壊設定")]
     // float destroyPositionY = 10;
-    public float lifeTime = 5;
+    public float lifeTime = 10;
     private float timer = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -64,5 +65,24 @@ public class BulletController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         // 前進速度 + プレイヤーの速度
         rb.linearVelocity = ((Vector2)transform.up * shootSpeed) + inheritedVelocity;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (hitEffectPool != null)
+        {
+            // プールからエフェクトを取得
+            GameObject effect = hitEffectPool.Get();
+
+            // エフェクトの位置を自分の位置に合わせる
+            effect.transform.position = transform.position;
+        }
+        // 弾をプールに戻す
+        ReturnToPool();
+    }
+
+    public void SetEffectPool(IObjectPool<GameObject> pool)
+    {
+        hitEffectPool = pool;
     }
 }

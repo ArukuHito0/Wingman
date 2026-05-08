@@ -16,8 +16,11 @@ public class ShootingController : MonoBehaviour
     public float shootingSpeed = 1.0f;
     public float shootingCooltime = 0.25f;
 
+    [SerializeField] private GameObject hitEffectPrefab;
+
     [Header("プールの宣言")]
     public IObjectPool<GameObject> bulletPool;
+    public IObjectPool<GameObject> hitEffectPool;
 
     [Header("参照")]
     ShootingController shootingController;
@@ -32,6 +35,14 @@ public class ShootingController : MonoBehaviour
             OnGetBullet,        // 取り出すときのメソッド
             OnReleaseBullet,    // 戻すときのメソッド
             OnDestroyBullet     // 破棄時のメソッド
+        );
+
+        hitEffectPool = new ObjectPool<GameObject>
+        (
+            CreateHitEffect,       // 作成時のメソッド
+            OnGetHitEffect,        // 取り出すときのメソッド
+            OnReleaseHitEffect,    // 戻すときのメソッド
+            OnDestroyHitEffect     // 破棄時のメソッド
         );
     }
 
@@ -69,6 +80,7 @@ public class ShootingController : MonoBehaviour
         Vector2 playerVelocity = playerRb.linearVelocity;
 
         bullet.GetComponent<BulletController>().Launch(playerVelocity);
+        bullet.GetComponent<BulletController>().SetEffectPool (hitEffectPool);
     }
 
     void OnReleaseBullet(GameObject bullet)
@@ -79,5 +91,34 @@ public class ShootingController : MonoBehaviour
     void OnDestroyBullet(GameObject bullet)
     {
         Destroy(bullet);
+    }
+
+    GameObject CreateHitEffect()
+    {
+        // オブジェクトを生成
+        GameObject effect = Instantiate(hitEffectPrefab);
+
+        // 生成したエフェクトに変える先のプールを教える
+        effect.GetComponent<HitEffectController>().SetPool(hitEffectPool);
+
+        // 生成したオブジェクトを返す
+        return effect;
+    }
+
+    void OnGetHitEffect(GameObject effect)
+    {
+        // アクティブにする処理
+        effect.SetActive(true);
+    }
+
+    void OnReleaseHitEffect(GameObject effect)
+    {
+        // 非アクティブにする処理
+        effect.SetActive(false);
+    }
+
+    void OnDestroyHitEffect(GameObject effect)
+    {
+        Destroy(effect);
     }
 }
