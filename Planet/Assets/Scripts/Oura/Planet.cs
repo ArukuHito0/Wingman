@@ -92,6 +92,8 @@ public class Planet : MonoBehaviour
 
         PlanetCounter.Instance.Add(level + 1);
 
+        PlanetHistoryManager.Instance.AddHistory(level + 1);
+
         Destroy(other.gameObject);
         Destroy(gameObject);
     }
