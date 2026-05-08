@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Puzzle Phase.unity
     guid: 4a50096009f8aec49b0e1f4860739c6e
   - enabled: 1
-    path: Assets/Scenes/Lord.unity
+    path: Assets/Scenes/LoadingScene.unity
     guid: 1fbb13f323896fe48a3f0a486909b8c3
   - enabled: 1
     path: Assets/Scenes/Shooting Phase.unity
