@@ -155,7 +155,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.05, y: 0.05}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 3.55
 --- !u!114 &8523145213873500527
 MonoBehaviour:
@@ -170,4 +170,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
   level: 0
-  planetName: "\u6C34\u661F"
+  isSettled: 0
+  dropTime: 0

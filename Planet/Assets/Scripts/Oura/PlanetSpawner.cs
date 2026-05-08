@@ -9,9 +9,11 @@ public class PlanetSpawner : MonoBehaviour
     public float minX = -2.5f;
     public float maxX = 2.5f;
 
+    public bool isGameOver = false;
+
     public Transform nextDisplayPoint; // ネクスト表示位置
 
-    private GameObject currentPlanet;
+    public GameObject currentPlanet;
     private GameObject nextPreview;
 
     private int nextIndex;
@@ -31,6 +33,8 @@ public class PlanetSpawner : MonoBehaviour
 
     void Update()
     {
+        if (isGameOver) return;
+
         MovePlanet();
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -73,13 +77,32 @@ public class PlanetSpawner : MonoBehaviour
             col.enabled = true;
         }
 
+        currentPlanet.GetComponent<Planet>().dropTime = Time.time;
+
         currentPlanet = null;
 
-        Invoke(nameof(SpawnNewPlanet), 0.5f);
+    }
+
+    public void ResetGame()
+    {
+        CancelInvoke();
+
+        currentPlanet = null;
+
+        isGameOver = false; // ←再開
+
+        nextIndex = Random.Range(0, 4);
+
+        FindObjectOfType<GameOverLine>().ResetLine();
+
+        SpawnNewPlanet();
+        ShowNext();
     }
 
     void SpawnNewPlanet()
     {
+        if (isGameOver) return;
+
         int rand = nextIndex; // ネクスト使用
 
         // 次のネクストを決める
@@ -111,6 +134,17 @@ public class PlanetSpawner : MonoBehaviour
         }
 
         ShowNext(); // ネクスト更新
+    }
+
+    public void OnPlanetLanded()
+    {
+        if (isGameOver) return;
+
+        if (currentPlanet == null)
+        {
+            SpawnNewPlanet();
+            ShowNext();
+        }
     }
 
     void ShowNext()
