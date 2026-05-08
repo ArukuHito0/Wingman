@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,22 +28,30 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // マウス座標を取得
+        // マウスのワールド座標を取得
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Z軸を0に固定
         mousePos.z = 0;
 
+        // 方向ベクトル計算
+        Vector2 direction = new Vector2
+            (
+                mousePos.x - transform.position.x,
+                mousePos.y - transform.position.y
+            );
+
+        // ラジアン -> 度数法
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        // Z軸を回転
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+
         // 1. スペースキーを押している間だけ進む方向を更新
         if (Input.GetKey(KeyCode.Space))
         {
             targetDirection = ((Vector2)mousePos - rb.position).normalized;
-        }
-
-        // 2. 左クリックで発射
-        if (Input.GetMouseButtonDown(0))
-        {
-            shooter.bulletPool.Get(); // プールから弾を出す
         }
     }
 
@@ -64,8 +73,8 @@ public class PlayerController : MonoBehaviour
         if (rb.linearVelocity.sqrMagnitude > 0.01f)
         {
             // 進行方向(Velocity)を向くための角度計算
-            float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
-            rb.rotation = angle;
+            //float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
+            //rb.rotation = angle;
         }
 
         // 現在の速度を一時保存

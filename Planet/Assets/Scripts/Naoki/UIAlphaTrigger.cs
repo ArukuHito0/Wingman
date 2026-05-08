@@ -36,7 +36,7 @@ public class UIAlphaTrigger : MonoBehaviour
     void Update()
     {
         // 状態に応じてアルファ値を滑らかに変更
-        float targetAlpha = isPlayerInside ? 0.3f : 1.0f;
+        float targetAlpha = isPlayerInside ? 0.1f : 1.0f;
         canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, targetAlpha, Time.deltaTime * fadeSpeed);
     }
 }
