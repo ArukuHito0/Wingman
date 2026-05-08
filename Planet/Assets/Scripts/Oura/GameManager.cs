@@ -1,28 +1,58 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject gameOverUI;
+    public Transform blackHoleCenter;
+    public BlackHoleController hole;
 
-    void Start()
+    public void StartGameOver()
     {
-        // 念のため最初は非表示
-        gameOverUI.SetActive(false);
+        PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
+        spawner.isGameOver = true;
+
+        StartCoroutine(GameOverRoutine());
     }
 
-    public void GameOver()
+    IEnumerator GameOverRoutine()
     {
-        Time.timeScale = 0f;
+        PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
 
-        // ここで表示
-        gameOverUI.SetActive(true);
-        Debug.Log(gameOverUI.activeSelf);
-    }
+        if (spawner.currentPlanet != null)
+        {
+            Destroy(spawner.currentPlanet);
+            spawner.currentPlanet = null;
+        }
 
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Planet[] planets = FindObjectsOfType<Planet>();
+
+        float timer = 0f;
+
+
+        while (timer < 2f)
+        {
+            foreach (Planet p in planets)
+            {
+                if (p == null) continue;
+
+                Vector3 dir = (blackHoleCenter.position - p.transform.position).normalized;
+
+                p.transform.position += dir * 5f * Time.deltaTime;
+
+                p.transform.localScale *= 0.98f;
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // 全消し
+        foreach (Planet p in FindObjectsOfType<Planet>())
+        {
+            Destroy(p.gameObject);
+        }
+
+        // 再スタート
+        FindObjectOfType<PlanetSpawner>().ResetGame();
     }
 }
