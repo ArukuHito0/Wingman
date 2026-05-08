@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
 
-        // 1. スペースキーを押している間だけ進む方向を更新
-        if (Input.GetKey(KeyCode.Space))
+        // 1. 左クリックしている間だけ進む方向を更新
+        if (Input.GetMouseButton(0))
         {
             targetDirection = ((Vector2)mousePos - rb.position).normalized;
         }
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // スペースキーが押されている間だけ加速
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetMouseButton(0))
         {
             rb.AddForce(targetDirection * acceleration);
         }
