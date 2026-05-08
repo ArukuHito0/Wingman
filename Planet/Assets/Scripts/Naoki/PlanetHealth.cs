@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlanetHealth : MonoBehaviour
 {
-    private float currentHealth = 100;
+    private float currentHealth = 30;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
