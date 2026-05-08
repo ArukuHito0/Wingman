@@ -40,6 +40,14 @@ public class BulletController : MonoBehaviour
         }
     }
 
+    public void ReturnToPool()
+    {
+        if (myPool != null)
+        {
+            myPool.Release(gameObject);
+        }
+    }
+
     //public void SetInheritedVelocity(Vector2 velocity)
     //{
     //    inheritedVelocity = velocity;
