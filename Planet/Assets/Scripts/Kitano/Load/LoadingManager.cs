@@ -17,36 +17,28 @@ public class LoadingManager : MonoBehaviour
 
     IEnumerator Load()
     {
-        Debug.Log("Load 開始");
-
         Debug.Log("nextScene = " + nextScene);
 
-        // 安全装置
+        // nextScene未設定なら戻す
         if (string.IsNullOrEmpty(nextScene))
         {
-            Debug.LogError("nextScene が空です");
+            Debug.LogWarning("nextScene 未設定");
+
+            SceneManager.LoadScene(SceneNames.Puzzle);
+
             yield break;
         }
-
-        if (nextScene == "LoadingScene")
-        {
-            Debug.LogError("LoadingSceneをロードしようとしている");
-            yield break;
-        }
-
-        Debug.Log("通信開始");
 
         // 通信開始
         NetworkManagerMock.ReceiveData();
 
-        Debug.Log("シーンロード開始");
-
-        // 非同期ロード
+        // 次シーンロード
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
 
         op.allowSceneActivation = false;
 
         float timer = 0f;
+
         float minTime = 2f;
 
         while (true)
@@ -54,18 +46,14 @@ public class LoadingManager : MonoBehaviour
             timer += Time.deltaTime;
 
             bool isLoadDone = (op.progress >= 0.9f);
-            bool isNetworkDone = NetworkManagerMock.isReceived;
-            bool isMinTime = (timer >= minTime);
 
-            Debug.Log(
-                "LoadDone: " + isLoadDone +
-                " / NetworkDone: " + isNetworkDone +
-                " / MinTime: " + isMinTime
-            );
+            bool isNetworkDone = NetworkManagerMock.isReceived;
+
+            bool isMinTime = (timer >= minTime);
 
             if (isLoadDone && isNetworkDone && isMinTime)
             {
-                Debug.Log("ロード完了 → シーン移動");
+                Debug.Log("ロード完了");
 
                 op.allowSceneActivation = true;
 
