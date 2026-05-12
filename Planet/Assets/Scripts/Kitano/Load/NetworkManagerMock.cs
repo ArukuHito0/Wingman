@@ -1,29 +1,36 @@
 using UnityEngine;
+using System.Collections;
 
-public static class NetworkManagerMock
+public class NetworkManagerMock
 {
     public static bool isReceived = false;
 
-    public static void ReceiveData()
-    {
-        // 仮：2秒後に受信完了
-        isReceived = false;
-        UnityEngine.Debug.Log("受信開始");
-
-        Instance.StartCoroutine(MockReceive());
-    }
-
-    static MonoBehaviour Instance;
+    static MonoBehaviour runner;
 
     public static void Init(MonoBehaviour mono)
     {
-        Instance = mono;
+        runner = mono;
+
+        Debug.Log("NetworkManager 初期化");
     }
 
-    static System.Collections.IEnumerator MockReceive()
+    public static void ReceiveData()
     {
+        Debug.Log("ReceiveData 開始");
+
+        isReceived = false;
+
+        runner.StartCoroutine(MockReceive());
+    }
+
+    static IEnumerator MockReceive()
+    {
+        Debug.Log("通信待機中");
+
         yield return new WaitForSeconds(2f);
+
         isReceived = true;
-        Debug.Log("受信完了");
+
+        Debug.Log("通信完了");
     }
 }
