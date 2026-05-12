@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class GameStatus
 {
     public const string WAITING = "waiting";
-    public const string GAMEPLAYING = "gameplaying";
+    public const string PLAYING = "playing";
     public const string FINISHED = "finished";
 }
 
@@ -106,7 +106,7 @@ public class Matching : MonoBehaviour
                     {
                         string response = www.downloadHandler.text;
 
-                        if (response == GameStatus.GAMEPLAYING)
+                        if (response == GameStatus.PLAYING)
                         {
                             Debug.Log("プレイヤーが揃いました");
                             yield break;
