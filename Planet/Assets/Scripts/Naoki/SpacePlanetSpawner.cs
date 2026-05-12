@@ -17,6 +17,7 @@ public class SpacePlanetSpawner : MonoBehaviour
 
     private List<GameObject> spawndPlanets = new List<GameObject>();
 
+    [SerializeField] private List<GameObject> planetPrefabList = new List<GameObject>();
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,11 +45,27 @@ public class SpacePlanetSpawner : MonoBehaviour
 
     void SpawnPlanet()
     {
+        // 防御策
+        if (planetPrefabList.Count == 0)
+        {
+            Debug.LogWarning("惑星プレハブがリストに登録されていません！");
+            return;
+        }
+
+        // 0番目から数えて「リストの数」未満のランダムな数字を得る
+        int index = Random.Range(0, planetPrefabList.Count);
+
+        // リストからその番号のプレハブを取り出して、変数に保存する
+        GameObject selectedPrefab = planetPrefabList[index];
+
+        
+
         Vector2 spawnPos = Random.insideUnitCircle.normalized * spawnRadius;
         Vector2 targetPos = Random.insideUnitCircle.normalized * targetRadius;
         Vector2 movementDir = (targetPos - spawnPos).normalized;
 
-        GameObject newPlanet = Instantiate(planetPrefab, spawnPos, Quaternion.identity);
+        // 取り出した[selectedPrefab]を生成する
+        GameObject newPlanet = Instantiate(selectedPrefab, spawnPos, Quaternion.identity);
         Rigidbody2D rb = newPlanet.GetComponent<Rigidbody2D>();
 
         // 向き * ランダムな速さ を速度としてセットする
