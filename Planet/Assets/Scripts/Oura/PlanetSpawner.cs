@@ -9,9 +9,13 @@ public class PlanetSpawner : MonoBehaviour
     public float minX = -2.5f;
     public float maxX = 2.5f;
 
+    private bool canSpawn = true;
+
     public bool isGameOver = false;
 
     public Transform nextDisplayPoint; // ネクスト表示位置
+
+    private bool isDropping = false;
 
     public GameObject currentPlanet;
     private GameObject nextPreview;
@@ -64,23 +68,28 @@ public class PlanetSpawner : MonoBehaviour
     {
         if (currentPlanet == null) return;
 
-        Rigidbody2D rb = currentPlanet.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-        }
+        canSpawn = false;
 
-        //  当たり判定ON
-        Collider2D col = currentPlanet.GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.enabled = true;
-        }
+        Rigidbody2D rb =
+            currentPlanet.GetComponent<Rigidbody2D>();
 
-        currentPlanet.GetComponent<Planet>().dropTime = Time.time;
+        rb.bodyType =
+            RigidbodyType2D.Dynamic;
+
+        Collider2D col =
+            currentPlanet.GetComponent<Collider2D>();
+
+        col.enabled = true;
+
+        Planet planet =
+            currentPlanet.GetComponent<Planet>();
+
+        planet.dropTime = Time.time;
+
+        // 追加
+        planet.isDropped = true;
 
         currentPlanet = null;
-
     }
 
     public void ResetGame()
@@ -120,10 +129,13 @@ public class PlanetSpawner : MonoBehaviour
         currentPlanet.GetComponent<Planet>().level = rand;
 
         // 動かないように
-        Rigidbody2D rb = currentPlanet.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb =
+     currentPlanet.GetComponent<Rigidbody2D>();
+
         if (rb != null)
         {
-            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.bodyType =
+                RigidbodyType2D.Static;
         }
 
         //  当たり判定OFF
@@ -140,11 +152,11 @@ public class PlanetSpawner : MonoBehaviour
     {
         if (isGameOver) return;
 
-        if (currentPlanet == null)
-        {
-            SpawnNewPlanet();
-            ShowNext();
-        }
+        if (canSpawn) return;
+
+        canSpawn = true;
+
+        SpawnNewPlanet();
     }
 
     void ShowNext()

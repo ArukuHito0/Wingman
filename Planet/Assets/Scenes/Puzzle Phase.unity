@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69835644acb81b74f84d4063c96b2702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
-  timeLimit: 10
+  timeLimit: 120
   timerText: {fileID: 1055845463}
   nextSceneName: Shooting Phase
 --- !u!4 &622376836
@@ -2458,8 +2458,8 @@ RectTransform:
   m_GameObject: {fileID: 1055845462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 315530515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3188,7 +3188,7 @@ Transform:
   m_GameObject: {fileID: 1385737228}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 3.54, z: 0}
+  m_LocalPosition: {x: -0.22, y: 3.54, z: 0}
   m_LocalScale: {x: 8, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3891,7 +3891,7 @@ GameObject:
   - component: {fileID: 1555586779}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
