@@ -14,7 +14,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip puzzleBGM;
 
     public AudioClip shootingBGM;
+    // SE
+    public AudioClip ClickSE;
 
+    public AudioClip ContactSE;
     private string currentBGM = "";
 
     void Awake()
@@ -67,6 +70,31 @@ public class AudioManager : MonoBehaviour
             bgmSource.Play();
 
             Debug.Log("BGM再生 : " + bgmName);
+        }
+
+    }
+    public void PlaySE(string seName)
+    {
+        AudioClip clip = null;
+
+        // SE選択
+        switch (seName)
+        {
+            case "Click":
+                clip = ClickSE;
+                break;
+
+            case "Contact":
+                clip = ContactSE;
+                break;
+        }
+
+        // 再生
+        if (clip != null)
+        {
+            seSource.PlayOneShot(clip);
+
+            Debug.Log("SE再生 : " + seName);
         }
     }
 }
