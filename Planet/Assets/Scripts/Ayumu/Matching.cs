@@ -109,6 +109,7 @@ public class Matching : MonoBehaviour
                         if (response == GameStatus.PLAYING)
                         {
                             Debug.Log("プレイヤーが揃いました");
+                            SceneTransition.Load(SceneNames.Puzzle);
                             yield break;
                         }
                     }
