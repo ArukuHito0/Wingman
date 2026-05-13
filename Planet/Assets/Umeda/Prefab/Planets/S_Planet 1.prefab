@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 71898426281086413}
   - component: {fileID: 6820565869932777224}
   - component: {fileID: 7380801596118855035}
+  - component: {fileID: 1062599974974369951}
   m_Layer: 6
   m_Name: S_Planet 1
   m_TagString: Planet
@@ -172,3 +173,16 @@ MonoBehaviour:
   level: 1
   isSettled: 0
   dropTime: 0
+--- !u!114 &1062599974974369951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448116203234295513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebed5da0560f25439c15cca0d17e9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetHealth
+  currentHealth: 40

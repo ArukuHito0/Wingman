@@ -15,8 +15,11 @@ public class BulletController : MonoBehaviour
     // [UnitHeaderInspectable("破壊座標")]
     [Header("破壊設定")]
     // float destroyPositionY = 10;
-    public float lifeTime = 10;
-    private float timer = 0;
+    //public float lifeTime = 10;
+    //private float timer = 0;
+
+    private float activeAreaX = 8f;
+    private float activeAreaY = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,11 +35,20 @@ public class BulletController : MonoBehaviour
         Vector3 moveStep = (transform.up * shootSpeed) + (Vector3)inheritedVelocity;
         transform.position += moveStep * Time.deltaTime;
 
-        timer += Time.deltaTime;
+        //timer += Time.deltaTime;
 
-        if(timer > lifeTime)
+        //if(timer > lifeTime)
+        //{
+        //    // Destroy(gameObject);
+        //    myPool.Release(gameObject);
+        //}
+
+        if (transform.position.x > activeAreaX || transform.position.x < -activeAreaX)
         {
-            // Destroy(gameObject);
+            myPool.Release(gameObject);
+        }
+        else if (transform.position.y > activeAreaY || transform.position.y < -activeAreaY)
+        {
             myPool.Release(gameObject);
         }
     }
@@ -56,7 +68,7 @@ public class BulletController : MonoBehaviour
 
     public void OnEnable()
     {
-        timer = 0f; // タイマーをリセットして、また3秒数え直せるようにする
+        //timer = 0f; // タイマーをリセットして、また3秒数え直せるようにする
     }
 
     public void Launch(Vector2 inheritedVelocity)

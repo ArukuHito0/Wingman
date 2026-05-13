@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public ShootingController shooter;
 
     [Header("移動制限設定")]
-    private float moveLimitX = 8f;
+    private float moveLimitX = 7.11f;
     private float moveLimitY = 4f;
 
     // 内部計算用
