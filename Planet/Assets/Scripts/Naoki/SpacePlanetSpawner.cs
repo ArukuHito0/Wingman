@@ -19,6 +19,9 @@ public class SpacePlanetSpawner : MonoBehaviour
 
     [SerializeField] private List<GameObject> planetPrefabList = new List<GameObject>();
 
+    public PlanetHistoryManager planetHistoryManager;
+    private int planetHistoryLevel;
+    private float planetHistoryTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,14 +34,28 @@ public class SpacePlanetSpawner : MonoBehaviour
     {
         // 自動生成のロジック
         timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        //if (timer >= spawnInterval)
+        //{
+        //    //最大数に達していない時だけ生成
+        //    if (spawndPlanets.Count < maxObjectCount)
+        //    {
+        //        SpawnPlanet();
+        //    }
+        //    timer = 0;  // タイマーをリセット
+        //}
+        
+        if (planetHistoryManager != null)
         {
-            //最大数に達していない時だけ生成
-            if (spawndPlanets.Count < maxObjectCount)
+            foreach (PlanetHistoryData data in planetHistoryManager.history)
             {
-                SpawnPlanet();
+                planetHistoryTime = data.time;
+
+                if (timer == planetHistoryTime)
+                {
+                    planetHistoryLevel = data.level;
+                    SpawnPlanet();
+                }
             }
-            timer = 0;  // タイマーをリセット
         }
         CheckAndDespawn();  //削除のチェック
     }
@@ -52,13 +69,13 @@ public class SpacePlanetSpawner : MonoBehaviour
             return;
         }
 
-        // 0番目から数えて「リストの数」未満のランダムな数字を得る
-        int index = Random.Range(0, planetPrefabList.Count);
+        //// 0番目から数えて「リストの数」未満のランダムな数字を得る
+        //int index = Random.Range(0, planetPrefabList.Count);
+        int index = planetHistoryLevel;
 
         // リストからその番号のプレハブを取り出して、変数に保存する
         GameObject selectedPrefab = planetPrefabList[index];
 
-        
 
         Vector2 spawnPos = Random.insideUnitCircle.normalized * spawnRadius;
         Vector2 targetPos = Random.insideUnitCircle.normalized * targetRadius;
