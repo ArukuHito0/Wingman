@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -19,9 +20,11 @@ public class SpacePlanetSpawner : MonoBehaviour
 
     [SerializeField] private List<GameObject> planetPrefabList = new List<GameObject>();
 
-    public PlanetHistoryManager planetHistoryManager;
+    // public PlanetHistoryManager planetHistoryManager;
     private int planetHistoryLevel;
     private float planetHistoryTime;
+
+    private int currentHistoryIndex = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,24 +46,24 @@ public class SpacePlanetSpawner : MonoBehaviour
         //    }
         //    timer = 0;  // タイマーをリセット
         //}
-        
-        if (planetHistoryManager != null)
-        {
-            foreach (PlanetHistoryData data in planetHistoryManager.history)
-            {
-                planetHistoryTime = data.time;
 
-                if (timer == planetHistoryTime)
-                {
-                    planetHistoryLevel = data.level;
-                    SpawnPlanet();
-                }
+        PlanetHistoryData nextData = PlanetHistoryManager.Instance.history[currentHistoryIndex];
+        
+        if (PlanetHistoryManager.Instance != null && currentHistoryIndex < PlanetHistoryManager.Instance.history.Count)
+        {
+            if (timer >= nextData.time)
+            {
+                int index = Mathf.Clamp(nextData.level, 0, planetPrefabList.Count - 1);
+
+                SpawnPlanet(index);
+
+                currentHistoryIndex++;
             }
         }
         CheckAndDespawn();  //削除のチェック
     }
 
-    void SpawnPlanet()
+    void SpawnPlanet(int levelIndex)
     {
         // 防御策
         if (planetPrefabList.Count == 0)
@@ -71,10 +74,7 @@ public class SpacePlanetSpawner : MonoBehaviour
 
         //// 0番目から数えて「リストの数」未満のランダムな数字を得る
         //int index = Random.Range(0, planetPrefabList.Count);
-        int index = planetHistoryLevel;
-
-        // リストからその番号のプレハブを取り出して、変数に保存する
-        GameObject selectedPrefab = planetPrefabList[index];
+        GameObject selectedPrefab = planetPrefabList[levelIndex];
 
 
         Vector2 spawnPos = Random.insideUnitCircle.normalized * spawnRadius;
