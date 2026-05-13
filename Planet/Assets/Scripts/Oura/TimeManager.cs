@@ -2,9 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+
 
 public class TimerManager : MonoBehaviour
 {
@@ -12,11 +11,11 @@ public class TimerManager : MonoBehaviour
 
     public TextMeshProUGUI timerText;
 
-#if UNITY_EDITOR
-    public SceneAsset nextScene;
-#endif
+    [SerializeField]
+    private string nextSceneName;
 
     bool finished = false;
+
 
     void Update()
     {
@@ -41,9 +40,7 @@ public class TimerManager : MonoBehaviour
         {
             finished = true;
 
-#if UNITY_EDITOR
-            SceneManager.LoadScene(nextScene.name);
-#endif
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 }

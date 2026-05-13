@@ -1625,7 +1625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
   timeLimit: 10
   timerText: {fileID: 1055845463}
-  nextScene: {fileID: 102900000, guid: 79eb6ab2c62b0114e9d968959eb5f92a, type: 3}
+  nextSceneName: Shooting Phase
 --- !u!4 &622376836
 Transform:
   m_ObjectHideFlags: 0
