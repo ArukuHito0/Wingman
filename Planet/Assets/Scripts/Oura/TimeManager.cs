@@ -2,11 +2,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class TimerManager : MonoBehaviour
 {
     public float timeLimit = 120f;
 
     public TextMeshProUGUI timerText;
+
+#if UNITY_EDITOR
+    public SceneAsset nextScene;
+#endif
 
     bool finished = false;
 
@@ -33,7 +41,9 @@ public class TimerManager : MonoBehaviour
         {
             finished = true;
 
-            SceneManager.LoadScene("Shooting Phase");
+#if UNITY_EDITOR
+            SceneManager.LoadScene(nextScene.name);
+#endif
         }
     }
 }
