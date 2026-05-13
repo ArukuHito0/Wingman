@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// ルームの状態を表す定数をまとめたクラス
+/// </summary>
 public class GameStatus
 {
     public const string WAITING = "waiting";
@@ -9,6 +12,9 @@ public class GameStatus
     public const string FINISHED = "finished";
 }
 
+/// <summary>
+/// マッチングに関しての関数をまとめたクラス
+/// </summary>
 public class Matching : MonoBehaviour
 {
     private class MatchingResponse
@@ -41,16 +47,29 @@ public class Matching : MonoBehaviour
         }
     }
 
-    private string password = "";
+    private string password = string.Empty;
+    private string userName = string.Empty;
 
     public void SetRoomPassword(string password)
     {
         this.password = password;
     }
 
+    public void SetUserName(string userName)
+    {
+        this.userName = userName;
+    }
+
     public void OnClickMatching()
     {
-        StartCoroutine(MatchingAPI());
+        if (string.IsNullOrEmpty(userName))
+        {
+            Debug.Log("ユーザーネームを入力してください");
+        }
+        else
+        {
+            StartCoroutine(MatchingAPI());
+        }
     }
 
     /// <summary>
@@ -71,7 +90,7 @@ public class Matching : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
 
                 MatchingResponse response = JsonUtility.FromJson<MatchingResponse>(www.downloadHandler.text);
-                userId = response.user_id;
+                //userId = response.user_id;
                 playerId = response.player_id;
                 roomId = response.room_id;
 

@@ -16,6 +16,7 @@ public class FormFields
     }
 
     public static readonly string password = "password";
-    public static readonly string roomId = "room_id";
     public static readonly string userId = "user_id";
+    public static readonly string playerId = "player_id";
+    public static readonly string roomId = "room_id";
 }
