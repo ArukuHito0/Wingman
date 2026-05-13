@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6820565869932777224}
   - component: {fileID: 7380801596118855035}
   - component: {fileID: 1062599974974369951}
+  - component: {fileID: -3841972520965203123}
   m_Layer: 6
   m_Name: S_Planet 1
   m_TagString: Planet
@@ -186,3 +187,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetHealth
   currentHealth: 40
+--- !u!114 &-3841972520965203123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448116203234295513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b1b8250670c6243b180d79f5f51d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotationController
+  xAxis: 0
+  yAxis: 0
+  zAxis: 1
+  rotationSpeed: 10
