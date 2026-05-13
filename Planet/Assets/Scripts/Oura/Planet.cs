@@ -12,6 +12,8 @@ public class Planet : MonoBehaviour
 
     bool notified = false;
 
+    public bool isDropped = false;
+
     private bool isMerging = false;
 
     void Start()
@@ -32,17 +34,21 @@ public class Planet : MonoBehaviour
     }
 
     // 着地通知だけ
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(
+    Collision2D collision
+)
     {
-        isSettled = true;
+        if (notified) return;
 
-        if (!notified)
-        {
-            notified = true;
+        // 落とした惑星だけ
+        if (!isDropped) return;
 
-            PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
-            spawner.OnPlanetLanded();
-        }
+        notified = true;
+
+        PlanetSpawner spawner =
+            FindObjectOfType<PlanetSpawner>();
+
+        spawner.OnPlanetLanded();
     }
 
     // 合体判定
