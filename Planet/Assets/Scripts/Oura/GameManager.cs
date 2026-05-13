@@ -6,10 +6,16 @@ public class GameManager : MonoBehaviour
     public Transform blackHoleCenter;
     public BlackHoleController hole;
 
+    public PlanetHistoryAPI historyAPI;
     public void StartGameOver()
     {
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
         spawner.isGameOver = true;
+
+        StartCoroutine(GameOverRoutine());
+
+        // 履歴保存
+        historyAPI.SendHistory();
 
         StartCoroutine(GameOverRoutine());
     }
