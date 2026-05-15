@@ -172,3 +172,4 @@ MonoBehaviour:
   level: 0
   isSettled: 0
   dropTime: 0
+  isDropped: 0
