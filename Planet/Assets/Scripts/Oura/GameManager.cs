@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
         // 履歴保存
         historyAPI.SendHistory();
 
-        StartCoroutine(GameOverRoutine());
     }
 
     IEnumerator GameOverRoutine()
