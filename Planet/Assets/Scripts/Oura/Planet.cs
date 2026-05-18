@@ -69,6 +69,8 @@ public class Planet : MonoBehaviour
 
         if (other.level != level) return;
 
+ 
+
         CircleCollider2D myCol =
            GetComponent<CircleCollider2D>();
 
@@ -90,6 +92,8 @@ public class Planet : MonoBehaviour
         if (other.GetInstanceID() < gameObject.GetInstanceID()) return;
 
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
+
+
 
         // 合体開始
         isMerging = true;
