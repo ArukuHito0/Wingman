@@ -10,7 +10,9 @@ public class SpacePlanetSpawner : MonoBehaviour
     [SerializeField] private float targetRadius = 3f;
     [SerializeField] private float despawnRadius = 15f;
     [SerializeField] private int maxObjectCount = 10;
-    [SerializeField] private float spawnInterval = 2.0f;
+    [SerializeField] private float minSpawnInterval = 0.5f;
+    [SerializeField] private float maxSpawnInterval = 5.0f;
+    [SerializeField] private static float spawnInterval;
 
     private float minSpeed = 1.0f;
     private float maxSpeed = 5.0f;
@@ -25,42 +27,69 @@ public class SpacePlanetSpawner : MonoBehaviour
     private float planetHistoryTime;
 
     private int currentHistoryIndex = 0;
+    [SerializeField] private bool autoSpawnMode = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
+        if (PlanetHistoryManager.Instance == null || PlanetHistoryManager.Instance.history ==null)
+        {
+            autoSpawnMode = true;
+            return;
+        }
+
+        if (PlanetHistoryManager.Instance.history.Count == 0)
+        {
+            Debug.Log("惑星の自動生成モードをON");
+            autoSpawnMode = true;
+        }
+        else
+        {
+            autoSpawnMode = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 自動生成のロジック
-        timer += Time.deltaTime;
-        //if (timer >= spawnInterval)
-        //{
-        //    //最大数に達していない時だけ生成
-        //    if (spawndPlanets.Count < maxObjectCount)
-        //    {
-        //        SpawnPlanet();
-        //    }
-        //    timer = 0;  // タイマーをリセット
-        //}
-
-        PlanetHistoryData nextData = PlanetHistoryManager.Instance.history[currentHistoryIndex];
-        
-        if (PlanetHistoryManager.Instance != null && currentHistoryIndex < PlanetHistoryManager.Instance.history.Count)
+        if (autoSpawnMode == true)
         {
-            if (timer >= nextData.time)
+            // 自動生成のロジック
+            timer += Time.deltaTime;
+            if (timer >= spawnInterval)
             {
-                int index = Mathf.Clamp(nextData.level, 0, planetPrefabList.Count - 1);
+                //最大数に達していない時だけ生成
+                if (spawndPlanets.Count < maxObjectCount)
+                {
+                    AutoSpawnPlanet();
+                }
+            }
+        }
 
-                SpawnPlanet(index);
+        if (autoSpawnMode == false)
+        {
+            PlanetHistoryData nextData = PlanetHistoryManager.Instance.history[currentHistoryIndex];
 
-                currentHistoryIndex++;
+            if (PlanetHistoryManager.Instance != null && currentHistoryIndex < PlanetHistoryManager.Instance.history.Count)
+            {
+                if (timer >= nextData.time)
+                {
+                    int index = Mathf.Clamp(nextData.level, 0, planetPrefabList.Count - 1);
+
+                    SpawnPlanet(index);
+
+                    currentHistoryIndex++;
+                }
             }
         }
         CheckAndDespawn();  //削除のチェック
+    }
+
+    void AutoSpawnInterval()
+    {
+        timer = 0;
+        spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
     }
 
     void SpawnPlanet(int levelIndex)
@@ -69,6 +98,8 @@ public class SpacePlanetSpawner : MonoBehaviour
         if (planetPrefabList.Count == 0)
         {
             Debug.LogWarning("惑星プレハブがリストに登録されていません！");
+            Debug.Log("惑星の自動生成モードをON");
+            autoSpawnMode = true;
             return;
         }
 
@@ -90,6 +121,28 @@ public class SpacePlanetSpawner : MonoBehaviour
         rb.linearVelocity = movementDir * randomSpeed;
 
         spawndPlanets.Add(newPlanet);
+    }
+
+    void AutoSpawnPlanet()
+    {
+        // 0番目から数えて「リストの数」未満のランダムな数字を得る
+        int autoLevelIndex = Random.Range(0, planetPrefabList.Count);
+        GameObject autoSelectedPrefab = planetPrefabList[autoLevelIndex];
+
+        Vector2 spawnPos = Random.insideUnitCircle.normalized * spawnRadius;
+        Vector2 targetPos = Random.insideUnitCircle.normalized * targetRadius;
+        Vector2 movementDir = (targetPos - spawnPos).normalized;
+
+        // 取り出した[selectedPrefab]を生成する
+        GameObject newPlanet = Instantiate(autoSelectedPrefab, spawnPos, Quaternion.identity);
+        Rigidbody2D rb = newPlanet.GetComponent<Rigidbody2D>();
+
+        // 向き * ランダムな速さ を速度としてセットする
+        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        rb.linearVelocity = movementDir * randomSpeed;
+
+        spawndPlanets.Add(newPlanet);
+        AutoSpawnInterval();
     }
 
     void GetRandomPointInCircle(float radius)
