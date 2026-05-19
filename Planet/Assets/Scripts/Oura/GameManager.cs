@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameOverRoutine());
 
+        ScoreManager.Instance.MinusScore(3000);
+
         // 履歴保存
         historyAPI.SendHistory();
 
