@@ -69,9 +69,31 @@ public class Planet : MonoBehaviour
 
         if (other.level != level) return;
 
+ 
+
+        CircleCollider2D myCol =
+           GetComponent<CircleCollider2D>();
+
+        CircleCollider2D otherCol =
+            other.GetComponent<CircleCollider2D>();
+
+        float range =
+            myCol.radius * transform.localScale.x +
+            otherCol.radius * other.transform.localScale.x;
+
+        float dist = Vector2.Distance(
+            transform.position,
+            other.transform.position
+        );
+
+        // 少し余裕を持たせる
+        if (dist > range * 1.1f) return;
+
         if (other.GetInstanceID() < gameObject.GetInstanceID()) return;
 
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
+
+
 
         // 合体開始
         isMerging = true;
@@ -97,6 +119,10 @@ public class Planet : MonoBehaviour
         next.GetComponent<Planet>().level = level + 1;
 
         PlanetCounter.Instance.Add(level + 1);
+
+        ScoreManager.Instance.AddScore(
+    (level + 1) * 50
+);
 
         PlanetHistoryManager.Instance.AddHistory(level + 1);
 
