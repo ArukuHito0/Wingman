@@ -120,6 +120,10 @@ public class Planet : MonoBehaviour
 
         PlanetCounter.Instance.Add(level + 1);
 
+        ScoreManager.Instance.AddScore(
+    (level + 1) * 50
+);
+
         PlanetHistoryManager.Instance.AddHistory(level + 1);
 
         Destroy(other.gameObject);
