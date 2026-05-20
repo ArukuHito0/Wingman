@@ -37,15 +37,15 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Planet"))
-        {
-            TakeDamage(0);
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.CompareTag("Planet"))
+    //    {
+    //        TakeDamage(0);
 
-            Destroy(other.gameObject);
-        }
-    }
+    //        Destroy(other.gameObject);
+    //    }
+    //}
 
     void TakeDamage(int amount)
     {

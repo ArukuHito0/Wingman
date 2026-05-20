@@ -174,6 +174,7 @@ MonoBehaviour:
   level: 0
   isSettled: 0
   dropTime: 0
+  isDropped: 0
 --- !u!114 &4126675957675358166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetHealth
   currentHealth: 30
+  addScoreValue: 100
+  minusScoreValue: 200
 --- !u!114 &1626403090267287824
 MonoBehaviour:
   m_ObjectHideFlags: 0

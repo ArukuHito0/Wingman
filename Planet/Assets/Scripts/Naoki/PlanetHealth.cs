@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlanetHealth : MonoBehaviour
 {
     [SerializeField] private float currentHealth = 30;
+    [SerializeField] private int addScoreValue = 0;
+    [SerializeField] private int minusScoreValue = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +23,14 @@ public class PlanetHealth : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddScore(addScoreValue);
+            }
+            else
+            {
+                Debug.LogWarning("ScoreManagerのインスタンスが存在しません！");
+            }
             Destroy(gameObject);
         }
     }
@@ -38,8 +48,14 @@ public class PlanetHealth : MonoBehaviour
             // 取得できた場合
             if (bullet != null)
             {
-                bullet.ReturnToPool();  // 弾をPoolに戻す
+                //bullet.ReturnToPool();  // 弾をPoolに戻す
             }
+        }
+
+        if (collision.CompareTag("Player"))
+        {
+            ScoreManager.Instance.MinusScore(minusScoreValue);
+            Destroy(gameObject);
         }
     }
 }
