@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using TMPro;
+using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -7,16 +9,14 @@ public class ScoreManager : MonoBehaviour
 
     public int score = 0;
 
-    public int maxScore = 30000;
-
     public TextMeshProUGUI scoreText;
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         UpdateUI();
     }
@@ -25,12 +25,6 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
-
-        // 最大制限
-        if (score > maxScore)
-        {
-            score = maxScore;
-        }
 
         UpdateUI();
     }
@@ -49,8 +43,51 @@ public class ScoreManager : MonoBehaviour
         UpdateUI();
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         scoreText.text = "Score : " + score;
+    }
+
+    public IEnumerator SendScoreAPI()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField(FormFields.playerId, Matching.playerId);
+        form.AddField(FormFields.score, score);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("set_score"), form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                yield break;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f);
+                yield return SendScoreAPI();
+            }
+        }
+    }
+
+    public IEnumerator GetScoreAPI()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField(FormFields.playerId, Matching.playerId);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("get_score"), form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                yield break;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.1f);
+                yield return SendScoreAPI();
+            }
+        }
     }
 }
