@@ -41,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Planet"))
         {
-            TakeDamage(20);
+            TakeDamage(0);
 
             Destroy(other.gameObject);
         }
