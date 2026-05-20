@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69835644acb81b74f84d4063c96b2702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
-  timeLimit: 150
+  timeLimit: 120
   timerText: {fileID: 1078455606}
   nextSceneName: Puzzle Phase
 --- !u!4 &32100145
@@ -355,7 +355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &46160322
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1939,7 +1939,7 @@ RectTransform:
   m_Father: {fileID: 303654030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1976,9 +1976,10 @@ MonoBehaviour:
   spawnRadius: 12
   targetRadius: 3
   despawnRadius: 15
-  maxObjectCount: 10
+  maxObjectCount: 2147483647
   minSpawnInterval: 0.5
-  maxSpawnInterval: 3
+  maxSpawnInterval: 2
+  spawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
   - {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
@@ -1989,6 +1990,19 @@ MonoBehaviour:
   - {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   - {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
   autoSpawnMode: 0
+  phaseList:
+  - phaseName: Phase 1
+    startTime: 0
+    spawnWeights: 1e00000019000000140000000f00000005000000050000000500000005000000
+  - phaseName: Phase 2
+    startTime: 30
+    spawnWeights: 0a0000001400000014000000140000000a0000000a0000000500000005000000
+  - phaseName: Phase 3
+    startTime: 60
+    spawnWeights: 0a0000000a0000000a0000000a00000014000000140000000a0000000a000000
+  - phaseName: Phase 4
+    startTime: 90
+    spawnWeights: 0500000005000000050000000500000014000000140000001400000014000000
 --- !u!4 &1300683432
 Transform:
   m_ObjectHideFlags: 0
@@ -2763,8 +2777,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2016516661}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

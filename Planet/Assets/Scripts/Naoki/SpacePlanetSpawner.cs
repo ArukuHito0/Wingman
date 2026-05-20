@@ -12,7 +12,7 @@ public class SpacePlanetSpawner : MonoBehaviour
     [SerializeField] private int maxObjectCount = 10;
     [SerializeField] private float minSpawnInterval = 0.5f;
     [SerializeField] private float maxSpawnInterval = 5.0f;
-    [SerializeField] private static float spawnInterval;
+    [SerializeField] private float spawnInterval;
 
     private float minSpeed = 1.0f;
     private float maxSpeed = 5.0f;
@@ -29,9 +29,16 @@ public class SpacePlanetSpawner : MonoBehaviour
     private int currentHistoryIndex = 0;
     [SerializeField] private bool autoSpawnMode = false;
 
+    //フェーズ
+    [SerializeField] private List<SpawnPhaseData> phaseList = new List<SpawnPhaseData>();
+    private int currentPhaseIndex = 0;
+    private float phaseTimer = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        autoSpawnMode = true;
+        phaseTimer = 0;
 
         if (PlanetHistoryManager.Instance == null || PlanetHistoryManager.Instance.history ==null)
         {
@@ -39,20 +46,31 @@ public class SpacePlanetSpawner : MonoBehaviour
             return;
         }
 
-        if (PlanetHistoryManager.Instance.history.Count == 0)
-        {
-            Debug.Log("惑星の自動生成モードをON");
-            autoSpawnMode = true;
-        }
-        else
-        {
-            autoSpawnMode = false;
-        }
+        //if (PlanetHistoryManager.Instance.history.Count == 0)
+        //{
+        //    Debug.Log("惑星の自動生成モードをON");
+        //    autoSpawnMode = true;
+        //}
+        //else
+        //{
+        //    autoSpawnMode = false;
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
+        phaseTimer += Time.deltaTime;
+
+        if (currentPhaseIndex + 1 < phaseList.Count)
+        {
+            if (phaseTimer >= phaseList[currentPhaseIndex + 1].startTime)
+            {
+                currentPhaseIndex++;
+                Debug.Log($"フェーズが切り替わりました : {phaseList[currentPhaseIndex].phaseName}");
+            }
+        }
+
         if (autoSpawnMode == true)
         {
             // 自動生成のロジック
@@ -123,10 +141,48 @@ public class SpacePlanetSpawner : MonoBehaviour
         spawndPlanets.Add(newPlanet);
     }
 
+    int GetRandomLevelIndexByWeight()
+    {
+        // 防御策 : フェーズデータがない場合は0を返す
+        if (phaseList.Count == 0 || currentPhaseIndex >= phaseList.Count) return 0;
+
+        // 現在のフェーズの確率リストを取得(Inspectorで設定)
+        List<int> weights = phaseList[currentPhaseIndex].spawnWeights;
+
+        // 1. 全てのウェイトの合計値を計算
+        int totalWeight = 0;
+        foreach (int w in weights)
+        {
+            totalWeight += w;
+        }
+
+        // ウェイトが設定されていなければ0を返す
+        if (totalWeight <= 0) return 0;
+
+        // 2. 0から 合計値(未満)の間のランダムな数字1つ決める
+        int randomNumber = Random.Range(0, totalWeight);
+
+        // 3. 当選確率のエリアを特定する(累積値のチェック)
+        int currentSum = 0;
+        for (int i = 0; i < weights.Count; i++)
+        {
+            currentSum += weights[i];
+
+            // ランダムな値が、現在の累積値を越えなければその要素(i)に決定する
+            if (randomNumber < currentSum)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     void AutoSpawnPlanet()
     {
         // 0番目から数えて「リストの数」未満のランダムな数字を得る
-        int autoLevelIndex = Random.Range(0, planetPrefabList.Count);
+        // int autoLevelIndex = Random.Range(0, planetPrefabList.Count);
+        int autoLevelIndex = GetRandomLevelIndexByWeight();
+
         GameObject autoSelectedPrefab = planetPrefabList[autoLevelIndex];
 
         Vector2 spawnPos = Random.insideUnitCircle.normalized * spawnRadius;
@@ -201,5 +257,16 @@ public class SpacePlanetSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    public struct SpawnPhaseData
+    {
+        public string phaseName;        // Inspector用の名前
+        public float startTime;         // このフェーズが始まる時間(s)
+
+        // 要素数8のリスト
+        // [100, 0, 0, 0, 0, 0, 0, 0]の場合 Element 0 が100%生成
+        public List<int> spawnWeights;
     }
 }
