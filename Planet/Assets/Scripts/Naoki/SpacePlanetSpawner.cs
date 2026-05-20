@@ -12,7 +12,10 @@ public class SpacePlanetSpawner : MonoBehaviour
     [SerializeField] private int maxObjectCount = 10;
     [SerializeField] private float minSpawnInterval = 0.5f;
     [SerializeField] private float maxSpawnInterval = 5.0f;
-    [SerializeField] private float spawnInterval;
+
+    // 表示用
+    private float spawnInterval;
+    [SerializeField, ReadOnly] private float currentSpawnInterval; // インスペクター表示用（グレーアウトする）
 
     private float minSpeed = 1.0f;
     private float maxSpeed = 5.0f;
@@ -60,6 +63,7 @@ public class SpacePlanetSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentSpawnInterval = spawnInterval;
         phaseTimer += Time.deltaTime;
 
         if (currentPhaseIndex + 1 < phaseList.Count)
