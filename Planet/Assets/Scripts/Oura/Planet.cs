@@ -16,6 +16,8 @@ public class Planet : MonoBehaviour
 
     private bool isMerging = false;
 
+public GameObject explosionPrefab;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -101,6 +103,17 @@ public class Planet : MonoBehaviour
 
         if (level >= spawner.smallPlanets.Length - 1)
         {
+
+            Vector2 explosionPos =
+    (transform.position + other.transform.position) / 2f;
+
+            // 爆発生成
+            Instantiate(
+                explosionPrefab,
+                explosionPos,
+                Quaternion.identity
+            );
+
             // 太陽同士削除
             Destroy(other.gameObject);
             Destroy(gameObject);
@@ -113,7 +126,10 @@ public class Planet : MonoBehaviour
             {
                 if (p == null) continue;
 
-                // 太陽自身は除外
+                // 落下済みだけ消す
+                if (!p.isDropped) continue;
+
+                // 太陽自身除外
                 if (p == this || p == other) continue;
 
                 // スコア加算
@@ -123,6 +139,12 @@ public class Planet : MonoBehaviour
                 ScoreManager.Instance.AddScore(addScore);
 
                 Destroy(p.gameObject);
+            }
+
+            // 次惑星が無ければ生成
+            if (spawner.currentPlanet == null)
+            {
+                spawner.OnPlanetLanded();
             }
 
             return;
