@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BezierScaleLoop : MonoBehaviour
 {
@@ -15,15 +16,24 @@ public class BezierScaleLoop : MonoBehaviour
     public float shrinkSpeed = 1f;
     public float shrinkStartDelay = 0f;
 
+    [Header("=== ランダム画像 ===")]
+    public Image targetImage;
+    public Sprite[] sprites;
+
     private float moveTimer = 0f;
     private float shrinkTimer = 0f;
 
     private Vector3 initialScale;
     private bool isShrinking = false;
 
+    private int lastIndex = -1;
+
     void Start()
     {
         initialScale = transform.localScale;
+
+        // 初回ランダム画像
+        ChangeImage();
     }
 
     void Update()
@@ -57,8 +67,10 @@ public class BezierScaleLoop : MonoBehaviour
             moveTimer = 0f;
             transform.position = startPoint.position;
 
-            // 縮小もリセットしたい場合はここをON
             ResetScale();
+
+            // ← リセット時に画像変更
+            ChangeImage();
         }
     }
 
@@ -82,6 +94,27 @@ public class BezierScaleLoop : MonoBehaviour
                 shrinkSpeed * Time.deltaTime
             );
         }
+    }
+
+    // =========================
+    // ランダム画像変更
+    // =========================
+    void ChangeImage()
+    {
+        if (targetImage == null || sprites.Length == 0)
+            return;
+
+        int randomIndex;
+
+        do
+        {
+            randomIndex = Random.Range(0, sprites.Length);
+        }
+        while (sprites.Length > 1 && randomIndex == lastIndex);
+
+        lastIndex = randomIndex;
+
+        targetImage.sprite = sprites[randomIndex];
     }
 
     // =========================
