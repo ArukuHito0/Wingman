@@ -99,11 +99,32 @@ public class Planet : MonoBehaviour
         isMerging = true;
         other.isMerging = true;
 
-        // 最大レベルなら消える
         if (level >= spawner.smallPlanets.Length - 1)
         {
+            // 太陽同士削除
             Destroy(other.gameObject);
             Destroy(gameObject);
+
+            // 盤面爆発
+            Planet[] planets =
+                FindObjectsOfType<Planet>();
+
+            foreach (Planet p in planets)
+            {
+                if (p == null) continue;
+
+                // 太陽自身は除外
+                if (p == this || p == other) continue;
+
+                // スコア加算
+                int addScore =
+                    (p.level + 1) * 50;
+
+                ScoreManager.Instance.AddScore(addScore);
+
+                Destroy(p.gameObject);
+            }
+
             return;
         }
 
