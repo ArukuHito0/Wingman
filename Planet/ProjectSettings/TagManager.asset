@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Planet
+  - Ground
   layers:
   - Default
   - TransparentFX

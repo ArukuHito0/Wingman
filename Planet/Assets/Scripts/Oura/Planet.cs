@@ -12,6 +12,8 @@ public class Planet : MonoBehaviour
 
     bool notified = false;
 
+    public bool isDropped = false;
+
     private bool isMerging = false;
 
     void Start()
@@ -32,17 +34,21 @@ public class Planet : MonoBehaviour
     }
 
     // 着地通知だけ
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(
+    Collision2D collision
+)
     {
-        isSettled = true;
+        if (notified) return;
 
-        if (!notified)
-        {
-            notified = true;
+        // 落とした惑星だけ
+        if (!isDropped) return;
 
-            PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
-            spawner.OnPlanetLanded();
-        }
+        notified = true;
+
+        PlanetSpawner spawner =
+            FindObjectOfType<PlanetSpawner>();
+
+        spawner.OnPlanetLanded();
     }
 
     // 合体判定
@@ -63,9 +69,31 @@ public class Planet : MonoBehaviour
 
         if (other.level != level) return;
 
+ 
+
+        CircleCollider2D myCol =
+           GetComponent<CircleCollider2D>();
+
+        CircleCollider2D otherCol =
+            other.GetComponent<CircleCollider2D>();
+
+        float range =
+            myCol.radius * transform.localScale.x +
+            otherCol.radius * other.transform.localScale.x;
+
+        float dist = Vector2.Distance(
+            transform.position,
+            other.transform.position
+        );
+
+        // 少し余裕を持たせる
+        if (dist > range * 1.1f) return;
+
         if (other.GetInstanceID() < gameObject.GetInstanceID()) return;
 
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
+
+
 
         // 合体開始
         isMerging = true;
@@ -91,6 +119,10 @@ public class Planet : MonoBehaviour
         next.GetComponent<Planet>().level = level + 1;
 
         PlanetCounter.Instance.Add(level + 1);
+
+        ScoreManager.Instance.AddScore(
+    (level + 1) * 50
+);
 
         PlanetHistoryManager.Instance.AddHistory(level + 1);
 

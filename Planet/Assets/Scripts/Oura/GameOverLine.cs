@@ -22,6 +22,24 @@ public class GameOverLine : MonoBehaviour
 
         gameOver = true;
 
+        Planet[] planets =
+    FindObjectsOfType<Planet>();
+
+        foreach (Planet planet in planets)
+        {
+            planet.enabled = false;
+
+            Rigidbody2D rb =
+                planet.GetComponent<Rigidbody2D>();
+
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+                rb.simulated = false;
+            }
+        }
+
         PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
         spawner.isGameOver = true;
 
