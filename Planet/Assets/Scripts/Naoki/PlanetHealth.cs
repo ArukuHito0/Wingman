@@ -6,7 +6,7 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private float currentHealth = 30;
     [SerializeField] private int addScoreValue = 0;
     [SerializeField] private int minusScoreValue = 0;
-    [SerializeField] private TextMeshPro healthText;
+    private TextMeshPro healthText;
 
     private void OnEnable()
     {
