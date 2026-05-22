@@ -173,3 +173,4 @@ MonoBehaviour:
   isSettled: 0
   dropTime: 0
   isDropped: 0
+  explosionPrefab: {fileID: 0}
