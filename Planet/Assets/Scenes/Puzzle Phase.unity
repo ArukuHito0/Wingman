@@ -914,7 +914,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   score: 0
-  maxScore: 30000
   scoreText: {fileID: 941137555}
 --- !u!4 &414909905
 Transform:

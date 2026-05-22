@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private int maxHealth = 100;
     private int currentHealth;
+    [SerializeField] private int takeDamage = 0;
 
     private Animator effectAnimator;
 
@@ -37,15 +38,15 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Planet"))
-    //    {
-    //        TakeDamage(0);
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Planet"))
+        {
+            TakeDamage(takeDamage);
 
-    //        Destroy(other.gameObject);
-    //    }
-    //}
+            Destroy(other.gameObject);
+        }
+    }
 
     void TakeDamage(int amount)
     {
