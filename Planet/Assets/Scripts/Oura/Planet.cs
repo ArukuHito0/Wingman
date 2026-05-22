@@ -4,170 +4,65 @@ public class Planet : MonoBehaviour
 {
     public int level;
 
-    public bool isSettled = false;
+    public GameObject[] evolvePrefabs;
 
-    private Rigidbody2D rb;
+    public GameObject explosionPrefab;
 
-    public float dropTime;
+    bool isMerging = false;
 
-    bool notified = false;
-
-    public bool isDropped = false;
-
-    private bool isMerging = false;
-
-public GameObject explosionPrefab;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-        // 落下後止まったら積み上がった扱い
-        if (!isSettled && rb.bodyType == RigidbodyType2D.Dynamic)
-        {
-            if (rb.linearVelocity.magnitude < 0.05f)
-            {
-                isSettled = true;
-            }
-        }
-    }
-
-    // 着地通知だけ
-    void OnCollisionEnter2D(
-    Collision2D collision
-)
-    {
-        if (notified) return;
-
-        // 落とした惑星だけ
-        if (!isDropped) return;
-
-        notified = true;
-
-        PlanetSpawner spawner =
-            FindObjectOfType<PlanetSpawner>();
-
-        spawner.OnPlanetLanded();
-    }
-
-    // 合体判定
-    void OnCollisionStay2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (isMerging) return;
 
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb.bodyType != RigidbodyType2D.Dynamic) return;
+        Planet other =
+            collision.GetComponent<Planet>();
 
-        Planet other = collision.gameObject.GetComponent<Planet>();
         if (other == null) return;
 
         if (other.isMerging) return;
 
-        Rigidbody2D otherRb = other.GetComponent<Rigidbody2D>();
-        if (otherRb.bodyType != RigidbodyType2D.Dynamic) return;
-
+        // 同じレベルだけ
         if (other.level != level) return;
 
- 
+        // 重複生成防止
+        if (other.GetInstanceID() <
+            gameObject.GetInstanceID())
+            return;
 
-        CircleCollider2D myCol =
-           GetComponent<CircleCollider2D>();
-
-        CircleCollider2D otherCol =
-            other.GetComponent<CircleCollider2D>();
-
-        float range =
-            myCol.radius * transform.localScale.x +
-            otherCol.radius * other.transform.localScale.x;
-
-        float dist = Vector2.Distance(
-            transform.position,
-            other.transform.position
-        );
-
-        // 少し余裕を持たせる
-        if (dist > range * 1.1f) return;
-
-        if (other.GetInstanceID() < gameObject.GetInstanceID()) return;
-
-        PlanetSpawner spawner = FindObjectOfType<PlanetSpawner>();
-
-
-
-        // 合体開始
         isMerging = true;
         other.isMerging = true;
 
-        if (level >= spawner.smallPlanets.Length - 1)
+        Vector2 pos =
+            (transform.position +
+            other.transform.position) / 2f;
+
+        // 最終進化
+        if (level >= evolvePrefabs.Length - 1)
         {
+            if (explosionPrefab != null)
+            {
+                Instantiate(
+                    explosionPrefab,
+                    pos,
+                    Quaternion.identity
+                );
+            }
 
-            Vector2 explosionPos =
-    (transform.position + other.transform.position) / 2f;
-
-            // 爆発生成
-            Instantiate(
-                explosionPrefab,
-                explosionPos,
-                Quaternion.identity
-            );
-
-            // 太陽同士削除
             Destroy(other.gameObject);
             Destroy(gameObject);
-
-            // 盤面爆発
-            Planet[] planets =
-                FindObjectsOfType<Planet>();
-
-            foreach (Planet p in planets)
-            {
-                if (p == null) continue;
-
-                // 落下済みだけ消す
-                if (!p.isDropped) continue;
-
-                // 太陽自身除外
-                if (p == this || p == other) continue;
-
-                // スコア加算
-                int addScore =
-                    (p.level + 1) * 50;
-
-                ScoreManager.Instance.AddScore(addScore);
-
-                Destroy(p.gameObject);
-            }
-
-            // 次惑星が無ければ生成
-            if (spawner.currentPlanet == null)
-            {
-                spawner.OnPlanetLanded();
-            }
 
             return;
         }
 
-        Vector2 pos =
-            (transform.position + other.transform.position) / 2f;
-
+        // 次進化生成
         GameObject next = Instantiate(
-            spawner.smallPlanets[level + 1],
+            evolvePrefabs[level + 1],
             pos,
             Quaternion.identity
         );
 
-        next.GetComponent<Planet>().level = level + 1;
-
-        PlanetCounter.Instance.Add(level + 1);
-
-        ScoreManager.Instance.AddScore(
-    (level + 1) * 50
-);
-
-        PlanetHistoryManager.Instance.AddHistory(level + 1);
+        next.GetComponent<Planet>().level =
+            level + 1;
 
         Destroy(other.gameObject);
         Destroy(gameObject);
