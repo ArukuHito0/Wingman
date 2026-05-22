@@ -1351,7 +1351,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   score: 0
-  maxScore: 30000
   scoreText: {fileID: 67978942}
 --- !u!1 &689920693
 GameObject:
@@ -1979,7 +1978,7 @@ MonoBehaviour:
   maxObjectCount: 2147483647
   minSpawnInterval: 0.5
   maxSpawnInterval: 2
-  spawnInterval: 0
+  currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
   - {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
