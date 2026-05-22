@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlanetHealth : MonoBehaviour
@@ -5,6 +6,17 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private float currentHealth = 30;
     [SerializeField] private int addScoreValue = 0;
     [SerializeField] private int minusScoreValue = 0;
+    private TextMeshPro healthText;
+
+    private void OnEnable()
+    {
+        healthText.text = currentHealth.ToString("F0");
+    }
+
+    private void Awake()
+    {
+        healthText = transform.Find("HealthText").GetComponent<TextMeshPro>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +33,7 @@ public class PlanetHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        healthText.text = currentHealth.ToString("F0");
         if (currentHealth <= 0)
         {
             if (ScoreManager.Instance != null)

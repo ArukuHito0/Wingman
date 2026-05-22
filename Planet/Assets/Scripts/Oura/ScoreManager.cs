@@ -48,6 +48,9 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "Score : " + score;
     }
 
+    /// <summary>
+    /// DB上のプレイヤーのスコアを更新するコルーチン
+    /// </summary>
     public IEnumerator SendScoreAPI()
     {
         WWWForm form = new WWWForm();
@@ -70,6 +73,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// DB上のプレイヤーのスコアを取得するコルーチン
+    /// </summary>
     public IEnumerator GetScoreAPI()
     {
         WWWForm form = new WWWForm();
