@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.85155, y: 3.22614, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3957222824045700315}
@@ -176,6 +176,7 @@ MonoBehaviour:
   level: 0
   nextPlanetPrefab: {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
   explosionPrefab: {fileID: 0}
+  evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
 --- !u!114 &4126675957675358166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,7 @@ MonoBehaviour:
   currentHealth: 30
   addScoreValue: 100
   minusScoreValue: 200
+  brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
 --- !u!114 &1626403090267287824
 MonoBehaviour:
   m_ObjectHideFlags: 0

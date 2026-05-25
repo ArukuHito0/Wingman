@@ -176,6 +176,7 @@ MonoBehaviour:
   level: 6
   nextPlanetPrefab: {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
   explosionPrefab: {fileID: 0}
+  evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
 --- !u!114 &9023470782391491050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,7 @@ MonoBehaviour:
   currentHealth: 90
   addScoreValue: 700
   minusScoreValue: 1400
+  brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
 --- !u!114 &4300995984964160259
 MonoBehaviour:
   m_ObjectHideFlags: 0

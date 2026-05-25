@@ -8,6 +8,8 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private int minusScoreValue = 0;
     private TextMeshPro healthText;
 
+    [SerializeField] private GameObject brokenEffect;
+
     private void OnEnable()
     {
         healthText.text = currentHealth.ToString("F0");
@@ -44,6 +46,17 @@ public class PlanetHealth : MonoBehaviour
             {
                 Debug.LogWarning("ScoreManagerのインスタンスが存在しません！");
             }
+
+            // エフェクト
+            if (brokenEffect != null)
+            {
+                Instantiate(
+                    brokenEffect,
+                    transform.position,
+                    Quaternion.identity
+                );
+            }
+
             Destroy(gameObject);
         }
     }
