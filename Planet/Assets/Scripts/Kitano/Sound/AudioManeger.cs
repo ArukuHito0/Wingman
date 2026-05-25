@@ -10,14 +10,19 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource seSource;
 
-    // BGM
+    // ===== BGM =====
+    public AudioClip titleBGM;
+
     public AudioClip puzzleBGM;
 
     public AudioClip shootingBGM;
-    // SE
+
+    // ===== SE =====
     public AudioClip ClickSE;
 
     public AudioClip ContactSE;
+
+    // 現在再生中BGM
     private string currentBGM = "";
 
     void Awake()
@@ -38,6 +43,9 @@ public class AudioManager : MonoBehaviour
         Debug.Log("AudioManager 初期化");
     }
 
+    // =========================
+    // BGM再生
+    // =========================
     public void PlayBGM(string bgmName)
     {
         // 同じBGMなら再生しない
@@ -53,6 +61,10 @@ public class AudioManager : MonoBehaviour
         // BGM選択
         switch (bgmName)
         {
+            case "Title":
+                clip = titleBGM;
+                break;
+
             case "Puzzle":
                 clip = puzzleBGM;
                 break;
@@ -67,12 +79,17 @@ public class AudioManager : MonoBehaviour
         {
             bgmSource.clip = clip;
 
+            bgmSource.loop = true;
+
             bgmSource.Play();
 
             Debug.Log("BGM再生 : " + bgmName);
         }
-
     }
+
+    // =========================
+    // SE再生
+    // =========================
     public void PlaySE(string seName)
     {
         AudioClip clip = null;
