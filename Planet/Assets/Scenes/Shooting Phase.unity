@@ -1075,6 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee34c6d8a468af4393fcd94671f45f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  takeDamage: 0
   healthText: {fileID: 1479161979}
   healthSlider: {fileID: 1863934231}
   healthGradient:
@@ -1351,7 +1352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   score: 0
-  maxScore: 30000
   scoreText: {fileID: 67978942}
 --- !u!1 &689920693
 GameObject:
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   maxObjectCount: 2147483647
   minSpawnInterval: 0.5
   maxSpawnInterval: 2
-  spawnInterval: 0
+  currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
   - {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
@@ -1989,6 +1989,23 @@ MonoBehaviour:
   - {fileID: 6748775646211337445, guid: 9733a21ebc2d80540871f10d3aae8a1d, type: 3}
   - {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   - {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
+  planetSpeedSettings:
+  - minSpeed: 2
+    maxSpeed: 3
+  - minSpeed: 1
+    maxSpeed: 3
+  - minSpeed: 0.5
+    maxSpeed: 3
+  - minSpeed: 1
+    maxSpeed: 2
+  - minSpeed: 0.5
+    maxSpeed: 2
+  - minSpeed: 1
+    maxSpeed: 1.5
+  - minSpeed: 0.5
+    maxSpeed: 1.5
+  - minSpeed: 0.5
+    maxSpeed: 1
   autoSpawnMode: 0
   phaseList:
   - phaseName: Phase 1
