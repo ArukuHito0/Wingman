@@ -174,9 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
   level: 5
-  isSettled: 0
-  dropTime: 0
-  isDropped: 0
+  nextPlanetPrefab: {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   explosionPrefab: {fileID: 0}
 --- !u!114 &9114930327048223523
 MonoBehaviour:
