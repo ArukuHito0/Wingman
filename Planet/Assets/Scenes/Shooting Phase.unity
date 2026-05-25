@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69835644acb81b74f84d4063c96b2702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
-  timeLimit: 120
+  timeLimit: 150
   timerText: {fileID: 1078455606}
   nextSceneName: Puzzle Phase
 --- !u!4 &32100145
@@ -2026,8 +2026,8 @@ MonoBehaviour:
   targetRadius: 3
   despawnRadius: 15
   maxObjectCount: 2147483647
-  minSpawnInterval: 0.5
-  maxSpawnInterval: 2
+  minSpawnInterval: 0.35
+  maxSpawnInterval: 1.2
   currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
@@ -2059,16 +2059,16 @@ MonoBehaviour:
   phaseList:
   - phaseName: Phase 1
     startTime: 0
-    spawnWeights: 1e00000019000000140000000f00000005000000050000000500000005000000
+    spawnWeights: 1e00000028000000140000000a00000000000000000000000000000000000000
   - phaseName: Phase 2
-    startTime: 30
-    spawnWeights: 0a0000001400000014000000140000000a0000000a0000000500000005000000
+    startTime: 45
+    spawnWeights: 000000000a000000140000001e0000001e0000000a0000000500000000000000
   - phaseName: Phase 3
-    startTime: 60
-    spawnWeights: 0a0000000a0000000a0000000a00000014000000140000000a0000000a000000
+    startTime: 70
+    spawnWeights: 00000000000000000a0000002300000019000000140000000500000005000000
   - phaseName: Phase 4
-    startTime: 90
-    spawnWeights: 0500000005000000050000000500000014000000140000001400000014000000
+    startTime: 120
+    spawnWeights: 00000000000000000000000000000000000000001e000000280000001e000000
 --- !u!4 &1300683432
 Transform:
   m_ObjectHideFlags: 0
