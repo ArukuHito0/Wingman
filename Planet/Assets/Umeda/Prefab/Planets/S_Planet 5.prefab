@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6740332982256788142}
   - component: {fileID: 9114930327048223523}
   - component: {fileID: 5709169818268899392}
+  - component: {fileID: 5907491490046340163}
   m_Layer: 6
   m_Name: S_Planet 5
   m_TagString: Planet
@@ -208,6 +209,19 @@ MonoBehaviour:
   yAxis: 0
   zAxis: 1
   rotationSpeed: 10
+--- !u!114 &5907491490046340163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748775646211337445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f3a3b85ab89274e8488b23a89709aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetCollisionFilter
+  planetID: 5
 --- !u!1 &8512762517901188041
 GameObject:
   m_ObjectHideFlags: 0

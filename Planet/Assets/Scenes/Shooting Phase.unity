@@ -1075,6 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee34c6d8a468af4393fcd94671f45f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  takeDamage: 0
   healthText: {fileID: 1479161979}
   healthSlider: {fileID: 1863934231}
   healthGradient:
@@ -1988,6 +1989,23 @@ MonoBehaviour:
   - {fileID: 6748775646211337445, guid: 9733a21ebc2d80540871f10d3aae8a1d, type: 3}
   - {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   - {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
+  planetSpeedSettings:
+  - minSpeed: 2
+    maxSpeed: 3
+  - minSpeed: 1
+    maxSpeed: 3
+  - minSpeed: 0.5
+    maxSpeed: 3
+  - minSpeed: 1
+    maxSpeed: 2
+  - minSpeed: 0.5
+    maxSpeed: 2
+  - minSpeed: 1
+    maxSpeed: 1.5
+  - minSpeed: 0.5
+    maxSpeed: 1.5
+  - minSpeed: 0.5
+    maxSpeed: 1
   autoSpawnMode: 0
   phaseList:
   - phaseName: Phase 1
