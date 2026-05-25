@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour
     public Rigidbody2D rb;
 
     [Header("弾丸設定")]
-    private float shootSpeed = 7f;
+    private float shootSpeed = 20f;
     private Vector2 inheritedVelocity;  // プレイヤーの速度を受け取る変数
 
     // [UnitHeaderInspectable("破壊座標")]
