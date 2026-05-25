@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [UnitHeaderInspectable("移動設定")]
     public float acceleration = 10f;
-    private float maxSpeed = 10f;
+    private float maxSpeed = 7f;
 
     [Header("参照")]
     public Rigidbody2D rb;
