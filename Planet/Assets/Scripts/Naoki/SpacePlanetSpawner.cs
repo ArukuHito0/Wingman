@@ -17,13 +17,15 @@ public class SpacePlanetSpawner : MonoBehaviour
     private float spawnInterval;
     [SerializeField, ReadOnly] private float currentSpawnInterval; // インスペクター表示用（グレーアウトする）
 
-    private float minSpeed = 1.0f;
-    private float maxSpeed = 5.0f;
+    //private float minSpeed = 1.0f;
+    //private float maxSpeed = 5.0f;
     private float timer;
 
     private List<GameObject> spawndPlanets = new List<GameObject>();
 
     [SerializeField] private List<GameObject> planetPrefabList = new List<GameObject>();
+
+    [SerializeField] private List<PlanetSpeedData> planetSpeedSettings = new List<PlanetSpeedData>();
 
     // public PlanetHistoryManager planetHistoryManager;
     private int planetHistoryLevel;
@@ -138,8 +140,20 @@ public class SpacePlanetSpawner : MonoBehaviour
         GameObject newPlanet = Instantiate(selectedPrefab, spawnPos, Quaternion.identity);
         Rigidbody2D rb = newPlanet.GetComponent<Rigidbody2D>();
 
-        // 向き * ランダムな速さ を速度としてセットする
-        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        //// 向き * ランダムな速さ を速度としてセットする
+        //float randomSpeed = Random.Range(minSpeed, maxSpeed);
+
+        // 向き * 惑星ごとのランダムな速さ を速度としてセットする
+        float finalSpeed = 1.0f;
+        if (levelIndex < planetSpeedSettings.Count)
+        {
+            // 該当するレベルの速度データを取得
+            PlanetSpeedData speedData = planetSpeedSettings[levelIndex];
+
+            // データを使ってランダムな速度を計算する
+            finalSpeed = Random.Range(speedData.minSpeed, speedData.maxSpeed);
+        }
+        float randomSpeed = finalSpeed;
         rb.linearVelocity = movementDir * randomSpeed;
 
         spawndPlanets.Add(newPlanet);
@@ -197,8 +211,21 @@ public class SpacePlanetSpawner : MonoBehaviour
         GameObject newPlanet = Instantiate(autoSelectedPrefab, spawnPos, Quaternion.identity);
         Rigidbody2D rb = newPlanet.GetComponent<Rigidbody2D>();
 
-        // 向き * ランダムな速さ を速度としてセットする
-        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        //// 向き * ランダムな速さ を速度としてセットする
+        //float randomSpeed = Random.Range(minSpeed, maxSpeed);
+
+        // 向き * 惑星ごとのランダムな速さ を速度としてセットする
+        float finalSpeed = 1.0f;
+        if (autoLevelIndex < planetSpeedSettings.Count)
+        {
+            // 該当するレベルの速度データを取得
+            PlanetSpeedData speedData = planetSpeedSettings[autoLevelIndex];
+
+            // データを使ってランダムな速度を計算する
+            finalSpeed = Random.Range(speedData.minSpeed, speedData.maxSpeed);
+        }
+
+        float randomSpeed = finalSpeed;
         rb.linearVelocity = movementDir * randomSpeed;
 
         spawndPlanets.Add(newPlanet);
@@ -261,6 +288,13 @@ public class SpacePlanetSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    [System.Serializable]
+    public struct PlanetSpeedData
+    {
+        public float minSpeed;
+        public float maxSpeed;
     }
 
     [System.Serializable]
