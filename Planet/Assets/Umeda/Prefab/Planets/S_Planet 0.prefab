@@ -174,9 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
   level: 0
-  isSettled: 0
-  dropTime: 0
-  isDropped: 0
+  nextPlanetPrefab: {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
   explosionPrefab: {fileID: 0}
 --- !u!114 &4126675957675358166
 MonoBehaviour:
@@ -221,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f3a3b85ab89274e8488b23a89709aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetCollisionFilter
+  planetID: 0
 --- !u!1 &6946951374645619764
 GameObject:
   m_ObjectHideFlags: 0
