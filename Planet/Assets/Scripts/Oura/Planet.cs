@@ -90,7 +90,7 @@ public class Planet : MonoBehaviour
             // 2つの速度を平均
             Vector2 mergedVelocity =
                 (myRb.linearVelocity +
-                 otherRb.linearVelocity) / 2f;
+                 otherRb.linearVelocity);
 
             nextRb.linearVelocity =
                 mergedVelocity;
