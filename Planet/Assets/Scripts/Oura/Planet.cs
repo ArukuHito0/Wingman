@@ -74,23 +74,26 @@ public class Planet : MonoBehaviour
                 level + 1;
         }
 
-        // 吹っ飛び
-        Rigidbody2D rb =
+        Rigidbody2D myRb =
+            GetComponent<Rigidbody2D>();
+
+        Rigidbody2D otherRb =
+            other.GetComponent<Rigidbody2D>();
+
+        Rigidbody2D nextRb =
             nextPlanet.GetComponent<Rigidbody2D>();
 
-        if (rb != null)
+        if (myRb != null &&
+            otherRb != null &&
+            nextRb != null)
         {
-            Vector2 dir =
-                Random.insideUnitCircle.normalized;
+            // 2つの速度を平均
+            Vector2 mergedVelocity =
+                (myRb.linearVelocity +
+                 otherRb.linearVelocity) / 2f;
 
-            float speed =
-                Random.Range(1f, 3f);
-
-            rb.linearVelocity =
-                dir * speed;
-
-            rb.angularVelocity =
-                Random.Range(-200f, 200f);
+            nextRb.linearVelocity =
+                mergedVelocity;
         }
 
         // エフェクト
