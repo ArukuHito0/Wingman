@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.85155, y: 3.22614, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3957222824045700315}
@@ -176,6 +176,7 @@ MonoBehaviour:
   level: 0
   nextPlanetPrefab: {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
   explosionPrefab: {fileID: 0}
+  evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
 --- !u!114 &4126675957675358166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,8 @@ MonoBehaviour:
   currentHealth: 30
   addScoreValue: 100
   minusScoreValue: 200
+  scoreTextPrefab: {fileID: 5804364221950065383, guid: 667b20b44b011ed429d917a248c45d94, type: 3}
+  brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
 --- !u!114 &1626403090267287824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +285,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 21734462828666798, guid: df6a9633926bea8458e6d31c7fe6a9e3, type: 2}
+  - {fileID: 21088217584272600, guid: c2b6fe52bf6e9234184ddcaffd6bde96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -328,8 +331,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 30
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: df6a9633926bea8458e6d31c7fe6a9e3, type: 2}
-  m_sharedMaterial: {fileID: 21734462828666798, guid: df6a9633926bea8458e6d31c7fe6a9e3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c2b6fe52bf6e9234184ddcaffd6bde96, type: 2}
+  m_sharedMaterial: {fileID: 21088217584272600, guid: c2b6fe52bf6e9234184ddcaffd6bde96, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

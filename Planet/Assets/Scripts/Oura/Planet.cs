@@ -10,6 +10,7 @@ public class Planet : MonoBehaviour
     private bool isMerging = false;
 
     public GameObject explosionPrefab;
+    [SerializeField] private GameObject evolusionEffect;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -97,10 +98,10 @@ public class Planet : MonoBehaviour
         }
 
         // エフェクト
-        if (explosionPrefab != null)
+        if (evolusionEffect != null)
         {
             Instantiate(
-                explosionPrefab,
+                evolusionEffect,
                 mergePos,
                 Quaternion.identity
             );
