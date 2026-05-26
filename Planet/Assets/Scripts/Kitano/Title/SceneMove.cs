@@ -5,6 +5,6 @@ public class SceneMove : MonoBehaviour
 {
     public void GoToGameScene()
     {
-        SceneManager.LoadScene("LoadingScene");
+        SceneManager.LoadScene("Shooting Phase");
     }
 }
