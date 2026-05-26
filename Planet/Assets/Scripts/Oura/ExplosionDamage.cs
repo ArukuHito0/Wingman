@@ -6,7 +6,7 @@ public class ExplosionDamage : MonoBehaviour
     private int playerDamage = 30;
 
     [SerializeField]
-    private float planetDamage = 20f;
+    private int planetDamage = 20;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
