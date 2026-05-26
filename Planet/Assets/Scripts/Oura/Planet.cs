@@ -28,6 +28,11 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private GameObject explosionAuraEffect;
 
+    private void Awake()
+    {
+        SetAttribute(PlanetAttribute.Explosion);
+    }
+
     /// <summary>
     /// 惑星属性セット
     /// </summary>

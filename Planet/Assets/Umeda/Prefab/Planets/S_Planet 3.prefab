@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: -4025692719597468060}
   - component: {fileID: 3315823993997857979}
   - component: {fileID: -8089826457210620304}
-  - component: {fileID: -1798763109347534713}
   m_Layer: 6
   m_Name: S_Planet 3
   m_TagString: Planet
@@ -361,7 +360,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 0}
   evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
   highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
-  explosionAuraEffect: {fileID: 7487509318331430585, guid: d44e97e701d85c747971d3ec3d4451e9, type: 3}
+  explosionAuraEffect: {fileID: 2000803592786541009, guid: eb848e748c1877a44aa246b244da016d, type: 3}
 --- !u!114 &-4025692719597468060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,18 +407,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetCollisionFilter
   planetID: 3
---- !u!114 &-1798763109347534713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5176927579764395976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b93af38cb6df94da11e4e73d8fae54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlanetMagneticTarget
-  attractionRadius: 4
-  attractionForce: 2
-  magneticTag: Magnetic

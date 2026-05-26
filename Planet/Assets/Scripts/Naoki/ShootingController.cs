@@ -9,15 +9,13 @@ public class ShootingController : MonoBehaviour
 
     [Header("シューティング設定")]
     private float shootingTimer = 0f;
-    private float magneticTimer = 0f;
 
     [Header("シューティング設定")]
     public GameObject shootingObject;
-    public GameObject magneticShootingObject;
+    public GameObject gravityHolePrefab;
     public Transform shootPoint;
     public float shootingSpeed = 1.0f;
     public float shootingCooltime = 0.25f;
-    public float magneticCooltime = 3f;
 
     private bool isShooting = true;
 
@@ -25,14 +23,13 @@ public class ShootingController : MonoBehaviour
 
     [Header("プールの宣言")]
     public IObjectPool<GameObject> bulletPool;
-    public IObjectPool<GameObject> magneticBulletPool;
+    public IObjectPool<GameObject> gravityHolePool;
     public IObjectPool<GameObject> hitEffectPool;
 
     [Header("参照")]
     ShootingController shootingController;
     PlayerController playerController;
     BulletController bulletController;
-    MagneticBulletController magneticBulletController;
 
     void Awake()
     {
@@ -44,12 +41,12 @@ public class ShootingController : MonoBehaviour
             OnDestroyBullet     // 破棄時のメソッド
         );
 
-        magneticBulletPool = new ObjectPool<GameObject>
+        gravityHolePool = new ObjectPool<GameObject>
         (
-            CreateMagneticBullet,       // 作成時のメソッド
-            OnGetMagneticBullet,        // 取り出すときのメソッド
-            OnReleaseMagneticBullet,    // 戻すときのメソッド
-            OnDestroyMagneticBullet     // 破棄時のメソッド
+            CreateGravityHole,       // 作成時のメソッド
+            OnGetGravityHole,        // 取り出すときのメソッド
+            OnReleaseGravityHole,    // 戻すときのメソッド
+            OnDestroyGravityHole     // 破棄時のメソッド
         );
 
         hitEffectPool = new ObjectPool<GameObject>
@@ -73,20 +70,18 @@ public class ShootingController : MonoBehaviour
         if (isShooting == true)
         {
             shootingTimer += Time.deltaTime;
-            magneticTimer += Time.deltaTime;
             if (shootingTimer >= shootingCooltime)
             {
                 bulletPool.Get();
                 shootingTimer = 0f;
             }
 
-            if (magneticTimer >= magneticCooltime)
+            if (Input.GetMouseButtonDown(1))
             {
-                if (Input.GetMouseButton(1))
-                {
-                    magneticBulletPool.Get();
-                    magneticTimer = 0f;
-                }
+                GameObject obj = gravityHolePool.Get();
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = 0;
+                obj.transform.position = pos;
             }
         }
     }
@@ -132,32 +127,28 @@ public class ShootingController : MonoBehaviour
         Destroy(bullet);
     }
 
-    // MagneticBullet
-    GameObject CreateMagneticBullet()
+    // GravityHole
+    GameObject CreateGravityHole()
     {
-        GameObject magneticBullet = Instantiate(magneticShootingObject);
+        GameObject gravityHole = Instantiate(gravityHolePrefab, transform.position, Quaternion.identity);
         // 弾のスクリプトを取得して、プールにセットする
-        magneticBullet.GetComponent<MagneticBulletController>().myPool = (ObjectPool<GameObject>)magneticBulletPool;
-        return magneticBullet;
+        gravityHole.GetComponent<GravityHole>().myPool = (ObjectPool<GameObject>)gravityHolePool;
+        return gravityHole;
     }
 
-    void OnGetMagneticBullet(GameObject magneticBullet)
+    void OnGetGravityHole(GameObject gravityHole)
     {
-        magneticBullet.SetActive(true);
-        magneticBullet.transform.position = shootPoint.position;
-        magneticBullet.transform.rotation = shootPoint.rotation;
-
-        magneticBullet.GetComponent<MagneticBulletController>().Launch();
+        gravityHole.SetActive(true);
     }
 
-    void OnReleaseMagneticBullet(GameObject magneticBullet)
+    void OnReleaseGravityHole(GameObject gravityHole)
     {
-        magneticBullet.SetActive(false);
+        gravityHole.SetActive(false);
     }
 
-    void OnDestroyMagneticBullet(GameObject magneticBullet)
+    void OnDestroyGravityHole(GameObject gravityHole)
     {
-        Destroy(magneticBullet);
+        Destroy(gravityHole);
     }
 
     GameObject CreateHitEffect()
