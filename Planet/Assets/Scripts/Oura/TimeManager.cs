@@ -40,7 +40,10 @@ public class TimerManager : MonoBehaviour
         {
             finished = true;
 
-            SceneManager.LoadScene(nextSceneName);
+            if (string.IsNullOrEmpty(nextSceneName))
+            {
+                SceneManager.LoadScene(nextSceneName);
+            }
         }
     }
 }

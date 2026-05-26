@@ -8,6 +8,7 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private int minusScoreValue = 0;
     private TextMeshPro healthText;
 
+    [SerializeField] private TextMeshPro scoreTextPrefab;
     [SerializeField] private GameObject brokenEffect;
 
     private void OnEnable()
@@ -38,26 +39,9 @@ public class PlanetHealth : MonoBehaviour
         healthText.text = currentHealth.ToString("F0");
         if (currentHealth <= 0)
         {
-            if (ScoreManager.Instance != null)
-            {
-                ScoreManager.Instance.AddScore(addScoreValue);
-            }
-            else
-            {
-                Debug.LogWarning("ScoreManagerのインスタンスが存在しません！");
-            }
-
-            // エフェクト
-            if (brokenEffect != null)
-            {
-                Instantiate(
-                    brokenEffect,
-                    transform.position,
-                    Quaternion.identity
-                );
-            }
-
-            Destroy(gameObject);
+            AddScore();
+            SpawnScoreText();
+            Broken();
         }
     }
 
@@ -81,7 +65,63 @@ public class PlanetHealth : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ScoreManager.Instance.MinusScore(minusScoreValue);
-            Destroy(gameObject);
+            Broken();
+        }
+    }
+
+    /// <summary>
+    /// 惑星を消去&破壊時のエフェクトをスポーン
+    /// </summary>
+    private void Broken()
+    {
+        SpawnBrokenEffect();
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 破壊時のエフェクトをスポーンさせる
+    /// </summary>
+    private void SpawnBrokenEffect()
+    {
+        if (brokenEffect != null)
+        {
+            Instantiate(
+                brokenEffect,
+                transform.position,
+                Quaternion.identity
+            );
+        }
+    }
+
+    /// <summary>
+    /// スコアマネージャーにスコアを加算する
+    /// </summary>
+    private void AddScore()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(addScoreValue);
+        }
+        else
+        {
+            Debug.LogWarning("ScoreManagerのインスタンスが存在しません！");
+        }
+    }
+
+    /// <summary>
+    /// 破壊時に得られるスコアのテキストをスポーン
+    /// </summary>
+    private void SpawnScoreText()
+    {
+        if (scoreTextPrefab != null)
+        {
+            TextMeshPro scoreText = Instantiate(
+                scoreTextPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+            scoreText.text = $"+ {addScoreValue}!";
         }
     }
 }
