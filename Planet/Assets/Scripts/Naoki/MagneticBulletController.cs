@@ -5,18 +5,11 @@ using UnityEngine.Pool;
 public class MagneticBulletController : MonoBehaviour
 {
     public ObjectPool<GameObject> myPool;
-    private IObjectPool<GameObject> hitEffectPool;
     public Rigidbody2D rb;
 
     [Header("弾丸設定")]
-    private float shootSpeed = 20f;
+    [SerializeField] private float shootSpeed = 20f;
     private Vector2 inheritedVelocity;  // プレイヤーの速度を受け取る変数
-
-    // [UnitHeaderInspectable("破壊座標")]
-    [Header("破壊設定")]
-    // float destroyPositionY = 10;
-    //public float lifeTime = 10;
-    //private float timer = 0;
 
     private float activeAreaX = 8f;
     private float activeAreaY = 5f;
@@ -30,18 +23,10 @@ public class MagneticBulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // transform.Translate(0, shootSpeed * Time.deltaTime, 0);
-
-        Vector3 moveStep = (transform.up * shootSpeed) + (Vector3)inheritedVelocity;
-        transform.position += moveStep * Time.deltaTime;
-
-        //timer += Time.deltaTime;
-
-        //if(timer > lifeTime)
-        //{
-        //    // Destroy(gameObject);
-        //    myPool.Release(gameObject);
-        //}
+        // Vector3 moveStep = (transform.up * shootSpeed) + (Vector3)inheritedVelocity;
+        
+        // Vector3 moveStep = (transform.up * shootSpeed); // プレイヤーの速度を追加しない
+        // transform.position += moveStep * Time.deltaTime;
 
         if (transform.position.x > activeAreaX || transform.position.x < -activeAreaX)
         {
@@ -61,11 +46,6 @@ public class MagneticBulletController : MonoBehaviour
         }
     }
 
-    //public void SetInheritedVelocity(Vector2 velocity)
-    //{
-    //    inheritedVelocity = velocity;
-    //}
-
     public void OnEnable()
     {
         //timer = 0f; // タイマーをリセットして、また3秒数え直せるようにする
@@ -79,22 +59,8 @@ public class MagneticBulletController : MonoBehaviour
         rb.linearVelocity = ((Vector2)transform.up * shootSpeed) + inheritedVelocity;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public void Fire()
     {
-        if (hitEffectPool != null)
-        {
-            // プールからエフェクトを取得
-            GameObject effect = hitEffectPool.Get();
-
-            // エフェクトの位置を自分の位置に合わせる
-            effect.transform.position = transform.position;
-        }
-        // 弾をプールに戻す
-        ReturnToPool();
-    }
-
-    public void SetEffectPool(IObjectPool<GameObject> pool)
-    {
-        hitEffectPool = pool;
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2520386262055525241}
   - component: {fileID: 8236052621816140155}
   - component: {fileID: 4392658013957354326}
+  - component: {fileID: 659041166544348903}
   m_Layer: 6
   m_Name: S_Planet 7
   m_TagString: Planet
@@ -226,6 +227,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetCollisionFilter
   planetID: 7
+--- !u!114 &659041166544348903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303545137729422076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b93af38cb6df94da11e4e73d8fae54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetMagneticTarget
+  attractionRadius: 4
+  attractionForce: 2
+  magneticTag: Magnetic
 --- !u!1 &2122923569319512339
 GameObject:
   m_ObjectHideFlags: 0
