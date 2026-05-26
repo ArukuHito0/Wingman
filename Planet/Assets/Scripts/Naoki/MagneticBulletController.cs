@@ -23,11 +23,6 @@ public class MagneticBulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Vector3 moveStep = (transform.up * shootSpeed) + (Vector3)inheritedVelocity;
-        
-        // Vector3 moveStep = (transform.up * shootSpeed); // プレイヤーの速度を追加しない
-        // transform.position += moveStep * Time.deltaTime;
-
         if (transform.position.x > activeAreaX || transform.position.x < -activeAreaX)
         {
             myPool.Release(gameObject);
@@ -51,12 +46,12 @@ public class MagneticBulletController : MonoBehaviour
         //timer = 0f; // タイマーをリセットして、また3秒数え直せるようにする
     }
 
-    public void Launch(Vector2 inheritedVelocity)
+    public void Launch()
     {
         // 自身のRigidbody2Dを取得（または事前にキャッシュしておく）
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         // 前進速度 + プレイヤーの速度
-        rb.linearVelocity = ((Vector2)transform.up * shootSpeed) + inheritedVelocity;
+        rb.linearVelocity = ((Vector2)transform.up * shootSpeed);
     }
 
     public void Fire()
