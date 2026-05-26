@@ -16,6 +16,8 @@ public class ShootingController : MonoBehaviour
     public float shootingSpeed = 1.0f;
     public float shootingCooltime = 0.25f;
 
+    private bool isShooting = true;
+
     [SerializeField] private GameObject hitEffectPrefab;
 
     [Header("プールの宣言")]
@@ -55,12 +57,25 @@ public class ShootingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= shootingCooltime)
+        if (isShooting == true)
         {
-            bulletPool.Get();
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer >= shootingCooltime)
+            {
+                bulletPool.Get();
+                timer = 0f;
+            }
         }
+    }
+
+    public void IsShootingTrue()
+    {
+        isShooting = true;
+    }
+
+    public void IsShootingFalse()
+    {
+        isShooting = false;
     }
 
     GameObject CreateBullet()

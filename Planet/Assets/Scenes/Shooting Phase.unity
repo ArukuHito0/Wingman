@@ -1127,6 +1127,12 @@ MonoBehaviour:
   takeDamage: 0
   healthText: {fileID: 1479161979}
   healthSlider: {fileID: 1863934231}
+  spriteRenderer: {fileID: 580804773}
+  flashDuration: 5
+  flashSpeed: 20
+  minAlpha: 0.25
+  useSmoothFlash: 0
+  playerCollider: {fileID: 533646619}
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -1354,6 +1360,11 @@ PrefabInstance:
 --- !u!4 &580804771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6215395618169475175, guid: e092378170937ad449d2cd8208198b6e, type: 3}
+  m_PrefabInstance: {fileID: 580804770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &580804773 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6215395618169475172, guid: e092378170937ad449d2cd8208198b6e, type: 3}
   m_PrefabInstance: {fileID: 580804770}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &678763452
