@@ -147,9 +147,7 @@ public class ShootingController : MonoBehaviour
         magneticBullet.transform.position = shootPoint.position;
         magneticBullet.transform.rotation = shootPoint.rotation;
 
-        Vector2 playerVelocity = playerRb.linearVelocity;
-
-        magneticBullet.GetComponent<MagneticBulletController>().Launch(playerVelocity);
+        magneticBullet.GetComponent<MagneticBulletController>().Launch();
     }
 
     void OnReleaseMagneticBullet(GameObject magneticBullet)
