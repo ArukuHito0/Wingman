@@ -81,6 +81,8 @@ public class BulletController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Planet")) return;
+
         if (hitEffectPool != null)
         {
             // プールからエフェクトを取得
