@@ -1,8 +1,16 @@
 using UnityEngine;
 
+public enum PlanetAttribute
+{
+    Normal,
+    Rare,
+    Explosion,
+}
+
 public class Planet : MonoBehaviour
 {
     public int level;
+    public PlanetAttribute attribute;
 
     // 次進化先
     public GameObject nextPlanetPrefab;
@@ -11,6 +19,38 @@ public class Planet : MonoBehaviour
 
     public GameObject explosionPrefab;
     [SerializeField] private GameObject evolusionEffect;
+    [SerializeField] private GameObject highlightEffect;
+    [SerializeField] private GameObject explosionAuraEffect;
+
+    /// <summary>
+    /// 惑星のレア度をセット
+    /// </summary>
+    public void SetAttribute(PlanetAttribute attribute)
+    {
+        this.attribute = attribute;
+
+        GameObject effect = null;
+
+        switch (this.attribute)
+        {
+            case PlanetAttribute.Rare:
+                effect = highlightEffect; break;
+            case PlanetAttribute.Explosion:
+                effect = explosionAuraEffect; break;
+            default:
+                break;
+        }
+
+        if (effect != null)
+        {
+            Instantiate(
+                effect,
+                transform.position,
+                Quaternion.identity,
+                transform
+                );
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
