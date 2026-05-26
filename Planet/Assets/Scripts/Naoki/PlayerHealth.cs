@@ -54,15 +54,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Planet"))
         {
-            TakeDamage(takeDamage);
+            TakeDamage();
 
             Destroy(other.gameObject);
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage()
     {
-        currentHealth -= amount;
 
         if (flashCoroutine != null)
         {
@@ -70,7 +69,6 @@ public class PlayerHealth : MonoBehaviour
         }
         flashCoroutine = StartCoroutine(DamageFlashCoroutine());
 
-        Debug.Log("現在の体力 : " + currentHealth);
 
         if (currentHealth <= 0)
         {

@@ -9493,3 +9493,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionDamage
   playerDamage: 30
   planetDamage: 100
+  hitDuration: 0.5
