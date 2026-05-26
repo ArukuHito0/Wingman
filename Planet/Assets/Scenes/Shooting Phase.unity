@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69835644acb81b74f84d4063c96b2702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
-  timeLimit: 300
+  timeLimit: 120
   timerText: {fileID: 1078455606}
   nextSceneName: Puzzle Phase
 --- !u!4 &32100145
