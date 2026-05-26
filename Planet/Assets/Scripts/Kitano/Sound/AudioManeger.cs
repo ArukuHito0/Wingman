@@ -40,7 +40,44 @@ public class AudioManager : MonoBehaviour
         // シーン移動で破壊しない
         DontDestroyOnLoad(gameObject);
 
+        // 音量読み込み
+        LoadVolume();
+
         Debug.Log("AudioManager 初期化");
+    }
+
+    // =========================
+    // BGM音量変更
+    // =========================
+    public void SetBGMVolume(float volume)
+    {
+        bgmSource.volume = volume;
+
+        PlayerPrefs.SetFloat("BGMVolume", volume);
+    }
+
+    // =========================
+    // SE音量変更
+    // =========================
+    public void SetSEVolume(float volume)
+    {
+        seSource.volume = volume;
+
+        PlayerPrefs.SetFloat("SEVolume", volume);
+    }
+
+    // =========================
+    // 音量読み込み
+    // =========================
+    private void LoadVolume()
+    {
+        float bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
+
+        float seVolume = PlayerPrefs.GetFloat("SEVolume", 1f);
+
+        bgmSource.volume = bgmVolume;
+
+        seSource.volume = seVolume;
     }
 
     // =========================
