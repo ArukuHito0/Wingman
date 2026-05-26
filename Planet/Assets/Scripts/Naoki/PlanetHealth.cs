@@ -5,7 +5,7 @@ public class PlanetHealth : MonoBehaviour
 {
     [SerializeField] private float currentHealth = 30;
     [SerializeField] private int addScoreValue = 0;
-    [SerializeField] private int minusScoreValue = 0;
+    //[SerializeField] private int minusScoreValue = 0;
     private TextMeshPro healthText;
 
     [SerializeField] private TextMeshPro scoreTextPrefab;
@@ -33,14 +33,14 @@ public class PlanetHealth : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthText.text = currentHealth.ToString("F0");
         if (currentHealth <= 0)
         {
             AddScore();
-            SpawnScoreText();
+            SpawnScoreText(addScoreValue);
             Broken();
         }
     }
@@ -50,7 +50,7 @@ public class PlanetHealth : MonoBehaviour
         //衝突した相手のタグが"Bullet"の場合
         if (collision.CompareTag("Bullet"))
         {
-            TakeDamage(10f);
+            TakeDamage(10);
 
             // 衝突した相手(collision)から BulletController スクリプトを取得
             BulletController bullet = collision.GetComponent<BulletController>();
@@ -64,7 +64,8 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            ScoreManager.Instance.MinusScore(minusScoreValue);
+            ScoreManager.Instance.AddScore(addScoreValue / 4);
+            SpawnScoreText(addScoreValue / 4);
             Broken();
         }
     }
@@ -111,7 +112,7 @@ public class PlanetHealth : MonoBehaviour
     /// <summary>
     /// 破壊時に得られるスコアのテキストをスポーン
     /// </summary>
-    private void SpawnScoreText()
+    private void SpawnScoreText(int score)
     {
         if (scoreTextPrefab != null)
         {
@@ -121,7 +122,7 @@ public class PlanetHealth : MonoBehaviour
                 Quaternion.identity
             );
 
-            scoreText.text = $"+ {addScoreValue}!";
+            scoreText.text = $"+ {score}!";
         }
     }
 }

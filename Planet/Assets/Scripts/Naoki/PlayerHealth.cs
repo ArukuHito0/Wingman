@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float minAlpha = 0.5f;
     [SerializeField] private bool useSmoothFlash = false;
     private Coroutine flashCoroutine;
+    private Color originalColor;
     [SerializeField] private Collider2D playerCollider;
 
     [SerializeField] private Gradient healthGradient;   // インスペクターで色を指定
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         effectAnimator = GetComponent<Animator>();
         gameOverEffect.SetActive(false);
         shootingController = GetComponent<ShootingController>();
+        originalColor = spriteRenderer.color;
     }
     void Start()
     {
@@ -81,8 +83,6 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator DamageFlashCoroutine()
     {
         float elapsedTime = 0f;
-        Color originalColor = spriteRenderer.color;
-
 
         if (playerCollider != null)
         {
