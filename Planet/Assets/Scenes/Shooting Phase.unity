@@ -2104,8 +2104,6 @@ MonoBehaviour:
   targetRadius: 3
   despawnRadius: 13
   maxObjectCount: 2147483647
-  minSpawnInterval: 0.4
-  maxSpawnInterval: 1.2
   currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
@@ -2137,19 +2135,29 @@ MonoBehaviour:
   phaseList:
   - phaseName: Phase 1
     startTime: 0
-    spawnWeights: 1e00000028000000140000000a00000000000000000000000000000000000000
+    minSpawnInterval: 0.5
+    maxSpawnInterval: 1
+    spawnWeights: 1e00000028000000190000000500000000000000000000000000000000000000
   - phaseName: Phase 2
     startTime: 45
+    minSpawnInterval: 0.6
+    maxSpawnInterval: 1
     spawnWeights: 050000000a000000140000001e000000190000000a0000000500000000000000
   - phaseName: Phase 3
     startTime: 70
+    minSpawnInterval: 0.65
+    maxSpawnInterval: 1
     spawnWeights: 00000000050000000a0000001e000000140000000f0000000a0000000a000000
   - phaseName: Phase 4
     startTime: 120
+    minSpawnInterval: 0.65
+    maxSpawnInterval: 1
     spawnWeights: 00000000000000000000000000000000000000001e000000280000001e000000
   - phaseName: Phase 5
     startTime: 150
-    spawnWeights: 050000000500000005000000050000000500000019000000140000001e000000
+    minSpawnInterval: 0.5
+    maxSpawnInterval: 0.7
+    spawnWeights: 0a0000000a0000000a0000000a0000000a0000000f0000000f00000014000000
 --- !u!4 &1300683432
 Transform:
   m_ObjectHideFlags: 0
