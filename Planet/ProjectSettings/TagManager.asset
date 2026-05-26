@@ -8,6 +8,8 @@ TagManager:
   - Planet
   - Ground
   - Explosion
+  - FxTemporaire
+  - Magnetic
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Planet
   - Bullet
   - Explosion
-  - 
+  - Magnetic
   - 
   - 
   - 

@@ -1210,9 +1210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShootingController
   playerRb: {fileID: 533646620}
   shootingObject: {fileID: 1449338477868469038, guid: b57fe258b14b4284794b666b0b02b66a, type: 3}
+  magneticShootingObject: {fileID: 1449338477868469038, guid: cbb8a5f95867a164ea69c8cd4ab4850f, type: 3}
   shootPoint: {fileID: 1712172225}
   shootingSpeed: 3
   shootingCooltime: 0.2
+  magneticCooltime: 3
   hitEffectPrefab: {fileID: 4669499188292303411, guid: 058dfea8523752e4a9de00997bfc3d69, type: 3}
 --- !u!114 &533646618
 MonoBehaviour:

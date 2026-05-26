@@ -8,13 +8,16 @@ public class ShootingController : MonoBehaviour
     public Rigidbody2D playerRb;
 
     [Header("シューティング設定")]
-    private float timer = 0f;
+    private float shootingTimer = 0f;
+    private float magneticTimer = 0f;
 
     [Header("シューティング設定")]
     public GameObject shootingObject;
+    public GameObject magneticShootingObject;
     public Transform shootPoint;
     public float shootingSpeed = 1.0f;
     public float shootingCooltime = 0.25f;
+    public float magneticCooltime = 3f;
 
     private bool isShooting = true;
 
@@ -22,12 +25,14 @@ public class ShootingController : MonoBehaviour
 
     [Header("プールの宣言")]
     public IObjectPool<GameObject> bulletPool;
+    public IObjectPool<GameObject> magneticBulletPool;
     public IObjectPool<GameObject> hitEffectPool;
 
     [Header("参照")]
     ShootingController shootingController;
     PlayerController playerController;
     BulletController bulletController;
+    MagneticBulletController magneticBulletController;
 
     void Awake()
     {
@@ -37,6 +42,14 @@ public class ShootingController : MonoBehaviour
             OnGetBullet,        // 取り出すときのメソッド
             OnReleaseBullet,    // 戻すときのメソッド
             OnDestroyBullet     // 破棄時のメソッド
+        );
+
+        magneticBulletPool = new ObjectPool<GameObject>
+        (
+            CreateMagneticBullet,       // 作成時のメソッド
+            OnGetMagneticBullet,        // 取り出すときのメソッド
+            OnReleaseMagneticBullet,    // 戻すときのメソッド
+            OnDestroyMagneticBullet     // 破棄時のメソッド
         );
 
         hitEffectPool = new ObjectPool<GameObject>
@@ -59,11 +72,21 @@ public class ShootingController : MonoBehaviour
     {
         if (isShooting == true)
         {
-            timer += Time.deltaTime;
-            if (timer >= shootingCooltime)
+            shootingTimer += Time.deltaTime;
+            magneticTimer += Time.deltaTime;
+            if (shootingTimer >= shootingCooltime)
             {
                 bulletPool.Get();
-                timer = 0f;
+                shootingTimer = 0f;
+            }
+
+            if (magneticTimer >= magneticCooltime)
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    magneticBulletPool.Get();
+                    magneticTimer = 0f;
+                }
             }
         }
     }
@@ -78,6 +101,7 @@ public class ShootingController : MonoBehaviour
         isShooting = false;
     }
 
+    // Bullet
     GameObject CreateBullet()
     {
         GameObject bullet = Instantiate(shootingObject);
@@ -106,6 +130,36 @@ public class ShootingController : MonoBehaviour
     void OnDestroyBullet(GameObject bullet)
     {
         Destroy(bullet);
+    }
+
+    // MagneticBullet
+    GameObject CreateMagneticBullet()
+    {
+        GameObject magneticBullet = Instantiate(magneticShootingObject);
+        // 弾のスクリプトを取得して、プールにセットする
+        magneticBullet.GetComponent<MagneticBulletController>().myPool = (ObjectPool<GameObject>)magneticBulletPool;
+        return magneticBullet;
+    }
+
+    void OnGetMagneticBullet(GameObject magneticBullet)
+    {
+        magneticBullet.SetActive(true);
+        magneticBullet.transform.position = shootPoint.position;
+        magneticBullet.transform.rotation = shootPoint.rotation;
+
+        Vector2 playerVelocity = playerRb.linearVelocity;
+
+        magneticBullet.GetComponent<MagneticBulletController>().Launch(playerVelocity);
+    }
+
+    void OnReleaseMagneticBullet(GameObject magneticBullet)
+    {
+        magneticBullet.SetActive(false);
+    }
+
+    void OnDestroyMagneticBullet(GameObject magneticBullet)
+    {
+        Destroy(magneticBullet);
     }
 
     GameObject CreateHitEffect()
