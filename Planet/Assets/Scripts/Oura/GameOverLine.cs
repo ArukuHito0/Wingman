@@ -12,11 +12,7 @@ public class GameOverLine : MonoBehaviour
         Planet p = other.GetComponent<Planet>();
         if (p == null) return;
 
-        if (!p.isSettled) return;
-
-        // 落として3秒以内は無視
-        if (Time.time - p.dropTime < 3f) return;
-
+      
         // 中心がライン超えてないなら無視
         if (p.transform.position.y < transform.position.y) return;
 

@@ -15,7 +15,7 @@ public class PlanetSpawner : MonoBehaviour
 
     public Transform nextDisplayPoint; // ネクスト表示位置
 
-    private bool isDropping = false;
+
 
     public GameObject currentPlanet;
     private GameObject nextPreview;
@@ -84,10 +84,7 @@ public class PlanetSpawner : MonoBehaviour
         Planet planet =
             currentPlanet.GetComponent<Planet>();
 
-        planet.dropTime = Time.time;
-
-        // 追加
-        planet.isDropped = true;
+  
 
         currentPlanet = null;
     }
