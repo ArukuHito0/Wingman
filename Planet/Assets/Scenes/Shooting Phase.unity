@@ -2100,12 +2100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpacePlanetSpawner
   planetPrefab: {fileID: 6660516029306014051, guid: 0a945b0b9c8dfbb4c95057716224a148, type: 3}
-  spawnRadius: 12
+  spawnRadius: 11
   targetRadius: 3
-  despawnRadius: 15
+  despawnRadius: 13
   maxObjectCount: 2147483647
   minSpawnInterval: 0.4
-  maxSpawnInterval: 1
+  maxSpawnInterval: 1.2
   currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
@@ -2143,7 +2143,7 @@ MonoBehaviour:
     spawnWeights: 050000000a000000140000001e000000190000000a0000000500000000000000
   - phaseName: Phase 3
     startTime: 70
-    spawnWeights: 05000000050000000a00000023000000140000000f0000000500000005000000
+    spawnWeights: 00000000050000000a0000001e000000140000000f0000000a0000000a000000
   - phaseName: Phase 4
     startTime: 120
     spawnWeights: 00000000000000000000000000000000000000001e000000280000001e000000

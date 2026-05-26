@@ -10,8 +10,6 @@ public class SpacePlanetSpawner : MonoBehaviour
     [SerializeField] private float targetRadius = 3f;
     [SerializeField] private float despawnRadius = 15f;
     [SerializeField] private int maxObjectCount = 10;
-    [SerializeField] private float minSpawnInterval = 0.5f;
-    [SerializeField] private float maxSpawnInterval = 5.0f;
 
     // 表示用
     private float spawnInterval;
@@ -113,7 +111,7 @@ public class SpacePlanetSpawner : MonoBehaviour
     void AutoSpawnInterval()
     {
         timer = 0;
-        spawnInterval = Random.Range(minSpawnInterval, maxSpawnInterval);
+        spawnInterval = Random.Range(phaseList[currentPhaseIndex].minSpawnInterval, phaseList[currentPhaseIndex].maxSpawnInterval);
     }
 
     void SpawnPlanet(int levelIndex)
@@ -302,6 +300,8 @@ public class SpacePlanetSpawner : MonoBehaviour
     {
         public string phaseName;        // Inspector用の名前
         public float startTime;         // このフェーズが始まる時間(s)
+        public float minSpawnInterval;  // 最小スポーン時間
+        public float maxSpawnInterval;  // 最大スポーン時間
 
         // 要素数8のリスト
         // [100, 0, 0, 0, 0, 0, 0, 0]の場合 Element 0 が100%生成
