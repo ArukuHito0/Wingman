@@ -85,6 +85,8 @@ public class PlanetHealth : MonoBehaviour
         {
             if (explosionEffect != null)
             {
+                AudioManager.instance.PlaySE("Explosion");
+
                 Instantiate(
                     explosionEffect,
                     transform.position,

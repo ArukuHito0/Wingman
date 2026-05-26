@@ -199,5 +199,5 @@ MonoBehaviour:
   baseScale: {x: 1, y: 1, z: 1}
   scaleAmplitude: 0.2
   scaleSpeed: 10
-  animationTime: 3
-  fadeOutStartRatio: 0.8
+  animationTime: 1.5
+  fadeOutStartRatio: 0.7

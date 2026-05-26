@@ -22,6 +22,18 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip ContactSE;
 
+    public AudioClip evolutionSE;
+
+    public AudioClip spawnGravitySE;
+
+    public AudioClip bigBangSE;
+
+    public AudioClip explosionSE;
+
+    public AudioClip shotSE;
+
+    public AudioClip gravityChargedSE;
+
     // 現在再生中BGM
     private string currentBGM = "";
 
@@ -141,6 +153,31 @@ public class AudioManager : MonoBehaviour
             case "Contact":
                 clip = ContactSE;
                 break;
+
+            case "Evo":
+                clip = evolutionSE;
+                break;
+
+            case "UseGravity":
+                clip = spawnGravitySE;
+                break;
+
+            case "BigBang":
+                clip = bigBangSE;
+                break;
+
+            case "Explosion":
+                clip = explosionSE;
+                break;
+
+            case "Shot":
+                clip = shotSE;
+                break;
+
+            case "GravityCharged":
+                clip = gravityChargedSE;
+                break;
+
         }
 
         // 再生

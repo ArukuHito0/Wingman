@@ -30,7 +30,7 @@ public class Planet : MonoBehaviour
 
     private void Awake()
     {
-        SetAttribute(PlanetAttribute.Explosion);
+        //SetAttribute(PlanetAttribute.Explosion);
     }
 
     /// <summary>
@@ -77,6 +77,8 @@ public class Planet : MonoBehaviour
 
         if (other.level != level) return;
 
+        AudioManager.instance.PlaySE("Evo");
+
         isMerging = true;
         other.isMerging = true;
 
@@ -103,6 +105,8 @@ public class Planet : MonoBehaviour
         {
             if (explosionPrefab != null)
             {
+                AudioManager.instance.PlaySE("BigBang");
+
                 Instantiate(
                     explosionPrefab,
                     mergePos,
@@ -178,12 +182,16 @@ public class Planet : MonoBehaviour
     {
         if (isMerging) return;
 
+        AudioManager.instance.PlaySE("Evo");
+
         isMerging = true;
 
         if (nextPlanetPrefab == null)
         {
             if (explosionPrefab != null)
             {
+                AudioManager.instance.PlaySE("BigBang");
+
                 Instantiate(
                     explosionPrefab,
                     transform.position,

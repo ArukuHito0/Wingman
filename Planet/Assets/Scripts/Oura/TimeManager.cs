@@ -9,12 +9,7 @@ public class TimerManager : MonoBehaviour
 {
     public float timeLimit = 120f;
 
-    public TextMeshProUGUI timerText;
-
-    [SerializeField]
-    private string nextSceneName;
-
-    bool finished = false;
+    public bool finished = false;
 
 
     void Update()
@@ -31,19 +26,9 @@ public class TimerManager : MonoBehaviour
         int minute = Mathf.FloorToInt(timeLimit / 60);
         int second = Mathf.FloorToInt(timeLimit % 60);
 
-        timerText.text =
-            minute.ToString("00") +
-            ":" +
-            second.ToString("00");
-
         if (timeLimit <= 0)
         {
             finished = true;
-
-            if (string.IsNullOrEmpty(nextSceneName))
-            {
-                SceneManager.LoadScene(nextSceneName);
-            }
         }
     }
 }
