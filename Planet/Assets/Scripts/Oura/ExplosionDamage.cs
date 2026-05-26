@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ExplosionDamage : MonoBehaviour
 {
@@ -7,6 +8,38 @@ public class ExplosionDamage : MonoBehaviour
 
     [SerializeField]
     private int planetDamage = 20;
+
+    // 判定時間
+    [SerializeField]
+    private float hitDuration = 0.05f;
+
+    private CircleCollider2D circleCollider;
+
+    private void Awake()
+    {
+        circleCollider =
+            GetComponent<CircleCollider2D>();
+    }
+
+    private void Start()
+    {
+        // 一瞬後に判定OFF
+        StartCoroutine(
+            DisableCollider()
+        );
+    }
+
+    IEnumerator DisableCollider()
+    {
+        yield return new WaitForSeconds(
+            hitDuration
+        );
+
+        if (circleCollider != null)
+        {
+            circleCollider.enabled = false;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,7 +61,7 @@ public class ExplosionDamage : MonoBehaviour
                 "<color=red>プレイヤーに爆発ダメージ！</color>"
             );
 
-            playerHealth.TakeDamage(playerDamage);
+            playerHealth.TakeDamage();
         }
 
         // 惑星ダメージ
@@ -47,7 +80,9 @@ public class ExplosionDamage : MonoBehaviour
                 "<color=yellow>惑星に爆発ダメージ！</color>"
             );
 
-            planetHealth.TakeDamage(planetDamage);
+            planetHealth.TakeDamage(
+                planetDamage
+            );
         }
     }
 }

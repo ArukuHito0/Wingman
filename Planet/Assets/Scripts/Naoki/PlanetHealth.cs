@@ -1,15 +1,32 @@
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 
 public class PlanetHealth : MonoBehaviour
 {
+    private Planet planet;
+
     [SerializeField] private float currentHealth = 30;
     [SerializeField] private int addScoreValue = 0;
-    //[SerializeField] private int minusScoreValue = 0;
+
+    private int AddScoreValue()
+    {
+        switch (planet.attribute)
+        {
+            case PlanetAttribute.Normal:
+                return addScoreValue;
+            case PlanetAttribute.Rare:
+                return addScoreValue * 2;
+            default:
+                return addScoreValue;
+        }
+    }
+
     private TextMeshPro healthText;
 
     [SerializeField] private TextMeshPro scoreTextPrefab;
     [SerializeField] private GameObject brokenEffect;
+    [SerializeField] private GameObject explosionEffect;
 
     private void OnEnable()
     {
@@ -19,18 +36,7 @@ public class PlanetHealth : MonoBehaviour
     private void Awake()
     {
         healthText = transform.Find("HealthText").GetComponent<TextMeshPro>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        planet = GetComponent<Planet>();
     }
 
     public void TakeDamage(int damage)
@@ -40,7 +46,7 @@ public class PlanetHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             AddScore();
-            SpawnScoreText(addScoreValue);
+            SpawnScoreText(AddScoreValue());
             Broken();
         }
     }
@@ -64,8 +70,8 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            ScoreManager.Instance.AddScore(addScoreValue / 4);
-            SpawnScoreText(addScoreValue / 4);
+            ScoreManager.Instance.AddScore(AddScoreValue() / 4);
+            SpawnScoreText(AddScoreValue() / 4);
             Broken();
         }
     }
@@ -75,6 +81,18 @@ public class PlanetHealth : MonoBehaviour
     /// </summary>
     private void Broken()
     {
+        if (planet.attribute == PlanetAttribute.Explosion)
+        {
+            if (explosionEffect != null)
+            {
+                Instantiate(
+                    explosionEffect,
+                    transform.position,
+                    Quaternion.identity
+                );
+            }
+        }
+
         SpawnBrokenEffect();
         Destroy(gameObject);
     }
@@ -101,7 +119,7 @@ public class PlanetHealth : MonoBehaviour
     {
         if (ScoreManager.Instance != null)
         {
-            ScoreManager.Instance.AddScore(addScoreValue);
+            ScoreManager.Instance.AddScore(AddScoreValue());
         }
         else
         {
@@ -122,7 +140,14 @@ public class PlanetHealth : MonoBehaviour
                 Quaternion.identity
             );
 
-            scoreText.text = $"+ {score}!";
+            if (planet.attribute == PlanetAttribute.Rare)
+            {
+                scoreText.text = $"<size={scoreText.fontSize * 0.6f}><color=yellow>x2 Bonus!</color></size>\n+ {score}!";
+            }
+            else
+            {
+                scoreText.text = $"+ {score}!";
+            }
         }
     }
 }

@@ -215,7 +215,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.41154993, y: -1.9538598, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.33, y: 0.33, z: 0.33}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 965067413045606771}
@@ -356,9 +356,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Planet
   level: 4
+  attribute: 0
   nextPlanetPrefab: {fileID: 6748775646211337445, guid: 9733a21ebc2d80540871f10d3aae8a1d, type: 3}
   explosionPrefab: {fileID: 0}
   evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
+  highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
+  explosionAuraEffect: {fileID: 7487509318331430585, guid: d44e97e701d85c747971d3ec3d4451e9, type: 3}
 --- !u!114 &1554615722755426576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +378,7 @@ MonoBehaviour:
   addScoreValue: 500
   scoreTextPrefab: {fileID: 5804364221950065383, guid: 9c54d6ddea13d9d40800e316b37c79da, type: 3}
   brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
+  explosionEffect: {fileID: 7117285010892048079, guid: b3d853cb15fb8f04bb1036ac9498aee5, type: 3}
 --- !u!114 &3860163682899521319
 MonoBehaviour:
   m_ObjectHideFlags: 0
