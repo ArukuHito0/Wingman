@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -13,10 +14,20 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Slider healthSlider;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float flashDuration = 5f;
+    [SerializeField] private float flashSpeed = 2f;
+    [SerializeField] private float minAlpha = 0.5f;
+    [SerializeField] private bool useSmoothFlash = false;
+    private Coroutine flashCoroutine;
+    [SerializeField] private Collider2D playerCollider;
+
     [SerializeField] private Gradient healthGradient;   // インスペクターで色を指定
     [SerializeField] private Image healthFillImage;     // スライダーのFillオブジェクトを指定
 
     [SerializeField] private GameObject gameOverEffect;
+
+    ShootingController shootingController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -24,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
     {
         effectAnimator = GetComponent<Animator>();
         gameOverEffect.SetActive(false);
+        shootingController = GetComponent<ShootingController>();
     }
     void Start()
     {
@@ -51,6 +63,13 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+        }
+        flashCoroutine = StartCoroutine(DamageFlashCoroutine());
+
         Debug.Log("現在の体力 : " + currentHealth);
 
         if (currentHealth <= 0)
@@ -59,6 +78,59 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHealthUI();
+    }
+
+    private IEnumerator DamageFlashCoroutine()
+    {
+        float elapsedTime = 0f;
+        Color originalColor = spriteRenderer.color;
+
+
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = false;
+            if (shootingController  != null)
+            {
+                shootingController.IsShootingFalse();
+            }
+        }
+
+        while (elapsedTime < flashDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float targetAlpha = 1f;
+
+            if (useSmoothFlash)
+            {
+                float pingPong = Mathf.PingPong(elapsedTime * flashSpeed, 1f - minAlpha);
+                targetAlpha = minAlpha * pingPong;
+            }
+            else
+            {
+                if((int)(elapsedTime * flashSpeed) % 2 == 0)
+                {
+                    targetAlpha = minAlpha;
+                }
+                else
+                {
+                    targetAlpha = 1f;
+                }
+            }
+
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, targetAlpha);
+
+            yield return null;
+        }
+
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = true;
+            if (shootingController != null)
+            {
+                shootingController.IsShootingTrue();
+            }
+        }
+        spriteRenderer.color = originalColor;
     }
 
     void UpdateHealthUI()
