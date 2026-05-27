@@ -78,6 +78,8 @@ public class BulletController : MonoBehaviour
 
         if (hitEffectPool != null)
         {
+            AudioManager.instance.PlaySE("Hit");
+
             // プールからエフェクトを取得
             GameObject effect = hitEffectPool.Get();
 

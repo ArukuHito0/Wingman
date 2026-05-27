@@ -34,6 +34,10 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip gravityChargedSE;
 
+    public AudioClip shotHitSE;
+
+    public AudioClip planetBreakSE;
+
     // 現在再生中BGM
     private string currentBGM = "";
 
@@ -178,6 +182,13 @@ public class AudioManager : MonoBehaviour
                 clip = gravityChargedSE;
                 break;
 
+            case "Hit":
+                clip = shotHitSE;
+                break;
+
+            case "Broken":
+                clip = planetBreakSE;
+                break;
         }
 
         // 再生

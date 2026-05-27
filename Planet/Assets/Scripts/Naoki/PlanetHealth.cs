@@ -86,6 +86,7 @@ public class PlanetHealth : MonoBehaviour
             }
         }
 
+        AudioManager.instance.PlaySE("Broken");
         SpawnBrokenEffect();
         Destroy(gameObject);
     }
