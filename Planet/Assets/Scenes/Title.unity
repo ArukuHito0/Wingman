@@ -2335,6 +2335,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5319821686691907618, guid: fae10546de31015409173fdeabcb6eec, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5326911730134993250, guid: fae10546de31015409173fdeabcb6eec, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2357,7 +2361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5326911730134993250, guid: fae10546de31015409173fdeabcb6eec, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.045
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8280185843524407605, guid: fae10546de31015409173fdeabcb6eec, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2733,9 +2737,9 @@ MonoBehaviour:
   phaseList:
   - phaseName: Phase 1
     startTime: 0
-    minSpawnInterval: 0
-    maxSpawnInterval: 0
-    spawnWeights: 0100000001000000010000000100000001000000010000000100000001000000
+    minSpawnInterval: 3
+    maxSpawnInterval: 5
+    spawnWeights: 0a0000000a0000001400000014000000140000000a0000000a0000000a000000
 --- !u!4 &923324479
 Transform:
   m_ObjectHideFlags: 0
