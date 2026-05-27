@@ -11,6 +11,8 @@ public class TimerManager : MonoBehaviour
 
     public bool finished = false;
 
+    public string transitionSceneName = string.Empty;
+
 
     void Update()
     {
@@ -29,6 +31,8 @@ public class TimerManager : MonoBehaviour
         if (timeLimit <= 0)
         {
             finished = true;
+
+            SceneManager.LoadScene(transitionSceneName);
         }
     }
 }

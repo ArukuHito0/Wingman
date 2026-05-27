@@ -395,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
   timeLimit: 180
   finished: 0
+  transitionSceneName: Result
 --- !u!4 &32100145
 Transform:
   m_ObjectHideFlags: 0
