@@ -28,11 +28,6 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private GameObject explosionAuraEffect;
 
-    private void Awake()
-    {
-        //SetAttribute(PlanetAttribute.Explosion);
-    }
-
     /// <summary>
     /// 惑星属性セット
     /// </summary>
@@ -135,6 +130,14 @@ public class Planet : MonoBehaviour
         {
             nextPlanetScript.level =
                 level + 1;
+
+            var rnd = Random.value;
+            PlanetAttribute attribute = PlanetAttribute.Normal;
+
+            if (rnd < 0.7f)
+                attribute = PlanetAttribute.Rare;
+            else
+                attribute = PlanetAttribute.Explosion;
 
             nextPlanetScript.SetAttribute(attribute);
         }

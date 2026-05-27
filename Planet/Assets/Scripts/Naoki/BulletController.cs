@@ -21,11 +21,8 @@ public class BulletController : MonoBehaviour
     private float activeAreaX = 8f;
     private float activeAreaY = 5f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public bool isReleased = true;
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -45,30 +42,26 @@ public class BulletController : MonoBehaviour
 
         if (transform.position.x > activeAreaX || transform.position.x < -activeAreaX)
         {
-            myPool.Release(gameObject);
+            ReturnToPool();
         }
         else if (transform.position.y > activeAreaY || transform.position.y < -activeAreaY)
         {
-            myPool.Release(gameObject);
+            ReturnToPool();
         }
     }
 
     public void ReturnToPool()
     {
-        if (myPool != null)
+        if (myPool != null && !isReleased)
         {
+            isReleased = true;
             myPool.Release(gameObject);
         }
     }
 
-    //public void SetInheritedVelocity(Vector2 velocity)
-    //{
-    //    inheritedVelocity = velocity;
-    //}
-
     public void OnEnable()
     {
-        //timer = 0f; // タイマーをリセットして、また3秒数え直せるようにする
+        isReleased = false;
     }
 
     public void Launch(Vector2 inheritedVelocity)

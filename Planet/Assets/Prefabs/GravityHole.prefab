@@ -4959,7 +4959,7 @@ MonoBehaviour:
   closeEffect: {fileID: 8246753546059680374, guid: 7ccd298978abff64ca38d9b1653d45ec, type: 3}
   attractionForce: 10
   magneticTag: Planet
-  residenceTime: 2
+  residenceTime: 3
 --- !u!1 &3335964390910882882
 GameObject:
   m_ObjectHideFlags: 0
