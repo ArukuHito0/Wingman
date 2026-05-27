@@ -57,15 +57,6 @@ public class PlanetHealth : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             TakeDamage(10);
-
-            // 衝突した相手(collision)から BulletController スクリプトを取得
-            BulletController bullet = collision.GetComponent<BulletController>();
-
-            // 取得できた場合
-            if (bullet != null)
-            {
-                //bullet.ReturnToPool();  // 弾をPoolに戻す
-            }
         }
 
         if (collision.CompareTag("Player"))
@@ -85,6 +76,8 @@ public class PlanetHealth : MonoBehaviour
         {
             if (explosionEffect != null)
             {
+                AudioManager.instance.PlaySE("Explosion");
+
                 Instantiate(
                     explosionEffect,
                     transform.position,

@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class GravityHole : MonoBehaviour
 {
     public ObjectPool<GameObject> myPool;
+
+    [SerializeField] private GameObject closeEffect;
 
     [Header("磁気吸着の設定")]
     [SerializeField] private float attractionForce = 15f;
@@ -13,8 +16,11 @@ public class GravityHole : MonoBehaviour
 
     private CircleCollider2D magneticRadius;
 
+    public event Action onGravityClosed;
+
     private void OnEnable()
     {
+        AudioManager.instance.PlaySE("UseGravity");
         time = 0;
     }
 
@@ -30,8 +36,17 @@ public class GravityHole : MonoBehaviour
 
         if (time > residenceTime)
         {
-            myPool?.Release(gameObject);
             time = 0;
+
+            Instantiate(
+                closeEffect,
+                transform.position,
+                Quaternion.identity
+                );
+
+            onGravityClosed?.Invoke();
+
+            myPool?.Release(gameObject);
         }
     }
 

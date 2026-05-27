@@ -28,11 +28,6 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private GameObject explosionAuraEffect;
 
-    private void Awake()
-    {
-        SetAttribute(PlanetAttribute.Explosion);
-    }
-
     /// <summary>
     /// 惑星属性セット
     /// </summary>
@@ -77,6 +72,8 @@ public class Planet : MonoBehaviour
 
         if (other.level != level) return;
 
+        AudioManager.instance.PlaySE("Evo");
+
         isMerging = true;
         other.isMerging = true;
 
@@ -103,6 +100,8 @@ public class Planet : MonoBehaviour
         {
             if (explosionPrefab != null)
             {
+                AudioManager.instance.PlaySE("BigBang");
+
                 Instantiate(
                     explosionPrefab,
                     mergePos,
@@ -131,6 +130,14 @@ public class Planet : MonoBehaviour
         {
             nextPlanetScript.level =
                 level + 1;
+
+            var rnd = Random.value;
+            PlanetAttribute attribute = PlanetAttribute.Normal;
+
+            if (rnd < 0.7f)
+                attribute = PlanetAttribute.Rare;
+            else
+                attribute = PlanetAttribute.Explosion;
 
             nextPlanetScript.SetAttribute(attribute);
         }
@@ -178,12 +185,16 @@ public class Planet : MonoBehaviour
     {
         if (isMerging) return;
 
+        AudioManager.instance.PlaySE("Evo");
+
         isMerging = true;
 
         if (nextPlanetPrefab == null)
         {
             if (explosionPrefab != null)
             {
+                AudioManager.instance.PlaySE("BigBang");
+
                 Instantiate(
                     explosionPrefab,
                     transform.position,

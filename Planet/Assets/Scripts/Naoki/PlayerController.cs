@@ -1,6 +1,8 @@
+using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.Pool;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,10 +21,24 @@ public class PlayerController : MonoBehaviour
     // 内部計算用
     private Vector2 targetDirection;
 
+    public float gravityCoolTime;
+    private GravityHole gravityHole;
+    public GameObject gravityHolePrefab;
+    public IObjectPool<GameObject> gravityHolePool;
+    private bool canUseGravity = true;
+
+    public event Action<float> onUpdateCoolTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        gravityHolePool = new ObjectPool<GameObject>
+        (
+            CreateGravityHole,       // 作成時のメソッド
+            OnGetGravityHole,        // 取り出すときのメソッド
+            OnReleaseGravityHole,    // 戻すときのメソッド
+            OnDestroyGravityHole     // 破棄時のメソッド
+        );
     }
 
     // Update is called once per frame
@@ -52,6 +68,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             targetDirection = ((Vector2)mousePos - rb.position).normalized;
+        }
+
+        if (Input.GetMouseButtonDown(1) && canUseGravity)
+        {
+            UseGravity();
         }
     }
 
@@ -115,13 +136,68 @@ public class PlayerController : MonoBehaviour
         transform.position = currentPos;
     }
 
-    private void RestrictMovement()
+    private void UseGravity()
     {
-
+        GameObject obj = gravityHolePool.Get();
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        obj.transform.position = pos;
+        onUpdateCoolTime?.Invoke(0);
+        canUseGravity = false;
     }
 
-    private void ClampVelocityAtBoundaries()
+    private void StartCoolTimer()
     {
+        StartCoroutine(CoolTimer());
+    }
 
+    private IEnumerator CoolTimer()
+    {
+        float time = 0;
+
+        while (time < gravityCoolTime)
+        {
+            time += Time.deltaTime;
+
+            onUpdateCoolTime?.Invoke(time / gravityCoolTime);
+
+            yield return null;
+        }
+
+        AudioManager.instance.PlaySE("GravityCharged");
+        canUseGravity = true;
+    }
+
+    // GravityHole
+    GameObject CreateGravityHole()
+    {
+        GameObject gravityHole = Instantiate(gravityHolePrefab, transform.position, Quaternion.identity);
+        // 弾のスクリプトを取得して、プールにセットする
+        gravityHole.GetComponent<GravityHole>().myPool = (ObjectPool<GameObject>)gravityHolePool;
+
+        this.gravityHole = gravityHole.GetComponent<GravityHole>();
+        this.gravityHole.onGravityClosed += StartCoolTimer;
+
+        return gravityHole;
+    }
+
+    void OnGetGravityHole(GameObject gravityHole)
+    {
+        gravityHole.SetActive(true);
+    }
+
+    void OnReleaseGravityHole(GameObject gravityHole)
+    {
+        gravityHole.SetActive(false);
+    }
+
+    void OnDestroyGravityHole(GameObject gravityHole)
+    {
+        Destroy(gravityHole);
+    }
+
+    private void OnDestroy()
+    {
+        this.gravityHole.onGravityClosed -= StartCoolTimer;
     }
 }

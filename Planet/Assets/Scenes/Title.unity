@@ -1660,11 +1660,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShootingController
   playerRb: {fileID: 551366427}
   shootingObject: {fileID: 1449338477868469038, guid: b57fe258b14b4284794b666b0b02b66a, type: 3}
-  magneticShootingObject: {fileID: 0}
   shootPoint: {fileID: 781137645}
   shootingSpeed: 3
   shootingCooltime: 0.2
-  magneticCooltime: 3
   hitEffectPrefab: {fileID: 4669499188292303411, guid: 058dfea8523752e4a9de00997bfc3d69, type: 3}
 --- !u!114 &551366425
 MonoBehaviour:
@@ -1681,6 +1679,8 @@ MonoBehaviour:
   acceleration: 10
   rb: {fileID: 551366427}
   shooter: {fileID: 551366424}
+  gravityCoolTime: 0
+  gravityHolePrefab: {fileID: 0}
 --- !u!58 &551366426
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2718,8 +2718,6 @@ MonoBehaviour:
   targetRadius: 3
   despawnRadius: 15
   maxObjectCount: 2147483647
-  minSpawnInterval: 1
-  maxSpawnInterval: 5
   currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
@@ -2735,6 +2733,8 @@ MonoBehaviour:
   phaseList:
   - phaseName: Phase 1
     startTime: 0
+    minSpawnInterval: 0
+    maxSpawnInterval: 0
     spawnWeights: 0100000001000000010000000100000001000000010000000100000001000000
 --- !u!4 &923324479
 Transform:
@@ -3605,7 +3605,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.553
+  m_Volume: 0.508
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4557,9 +4557,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 020f05c3c7e2d4a4a9dcb54a399a36f5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.496
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4948,6 +4948,12 @@ MonoBehaviour:
   shootingBGM: {fileID: 8300000, guid: 0672b9ec5c5a3674ea752b19a5cc956a, type: 3}
   ClickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
   ContactSE: {fileID: 8300000, guid: c1fd1c9a4b394ed4b95d0cb3761ae8fc, type: 3}
+  evolutionSE: {fileID: 8300000, guid: 2449e08c59a27b144a59e79c11dc29dc, type: 3}
+  spawnGravitySE: {fileID: 8300000, guid: 6569d666ce5bcd44796ccb8c30749b2b, type: 3}
+  bigBangSE: {fileID: 8300000, guid: 8d68de294a5ec0a4ca16a840a2fb8146, type: 3}
+  explosionSE: {fileID: 8300000, guid: 18f70e57b8cf4ea46ae09e6bfd13ca86, type: 3}
+  shotSE: {fileID: 8300000, guid: c87b913ffa889f24c8fe80477aa431a5, type: 3}
+  gravityChargedSE: {fileID: 8300000, guid: 6b87c92192e1e854db2b576f6b57aa3e, type: 3}
 --- !u!4 &1979935704
 Transform:
   m_ObjectHideFlags: 0

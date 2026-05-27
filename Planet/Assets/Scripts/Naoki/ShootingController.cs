@@ -12,7 +12,6 @@ public class ShootingController : MonoBehaviour
 
     [Header("シューティング設定")]
     public GameObject shootingObject;
-    public GameObject gravityHolePrefab;
     public Transform shootPoint;
     public float shootingSpeed = 1.0f;
     public float shootingCooltime = 0.25f;
@@ -23,7 +22,6 @@ public class ShootingController : MonoBehaviour
 
     [Header("プールの宣言")]
     public IObjectPool<GameObject> bulletPool;
-    public IObjectPool<GameObject> gravityHolePool;
     public IObjectPool<GameObject> hitEffectPool;
 
     [Header("参照")]
@@ -39,14 +37,6 @@ public class ShootingController : MonoBehaviour
             OnGetBullet,        // 取り出すときのメソッド
             OnReleaseBullet,    // 戻すときのメソッド
             OnDestroyBullet     // 破棄時のメソッド
-        );
-
-        gravityHolePool = new ObjectPool<GameObject>
-        (
-            CreateGravityHole,       // 作成時のメソッド
-            OnGetGravityHole,        // 取り出すときのメソッド
-            OnReleaseGravityHole,    // 戻すときのメソッド
-            OnDestroyGravityHole     // 破棄時のメソッド
         );
 
         hitEffectPool = new ObjectPool<GameObject>
@@ -72,16 +62,9 @@ public class ShootingController : MonoBehaviour
             shootingTimer += Time.deltaTime;
             if (shootingTimer >= shootingCooltime)
             {
+                AudioManager.instance.PlaySE("Shot");
                 bulletPool.Get();
                 shootingTimer = 0f;
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                GameObject obj = gravityHolePool.Get();
-                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pos.z = 0;
-                obj.transform.position = pos;
             }
         }
     }
@@ -125,30 +108,6 @@ public class ShootingController : MonoBehaviour
     void OnDestroyBullet(GameObject bullet)
     {
         Destroy(bullet);
-    }
-
-    // GravityHole
-    GameObject CreateGravityHole()
-    {
-        GameObject gravityHole = Instantiate(gravityHolePrefab, transform.position, Quaternion.identity);
-        // 弾のスクリプトを取得して、プールにセットする
-        gravityHole.GetComponent<GravityHole>().myPool = (ObjectPool<GameObject>)gravityHolePool;
-        return gravityHole;
-    }
-
-    void OnGetGravityHole(GameObject gravityHole)
-    {
-        gravityHole.SetActive(true);
-    }
-
-    void OnReleaseGravityHole(GameObject gravityHole)
-    {
-        gravityHole.SetActive(false);
-    }
-
-    void OnDestroyGravityHole(GameObject gravityHole)
-    {
-        Destroy(gravityHole);
     }
 
     GameObject CreateHitEffect()
