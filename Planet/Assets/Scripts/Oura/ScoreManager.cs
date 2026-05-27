@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 using System.Collections;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
-    public int score = 0;
+    private static int score { get; set; } = 0;
+    private static int highScore {  get; set; }
 
+    public TextMeshProUGUI scoreTitleText;
     public TextMeshProUGUI scoreText;
 
     private void Awake()
@@ -18,6 +21,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        score = 0;
         UpdateUI();
     }
 
@@ -46,6 +50,17 @@ public class ScoreManager : MonoBehaviour
     private void UpdateUI()
     {
         scoreText.text = score.ToString();
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public int GetHighScore()
+    {
+        StartCoroutine(GetScoreAPI());
+        return highScore;
     }
 
     /// <summary>
@@ -87,7 +102,10 @@ public class ScoreManager : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                yield break;
+                if (int.TryParse(www.downloadHandler.text, out int score))
+                {
+                    highScore = score;
+                }
             }
             else
             {
