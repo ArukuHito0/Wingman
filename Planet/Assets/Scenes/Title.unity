@@ -4960,6 +4960,7 @@ MonoBehaviour:
   gravityChargedSE: {fileID: 8300000, guid: 6b87c92192e1e854db2b576f6b57aa3e, type: 3}
   shotHitSE: {fileID: 8300000, guid: 9c52a2b69a9a3484e8c1134d97b1b949, type: 3}
   planetBreakSE: {fileID: 8300000, guid: 92d6a96cfbb9c2845bd649b2d5d7f9d5, type: 3}
+  resultSE: {fileID: 8300000, guid: 86d86613fd92ffb4184aa27a486b1344, type: 3}
 --- !u!4 &1979935704
 Transform:
   m_ObjectHideFlags: 0
@@ -5171,6 +5172,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058684977}
   m_CullTransparentMesh: 1
+--- !u!1 &2107187934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2107187936}
+  - component: {fileID: 2107187935}
+  m_Layer: 0
+  m_Name: CursorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2107187935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107187934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1422c99ef4eac7943b029d9d47899f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CursorManager
+  defaultCursor: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
+  movementCursor: {fileID: 2800000, guid: 44a99ee545fd8ba46a452b12c1f9378b, type: 3}
+  skillCursor: {fileID: 2800000, guid: 0444d31f14457f346b517cd60ffbe6e7, type: 3}
+  hotSpot: {x: 10, y: 5}
+--- !u!4 &2107187936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107187934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 793.78723, y: 588.4849, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5187,3 +5236,4 @@ SceneRoots:
   - {fileID: 551366428}
   - {fileID: 1960487883}
   - {fileID: 894470783}
+  - {fileID: 2107187936}

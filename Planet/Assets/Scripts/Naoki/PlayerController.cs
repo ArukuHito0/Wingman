@@ -63,22 +63,37 @@ public class PlayerController : MonoBehaviour
         // Z軸を回転
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-
         // 1. 左クリックしている間だけ進む方向を更新
         if (Input.GetMouseButton(0))
         {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Movement);
+
             targetDirection = ((Vector2)mousePos - rb.position).normalized;
         }
 
-        if (Input.GetMouseButtonDown(1) && canUseGravity)
+        if (Input.GetMouseButtonUp(0))
         {
-            UseGravity();
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Skill);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
+
+            if (canUseGravity)
+            {
+                UseGravity();
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        // スペースキーが押されている間だけ加速
         if (Input.GetMouseButton(0))
         {
             rb.AddForce(targetDirection * acceleration);
@@ -198,6 +213,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        this.gravityHole.onGravityClosed -= StartCoolTimer;
+        if(gravityHole != null)
+            this.gravityHole.onGravityClosed -= StartCoolTimer;
     }
 }

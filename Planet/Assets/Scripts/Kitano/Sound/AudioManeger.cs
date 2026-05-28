@@ -38,6 +38,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip planetBreakSE;
 
+    public AudioClip resultSE;
+
     // 現在再生中BGM
     private string currentBGM = "";
 
@@ -188,6 +190,10 @@ public class AudioManager : MonoBehaviour
 
             case "Broken":
                 clip = planetBreakSE;
+                break;
+
+            case "ResultScore":
+                clip = resultSE;
                 break;
         }
 

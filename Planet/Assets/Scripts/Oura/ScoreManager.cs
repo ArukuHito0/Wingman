@@ -59,8 +59,12 @@ public class ScoreManager : MonoBehaviour
 
     public int GetHighScore()
     {
+#if UNITY_EDITOR
+        return PlayerPrefs.GetInt("HighScore", 0);
+#else
         StartCoroutine(GetScoreAPI());
         return highScore;
+#endif
     }
 
     /// <summary>
@@ -110,7 +114,7 @@ public class ScoreManager : MonoBehaviour
             else
             {
                 yield return new WaitForSeconds(0.1f);
-                yield return SendScoreAPI();
+                yield return GetScoreAPI();
             }
         }
     }

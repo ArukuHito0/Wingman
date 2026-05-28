@@ -53,7 +53,12 @@ public class RankBoardVisualize : MonoBehaviour
             {
                 if (int.TryParse(www.downloadHandler.text, out int rank))
                 {
-                    myRankText.text = $"{rank} | ‚ ‚È‚½";
+                    Debug.Log(rank);
+
+                    if(rank == 0)
+                        myRankText.text = $"? | ‚ ‚È‚½";
+                    else
+                        myRankText.text = $"{rank} | ‚ ‚È‚½";
                 }
             }
             else
@@ -79,7 +84,14 @@ public class RankBoardVisualize : MonoBehaviour
             {
                 if (int.TryParse(www.downloadHandler.text, out int best_score))
                 {
-                    myScoreText.text = best_score.ToString();
+                    if (best_score <= 0)
+                    {
+                        myScoreText.text = "------";
+                    }
+                    else
+                    {
+                        myScoreText.text = best_score.ToString();
+                    }
                 }
             }
             else
