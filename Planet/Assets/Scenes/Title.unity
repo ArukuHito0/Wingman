@@ -3888,11 +3888,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionManager
   transitionImage: {fileID: 179793051}
+  slideSpeed: 1000
+  centerWaitTime: 0.5
   expandRotateSpeed: 90
   shrinkRotateSpeed: 360
   expandSpeed: 40
   shrinkSpeed: 120
-  targetScale: 35
+  screenCoverMultiplier: 4.5
   waitTime: 0.3
 --- !u!4 &1544638201
 Transform:
@@ -4188,7 +4190,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1 &1672355711
 GameObject:
