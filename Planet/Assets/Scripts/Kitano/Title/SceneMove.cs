@@ -7,13 +7,26 @@ public class SceneMove : MonoBehaviour
     public string nextSceneName = "Shooting Phase";
 
     private Button button;
+
     private RandomButtonDesign design;
 
     void Start()
     {
         button = GetComponent<Button>();
 
+        if (button == null)
+        {
+            Debug.LogError("Buttonコンポーネントがありません！");
+            return;
+        }
+
         design = GetComponent<RandomButtonDesign>();
+
+        if (design == null)
+        {
+            Debug.LogError("RandomButtonDesignがありません！");
+            return;
+        }
 
         button.onClick.AddListener(GoToGameScene);
     }
@@ -24,7 +37,9 @@ public class SceneMove : MonoBehaviour
 
         SceneTransitionManager.instance.StartTransition(
             nextSceneName,
-            design.selectedSprite
+            design.selectedSprite,
+            GetComponent<RectTransform>(),
+            gameObject
         );
     }
 }
