@@ -5245,7 +5245,7 @@ MonoBehaviour:
   gravityChargedSE: {fileID: 8300000, guid: 6b87c92192e1e854db2b576f6b57aa3e, type: 3}
   shotHitSE: {fileID: 8300000, guid: 9c52a2b69a9a3484e8c1134d97b1b949, type: 3}
   planetBreakSE: {fileID: 8300000, guid: 92d6a96cfbb9c2845bd649b2d5d7f9d5, type: 3}
-  resultSE: {fileID: 0}
+  resultSE: {fileID: 8300000, guid: 86d86613fd92ffb4184aa27a486b1344, type: 3}
 --- !u!4 &1979935704
 Transform:
   m_ObjectHideFlags: 0
