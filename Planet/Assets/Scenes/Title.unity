@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7480a46d2eb194a4a8ae87adf232abdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
-  hoverScale: {x: 1.1, y: 1.1, z: 1.1}
+  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
   glowObject: {fileID: 0}
   hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
   clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
@@ -1451,9 +1451,9 @@ RectTransform:
   - {fileID: 1672355712}
   m_Father: {fileID: 1759113944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -141, y: -50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 48, y: -50}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &521656082
@@ -2287,7 +2287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7480a46d2eb194a4a8ae87adf232abdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
-  hoverScale: {x: 1.1, y: 1.1, z: 1.1}
+  hoverScale: {x: 0.6, y: 0.6, z: 0.6}
   glowObject: {fileID: 0}
   hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
   clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
@@ -3918,13 +3918,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionManager
   transitionImage: {fileID: 179793051}
   slideSpeed: 1000
+  slideSmoothTime: 0.45
+  stopDistance: 1
   centerWaitTime: 0.5
   expandRotateSpeed: 90
   shrinkRotateSpeed: 360
   expandSpeed: 40
   shrinkSpeed: 120
-  screenCoverMultiplier: 4.5
+  screenCoverMultiplier: 5.5
   waitTime: 0.3
+  blackFadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1544638201
 Transform:
   m_ObjectHideFlags: 0

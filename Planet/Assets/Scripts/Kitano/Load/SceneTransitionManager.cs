@@ -13,6 +13,12 @@ public class SceneTransitionManager : MonoBehaviour
     [Header("スライド速度")]
     public float slideSpeed = 2000f;
 
+    [Header("スライド滑らかさ")]
+    public float slideSmoothTime = 0.15f;
+
+    [Header("停止許容距離")]
+    public float stopDistance = 5f;
+
     [Header("中央停止時間")]
     public float centerWaitTime = 0.2f;
 
@@ -34,7 +40,13 @@ public class SceneTransitionManager : MonoBehaviour
     [Header("縮小開始前待機")]
     public float waitTime = 0.3f;
 
-    bool isTransitioning = false;
+    [Header("黒化カーブ")]
+    public AnimationCurve blackFadeCurve =
+        AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    private bool isTransitioning = false;
+
+    private Color originalColor;
 
     void Awake()
     {
@@ -84,6 +96,10 @@ public class SceneTransitionManager : MonoBehaviour
 
         transitionImage.sprite = sprite;
 
+        originalColor = Color.white;
+
+        transitionImage.color = originalColor;
+
         RectTransform rect = transitionImage.rectTransform;
 
         // ===== 初期設定 =====
@@ -121,8 +137,11 @@ public class SceneTransitionManager : MonoBehaviour
 
         // ===== スライド =====
 
+        Vector3 velocity = Vector3.zero;
+
         while (
-            Vector3.Distance(rect.position, centerPos) > 10f
+            Vector3.Distance(rect.position, centerPos)
+            > stopDistance
         )
         {
             // ボタンを下へ
@@ -132,17 +151,18 @@ public class SceneTransitionManager : MonoBehaviour
                 slideSpeed * Time.deltaTime
             );
 
-            // Imageを中央へ
-            rect.position = Vector3.MoveTowards(
+            // Imageをバネっぽく中央へ
+            rect.position = Vector3.SmoothDamp(
                 rect.position,
                 centerPos,
-                slideSpeed * Time.deltaTime
+                ref velocity,
+                slideSmoothTime
             );
 
             yield return null;
         }
 
-        // 中央固定
+        // 最終位置固定
         rect.position = centerPos;
 
         // ボタン非表示
@@ -185,10 +205,28 @@ public class SceneTransitionManager : MonoBehaviour
                 expandSpeed * Time.deltaTime
             );
 
+            // scale割合
+            float t =
+                rect.localScale.x / targetScale;
+
+            // カーブ適用
+            float fadeT =
+                blackFadeCurve.Evaluate(t);
+
+            // 白 → 黒
+            transitionImage.color =
+                Color.Lerp(
+                    originalColor,
+                    Color.black,
+                    fadeT
+                );
+
             yield return null;
         }
 
         rect.localScale = Vector3.one * targetScale;
+
+        transitionImage.color = Color.black;
 
         // ===== シーン移動 =====
 
@@ -219,10 +257,28 @@ public class SceneTransitionManager : MonoBehaviour
                 shrinkSpeed * Time.deltaTime
             );
 
+            // scale割合
+            float t =
+                rect.localScale.x / targetScale;
+
+            // カーブ適用
+            float fadeT =
+                blackFadeCurve.Evaluate(t);
+
+            // 黒 → 白
+            transitionImage.color =
+                Color.Lerp(
+                    originalColor,
+                    Color.black,
+                    fadeT
+                );
+
             yield return null;
         }
 
         rect.localScale = Vector3.zero;
+
+        transitionImage.color = originalColor;
 
         transitionImage.gameObject.SetActive(false);
 
