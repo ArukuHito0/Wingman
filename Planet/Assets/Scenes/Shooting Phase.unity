@@ -1635,6 +1635,8 @@ MonoBehaviour:
   starInvincibleDuration: 10
   starInvincibleEffect: {fileID: 154413810}
   isStarInvincible: 0
+  invincibleOverlayImage: {fileID: 1918131876}
+  maxOverlayAlpha: 0.8
 --- !u!114 &533646617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2349,6 +2351,7 @@ RectTransform:
   - {fileID: 312245993}
   - {fileID: 2066267895}
   - {fileID: 227296238}
+  - {fileID: 1918131875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2651,6 +2654,7 @@ MonoBehaviour:
   - {fileID: 6748775646211337445, guid: 9733a21ebc2d80540871f10d3aae8a1d, type: 3}
   - {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   - {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
+  - {fileID: 1808368150614671218, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
   planetSpeedSettings:
   - minSpeed: 2
     maxSpeed: 3
@@ -2668,28 +2672,30 @@ MonoBehaviour:
     maxSpeed: 1.5
   - minSpeed: 0.5
     maxSpeed: 1
+  - minSpeed: 5
+    maxSpeed: 8
   autoSpawnMode: 0
   phaseList:
   - phaseName: Phase 1
     startTime: 0
     minSpawnInterval: 0.5
     maxSpawnInterval: 1
-    spawnWeights: 1e00000028000000190000000500000000000000000000000000000000000000
+    spawnWeights: 1e0000002800000018000000040000000000000000000000000000000000000002000000
   - phaseName: Phase 2
     startTime: 45
     minSpawnInterval: 0.6
     maxSpawnInterval: 1
-    spawnWeights: 050000000a000000140000001e000000190000000a0000000500000000000000
+    spawnWeights: 040000000a000000140000001e000000190000000a000000040000000000000002000000
   - phaseName: Phase 3
     startTime: 70
     minSpawnInterval: 0.65
     maxSpawnInterval: 1
-    spawnWeights: 00000000050000000a0000001e000000140000000f0000000a0000000a000000
+    spawnWeights: 0000000004000000090000001e000000140000000f0000000a0000000a00000002000000
   - phaseName: Phase 4
     startTime: 120
     minSpawnInterval: 0.5
     maxSpawnInterval: 0.7
-    spawnWeights: 0a0000000a0000000a0000000a0000000a0000000f0000000f00000014000000
+    spawnWeights: 09000000090000000a0000000a0000000a0000000f0000000f0000001400000002000000
 --- !u!4 &1300683432
 Transform:
   m_ObjectHideFlags: 0
@@ -2979,75 +2985,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &1550354394
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1808368150614671218, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_Name
-      value: Star
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_Color.g
-      value: 0.87999976
-      objectReference: {fileID: 0}
-    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
 --- !u!1 &1609834609
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,6 +3870,95 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909556622}
   m_CullTransparentMesh: 1
+--- !u!1 &1918131874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1918131875}
+  - component: {fileID: 1918131877}
+  - component: {fileID: 1918131876}
+  - component: {fileID: 1918131878}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1918131875
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918131874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189483643}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 960, y: 600}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1918131876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918131874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.59999573, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -5668518402485374812, guid: e381f16e058c04d46b523830d42cab12, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1918131877
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918131874}
+  m_CullTransparentMesh: 1
+--- !u!114 &1918131878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918131874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce84cb488217b948bf7e7f245ae2b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainbowImage
+  duration: 3
 --- !u!1 &1975701321
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,4 +4576,3 @@ SceneRoots:
   - {fileID: 385831889}
   - {fileID: 678763453}
   - {fileID: 95003110}
-  - {fileID: 1550354394}
