@@ -23,6 +23,7 @@ public class TimerManager : MonoBehaviour
     public float scaleSpeed = 20f;
 
     public float timeLimit = 120f;
+    public float countDownStartTime = 10;
 
     public bool finished = false;
 
@@ -47,7 +48,7 @@ public class TimerManager : MonoBehaviour
 
         timeLimit -= Time.deltaTime;
 
-        if (timeLimit < 20)
+        if (timeLimit < countDownStartTime)
         {
             ScoreManager.Instance.scoreTitleText.enabled = false;
             ScoreManager.Instance.scoreText.enabled = false;
