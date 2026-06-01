@@ -23,16 +23,11 @@ public class RainbowImage : MonoBehaviour
     {
         if (uiImage == null) return;
 
-        // durationが0以下のときにフリーズするのを防ぐ
         float clampedDuration = Mathf.Max(duration, 0.01f);
 
-        // ゲーム実行中、またはエディタが動いている（画面が更新されている）間の時間を加算
-        // エディタ上では Time.deltaTime が不安定になることがあるため、UnityEditorの更新に合わせます
 #if UNITY_EDITOR
         if (!Application.isPlaying)
         {
-            // エディタ停止時は、前回のフレームからの経過時間を大まかに計算
-            // （Sceneビューを動かしたり、インスペクターを触ったりすると進みます）
             hue += 0.02f / clampedDuration;
         }
         else
@@ -41,12 +36,23 @@ public class RainbowImage : MonoBehaviour
             hue += Time.deltaTime / clampedDuration;
         }
 
-        // hueが1を超えたら0に戻す
         if (hue > 1.0f)
         {
             hue -= 1.0f;
         }
 
-        uiImage.color = Color.HSVToRGB(hue, 1.0f, 1.0f);
+        // --- 修正箇所はここから ---
+
+        // 1. まず、現在のUI画像が持っているアルファ値（透明度）を保存しておく
+        float currentAlpha = uiImage.color.a;
+
+        // 2. 虹色（RGB）を計算する
+        Color rainbowColor = Color.HSVToRGB(hue, 1.0f, 1.0f);
+
+        // 3. 虹色のRGBに、保存しておいたアルファ値を合体させる
+        rainbowColor.a = currentAlpha;
+
+        // 4. 最終的な色をUIに適用する
+        uiImage.color = rainbowColor;
     }
 }
