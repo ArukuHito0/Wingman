@@ -1424,7 +1424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -77.3}
+  m_AnchoredPosition: {x: 0, y: -77.29999}
   m_SizeDelta: {x: 122.14, y: 104.01001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227296239
@@ -5130,7 +5130,7 @@ GameObject:
   - component: {fileID: 1918131876}
   - component: {fileID: 1918131878}
   m_Layer: 5
-  m_Name: Image
+  m_Name: InvincibleOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5168,7 +5168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.119997144, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.84000194, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
