@@ -60,10 +60,8 @@ public class ExplosionDamage : MonoBehaviour
             Debug.Log(
                 "<color=red>プレイヤーに爆発ダメージ！</color>"
             );
-            if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
-            {
-                playerHealth.TakeDamage();
-            }
+
+            playerHealth.TakeDamage();
         }
 
         // 惑星ダメージ
