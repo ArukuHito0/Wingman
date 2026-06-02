@@ -1,8 +1,11 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ScoreText : MonoBehaviour
 {
+    private TextMeshProUGUI scoreText;
+
     [Header("シーソー（回転）の設定")]
     [Tooltip("揺れる最大の角度")]
     public float maxRotationAngle = 20f;
@@ -24,6 +27,11 @@ public class ScoreText : MonoBehaviour
     [SerializeField] private float fadeOutStartRatio = 0.7f;
 
     private RectTransform rectTransform;
+
+    private void Awake()
+    {
+        scoreText = GetComponent<TextMeshProUGUI>();
+    }
 
     void Start()
     {
