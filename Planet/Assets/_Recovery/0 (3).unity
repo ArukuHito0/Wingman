@@ -1320,6 +1320,11 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   healthFillImage: {fileID: 0}
   gameOverEffect: {fileID: 516891859}
+  starInvincibleDuration: 10
+  starInvincibleEffect: {fileID: 0}
+  isStarInvincible: 0
+  invincibleOverlayImage: {fileID: 0}
+  maxOverlayAlpha: 0.8
 --- !u!95 &516891861
 Animator:
   serializedVersion: 7
@@ -1720,6 +1725,11 @@ MonoBehaviour:
     m_NumAlphaKeys: 3
   healthFillImage: {fileID: 0}
   gameOverEffect: {fileID: 334358180}
+  starInvincibleDuration: 10
+  starInvincibleEffect: {fileID: 0}
+  isStarInvincible: 0
+  invincibleOverlayImage: {fileID: 0}
+  maxOverlayAlpha: 0.8
 --- !u!114 &551366425
 MonoBehaviour:
   m_ObjectHideFlags: 0
