@@ -15,12 +15,11 @@ public class ScoreManager : MonoBehaviour
     public float rotationSpeed = 15f;
 
     [Header("拡縮（スケール）の設定")]
-    [Tooltip("基準となる基本サイズ")]
-    public Vector3 baseScale = Vector3.one;
-    [Tooltip("拡大縮小の振り幅（0.2なら基本サイズ±0.2）")]
-    public float scaleAmplitude = 0.2f;
+    [Tooltip("拡大の大きさ")]
+    public Vector3 biggerScale = Vector3.one;
+    [Tooltip("拡大の変化のカーブ")]
+    public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [Tooltip("拡縮のスピード")]
-    public float scaleSpeed = 20f;
     public float scaleUpTime = 0.3f;
     public float scaleDownTime = 0.1f;
 
@@ -111,10 +110,10 @@ public class ScoreManager : MonoBehaviour
             float zRotation = Mathf.Sin(Time.time * rotationSpeed) * maxRotationAngle;
             scoreTextRectTransform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
 
-            float scaleOffset = Mathf.Cos(Time.time * scaleSpeed) * scaleAmplitude;
-            Vector3 animatedScale = baseScale + new Vector3(scaleOffset, scaleOffset, 0f);
+            float t = easeCurve.Evaluate(time / scaleUpTime);
 
-            scoreTextRectTransform.localScale = animatedScale;
+            scoreTextRectTransform.localScale = Vector3.Lerp(scoreTextBaseScale, biggerScale, t);
+
             scoretostr = Mathf.Lerp(score, afterScore, time / scaleUpTime);
             scoreText.text = scoretostr.ToString("F0");
             scoreText.color = GetScoreColor((int)scoretostr);

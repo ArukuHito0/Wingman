@@ -2701,9 +2701,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   maxRotationAngle: 20
   rotationSpeed: 15
-  baseScale: {x: 1, y: 1, z: 1}
-  scaleAmplitude: 0.2
-  scaleSpeed: 20
+  biggerScale: {x: 1.5, y: 1.5, z: 1.5}
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.7448893
+      outSlope: 2.7448893
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3863674
+      value: 1.0605358
+      inSlope: -5.297542
+      outSlope: -5.297542
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09104303
+      outWeight: 0.03874787
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.24243435
+      outSlope: 0.24243435
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.062041447
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   scaleUpTime: 0.3
   scaleDownTime: 0.1
   scoreTitleText: {fileID: 312245994}
@@ -5202,7 +5233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23999703, g: 0, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.36007714, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5616,7 +5647,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1189483643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

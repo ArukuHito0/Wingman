@@ -8,7 +8,11 @@ public class FormFields
     /// </summary>
     public static string GetFormURL(string fileName)
     {
+#if UNITY_EDITOR
+        return "http://localhost/Planet_Backend/" + fileName + ".php";
+#else
         return "http://10.219.32.73/Planet_Backend/" + fileName + ".php";
+#endif
     }
 
     public static readonly string password = "password";
