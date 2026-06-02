@@ -61,7 +61,7 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            ScoreManager.Instance.AddScore(AddScoreValue() / 4);
+            ScoreManager.Instance?.AddScore(AddScoreValue() / 4);
             SpawnScoreText(AddScoreValue() / 4);
             Broken();
         }
