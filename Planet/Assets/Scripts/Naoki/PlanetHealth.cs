@@ -11,18 +11,6 @@ public class PlanetHealth : MonoBehaviour
 
     private int AddScoreValue()
     {
-        if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
-        {
-            switch (planet.attribute)
-            {
-                case PlanetAttribute.Normal:
-                    return (addScoreValue) * 2;
-                case PlanetAttribute.Rare:
-                    return (addScoreValue * 2) * 2;
-                default:
-                    return (addScoreValue) * 2;
-            }
-        }
         switch (planet.attribute)
         {
             case PlanetAttribute.Normal:
@@ -73,18 +61,9 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
-            {
-                ScoreManager.Instance.AddScore(AddScoreValue());
-                SpawnScoreText(AddScoreValue());
-                Broken();
-            }
-            else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
-            {
-                ScoreManager.Instance.AddScore(AddScoreValue() / 4);
-                SpawnScoreText(AddScoreValue() / 4);
-                Broken();
-            }
+            ScoreManager.Instance.AddScore(AddScoreValue() / 4);
+            SpawnScoreText(AddScoreValue() / 4);
+            Broken();
         }
     }
 
