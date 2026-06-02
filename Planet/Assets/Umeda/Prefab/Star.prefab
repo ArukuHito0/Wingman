@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8509466511474517127}
   - component: {fileID: 5407154865039121231}
   - component: {fileID: -7147377174157747964}
+  - component: {fileID: 6772450614185289472}
   m_Layer: 10
   m_Name: Star
   m_TagString: Item
@@ -122,6 +123,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6772450614185289472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808368150614671218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907d731e1fd64b846adfab2a0ad244d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Attractor
+  targetTags:
+  - Player
+  speed: 2
+  detectionRadius: 2
 --- !u!1 &2564515350086655592
 GameObject:
   m_ObjectHideFlags: 0
@@ -5343,7 +5360,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7969567969453657338, guid: 87e3f863d8a92194e92e7043a05fd789, type: 3}
-  m_Color: {r: 0, g: 0.39999735, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.2185942, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
