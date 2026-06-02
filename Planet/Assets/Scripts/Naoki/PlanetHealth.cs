@@ -37,6 +37,7 @@ public class PlanetHealth : MonoBehaviour
     private TextMeshPro healthText;
 
     [SerializeField] private TextMeshPro scoreTextPrefab;
+    [SerializeField] private TextMeshPro feverScoreTextPrefab;
     [SerializeField] private GameObject brokenEffect;
     [SerializeField] private GameObject explosionEffect;
 
@@ -147,21 +148,37 @@ public class PlanetHealth : MonoBehaviour
     /// </summary>
     private void SpawnScoreText(int score)
     {
-        if (scoreTextPrefab != null)
+        if (PlayerHealth.Instance.isStarInvincible)
         {
-            TextMeshPro scoreText = Instantiate(
-                scoreTextPrefab,
+            if (feverScoreTextPrefab != null)
+            {
+                TextMeshPro feverScoreText = Instantiate(
+                feverScoreTextPrefab,
                 transform.position,
                 Quaternion.identity
-            );
+                );
 
-            if (planet.attribute == PlanetAttribute.Rare)
-            {
-                scoreText.text = $"<size={scoreText.fontSize * 0.6f}><color=yellow>x2 Bonus!</color></size>\n+ {score}!";
+                feverScoreText.text = $"x2 FEVER!\n+ {score}!";
             }
-            else
+        }
+        else
+        {
+            if (scoreTextPrefab != null)
             {
-                scoreText.text = $"+ {score}!";
+                TextMeshPro scoreText = Instantiate(
+                    scoreTextPrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
+
+                if (planet.attribute == PlanetAttribute.Rare && !PlayerHealth.Instance.isStarInvincible)
+                {
+                    scoreText.text = $"<size={scoreText.fontSize * 0.6f}><color=yellow>x2 Bonus!</color></size>\n+ {score}!";
+                }
+                else
+                {
+                    scoreText.text = $"+ {score}!";
+                }
             }
         }
     }
