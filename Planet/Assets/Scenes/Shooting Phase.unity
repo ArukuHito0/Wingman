@@ -2213,6 +2213,7 @@ GameObject:
   - component: {fileID: 533646618}
   - component: {fileID: 533646617}
   - component: {fileID: 533646616}
+  - component: {fileID: 533646622}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2400,6 +2401,23 @@ Transform:
   - {fileID: 580804771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &533646622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533646615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a64793576367c646b5dd7513437487c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagnetSkill
+  isInvincible: 0
+  pullRadius: 5
+  pullForce: 5
+  targetTags:
+  - Planet
 --- !u!1001 &580804770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2693,10 +2711,10 @@ MonoBehaviour:
   scoreTextColors:
   - {r: 0.91764706, g: 0.8745098, b: 0.19607843, a: 1}
   - {r: 0.8862745, g: 0.63317966, b: 0.2901961, a: 1}
-  - {r: 0.9254902, g: 0.37488592, b: 0.090196095, a: 1}
   - {r: 0.9137255, g: 0.30588236, b: 0.6431373, a: 1}
   - {r: 1, g: 0, b: 0.62102616, a: 1}
-  - {r: 0.69097936, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0.79577315, a: 1}
+  - {r: 0.9254902, g: 0.37488592, b: 0.090196095, a: 1}
   - {r: 1, g: 0, b: 0.0149252415, a: 1}
 --- !u!1 &689920693
 GameObject:
@@ -5184,7 +5202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.84000194, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.03999448, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
