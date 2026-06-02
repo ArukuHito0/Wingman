@@ -891,6 +891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 549667236}
+  - {fileID: 457717922}
   - {fileID: 678885070}
   - {fileID: 473262417}
   - {fileID: 318340497}
@@ -938,6 +939,8 @@ MonoBehaviour:
   acceleration: 10
   rb: {fileID: 449253467}
   shooter: {fileID: 449253465}
+  gravityCoolTime: 0
+  gravityHolePrefab: {fileID: 0}
 --- !u!114 &449253469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,8 +953,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee34c6d8a468af4393fcd94671f45f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  takeDamage: 0
   healthText: {fileID: 1666456443}
   healthSlider: {fileID: 1863305355}
+  spriteRenderer: {fileID: 0}
+  flashDuration: 5
+  flashSpeed: 2
+  minAlpha: 0.5
+  useSmoothFlash: 0
+  playerCollider: {fileID: 0}
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -984,6 +994,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 3
   healthFillImage: {fileID: 310108611}
   gameOverEffect: {fileID: 318340496}
+  starInvincibleDuration: 5
+  starInvincibleEffect: {fileID: 0}
 --- !u!58 &449253470
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1020,6 +1032,68 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!1001 &457717921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 449253466}
+    m_Modifications:
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.19545
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08599
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5603431935693236958, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+      propertyPath: m_Name
+      value: SparkleEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+--- !u!4 &457717922 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1855114448666591143, guid: 164f872051bbed44daa7c4648147ce43, type: 3}
+  m_PrefabInstance: {fileID: 457717921}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473262416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1911,7 @@ MonoBehaviour:
   targetRadius: 3
   despawnRadius: 15
   maxObjectCount: 10
-  spawnInterval: 2
+  currentSpawnInterval: 0
   planetPrefabList:
   - {fileID: 2832715607930193846, guid: 2696b0b3381ba7e408abdd89577aa54a, type: 3}
   - {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
@@ -1847,6 +1921,9 @@ MonoBehaviour:
   - {fileID: 6748775646211337445, guid: 9733a21ebc2d80540871f10d3aae8a1d, type: 3}
   - {fileID: 303545137729422076, guid: 4929fabcfde77d8428c3af0e14dde336, type: 3}
   - {fileID: 303545137729422076, guid: 42c82f6bfb08b2d45b5740342fe0c3ae, type: 3}
+  planetSpeedSettings: []
+  autoSpawnMode: 0
+  phaseList: []
 --- !u!4 &1110958375
 Transform:
   m_ObjectHideFlags: 0

@@ -59,12 +59,25 @@ public class ShootingController : MonoBehaviour
     {
         if (isShooting == true)
         {
-            shootingTimer += Time.deltaTime;
-            if (shootingTimer >= shootingCooltime)
+            if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
             {
-                AudioManager.instance.PlaySE("Shot");
-                bulletPool.Get();
-                shootingTimer = 0f;
+                shootingTimer += Time.deltaTime;
+                if (shootingTimer >= (shootingCooltime / 2))
+                {
+                    AudioManager.instance.PlaySE("Shot");
+                    bulletPool.Get();
+                    shootingTimer = 0f;
+                }
+            }
+            else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
+            {
+                shootingTimer += Time.deltaTime;
+                if (shootingTimer >= shootingCooltime)
+                {
+                    AudioManager.instance.PlaySE("Shot");
+                    bulletPool.Get();
+                    shootingTimer = 0f;
+                }
             }
         }
     }
