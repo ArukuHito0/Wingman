@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public float acceleration = 10f;
     private float maxSpeed = 7f;
 
+    private float normalAcceleration = 10f;
+    private float normalMaxSpeed = 7f;
+    private float invincibleMultiplier = 1.2f;
+
     [Header("参照")]
     public Rigidbody2D rb;
     public ShootingController shooter;
@@ -94,7 +98,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
+        {
+            acceleration = normalAcceleration * invincibleMultiplier;
+            maxSpeed = normalMaxSpeed * invincibleMultiplier;
+
+        }
+        else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
+        {
+            acceleration = normalAcceleration;
+            maxSpeed = normalMaxSpeed;
+        }
+
+            if (Input.GetMouseButton(0))
         {
             rb.AddForce(targetDirection * acceleration);
         }
