@@ -1,7 +1,8 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro;
-using System.Collections;
+using UnityEngine.SocialPlatforms;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreTitleText;
     public TextMeshProUGUI scoreText;
+    [SerializeField] private Color[] scoreTextColors;
+
+    private Coroutine activeAnim;
 
     private void Awake()
     {
@@ -51,7 +55,7 @@ public class ScoreManager : MonoBehaviour
     // 加点
     public void AddScore(int value)
     {
-        UpdateUI(value);
+        UpdateUI(score, value);
         score += value;
     }
 
@@ -67,11 +71,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void UpdateUI(int amount)
+    private void UpdateUI(int score, int amount)
     {
-        StartCoroutine(ScoreCountUpAnimaiton(amount));
+        if (activeAnim != null)
+        {
+            StopCoroutine(activeAnim);
+            activeAnim = null;
+        }
 
-        scoreText.text = score.ToString();
+        activeAnim = StartCoroutine(ScoreCountUpAnimaiton(score, amount));
     }
 
     public int GetScore()
@@ -89,14 +97,13 @@ public class ScoreManager : MonoBehaviour
 #endif
     }
 
-    private IEnumerator ScoreCountUpAnimaiton(int amount)
+    private IEnumerator ScoreCountUpAnimaiton(int score, int amount)
     {
         // カウントダウンのテキストのアニメーション
         if (scoreTextRectTransform == null) yield break;
 
         float time = 0;
-        int score = GetScore();
-        int afterScore = GetScore() + amount;
+        int afterScore = score + amount;
         float scoretostr = score;
 
         while (scoretostr < afterScore)
@@ -110,6 +117,7 @@ public class ScoreManager : MonoBehaviour
             scoreTextRectTransform.localScale = animatedScale;
             scoretostr = Mathf.Lerp(score, afterScore, time / scaleUpTime);
             scoreText.text = scoretostr.ToString("F0");
+            scoreText.color = GetScoreColor((int)scoretostr);
 
             time += Time.deltaTime;
 
@@ -131,7 +139,8 @@ public class ScoreManager : MonoBehaviour
             yield return null;
         }
 
-        scoreText.color = GetScoreColor(afterScore);
+        scoreTextRectTransform.localScale = scoreTextBaseScale;
+        scoreTextRectTransform.localRotation = scoreTextBaseRotate;
     }
 
     /// <summary>
@@ -188,32 +197,33 @@ public class ScoreManager : MonoBehaviour
 
     private Color GetScoreColor(int score)
     {
-        string colorCode = string.Empty;
-
-        if (score > 60000)
+        if (score >= 50000)
         {
-            colorCode = "DE2978";
+            return scoreTextColors[6];
         }
-        else if (score > 40000)
+        else if (score >= 40000)
         {
-            colorCode = "D2392B";
+            return scoreTextColors[5];
         }
-        else if (score > 20000)
+        else if (score >= 30000)
         {
-            colorCode = "CF8423";
+            return scoreTextColors[4];
+        }
+        else if (score >= 20000)
+        {
+            return scoreTextColors[3];
+        }
+        else if (score >= 10000)
+        {
+            return scoreTextColors[2];
+        }
+        else if (score >= 5000)
+        {
+            return scoreTextColors[1];
         }
         else
         {
-            colorCode = "E2BA4A";
-        }
-
-        if (ColorUtility.TryParseHtmlString(colorCode, out Color color))
-        {
-            return color;
-        }
-        else
-        {
-            return Color.white;
+            return scoreTextColors[0];
         }
     }
 }
