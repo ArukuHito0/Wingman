@@ -2,9 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
+using System.Data;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public static PlayerHealth Instance;
+
     private int maxHealth = 100;
     private int currentHealth;
     [SerializeField] private int takeDamage = 0;
@@ -30,35 +34,95 @@ public class PlayerHealth : MonoBehaviour
 
     ShootingController shootingController;
 
+    [Header("Star Invincible Settings")]
+    [SerializeField] private float starInvincibleDuration = 10f; // スターの無敵時間
+    [SerializeField] private GameObject starInvincibleEffect;       // 無敵時の見た目
+
+    private Coroutine starInvincibleCoroutine;
+    public bool isStarInvincible = false;
+
+    [Header("Invincible Overlay Visual Settings")]
+    [SerializeField] private Image invincibleOverlayImage;
+    [SerializeField] private float maxOverlayAlpha = 0.8f;
+    private Coroutine overlayCoroutine;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Awake()
     {
+        Instance = this;
         effectAnimator = GetComponent<Animator>();
         gameOverEffect.SetActive(false);
         shootingController = GetComponent<ShootingController>();
         originalColor = spriteRenderer.color;
+        SetOverlayAlpha(0f);
     }
     void Start()
     {
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
         UpdateHealthUI();
+        SetOverlayAlpha(0f);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (starInvincibleEffect != null)
+        {
+            if (isStarInvincible == true)
+            {
+                starInvincibleEffect.SetActive(true);
+            }
+            else if (isStarInvincible == false)
+            {
+                starInvincibleEffect.SetActive(false);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Planet"))
         {
-            TakeDamage();
-
+            // スター状態でなければダメージを受ける
+            if (!isStarInvincible)
+            {
+                TakeDamage();
+            }
             Destroy(other.gameObject);
+        }
+
+        //アイテム用のチェック
+        else if (other.CompareTag("Item"))
+        {
+            ItemProperty item = other.GetComponent<ItemProperty>();
+            if (item!= null)
+            {
+                switch (item.ItemId)
+                {
+                    case "Star":
+                        //既にスター状態なら一度止める
+                        if (starInvincibleCoroutine != null)
+                        {
+                            StopCoroutine(starInvincibleCoroutine);
+                        }
+                        if (overlayCoroutine != null)
+                        {
+                            StopCoroutine(overlayCoroutine);
+                        }
+                        // スター状態のコルーチンをスタート
+                        starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
+
+                        // スターを破壊
+                        Destroy(other.gameObject);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
     }
 
@@ -129,6 +193,108 @@ public class PlayerHealth : MonoBehaviour
             }
         }
         spriteRenderer.color = originalColor;
+    }
+
+    private IEnumerator StarInvincibleCoroutine()
+    {
+        isStarInvincible = true;
+
+        StartInvincibleOverlay();
+
+        yield return new WaitForSeconds(starInvincibleDuration);
+        isStarInvincible = false;
+
+        StopInvincibleOverlay();
+    }
+
+    private void StartInvincibleOverlay()
+    {
+        // 既に演出が動いていたら一度停止
+        if (overlayCoroutine != null)
+        {
+            StopCoroutine(overlayCoroutine);
+        }
+
+        // 演出コルーチンを開始
+        overlayCoroutine = StartCoroutine(FadeInvincibleOverlayCoroutine());
+    }
+
+    private void StopInvincibleOverlay()
+    {
+        if (overlayCoroutine != null)
+        {
+            StopCoroutine(overlayCoroutine);
+        }
+        SetOverlayAlpha(0f);
+    }
+
+    private IEnumerator FadeInvincibleOverlayCoroutine()
+    {
+        float elapsedTime = 0f;
+        float fadeTime = 0.5f;
+        float warningTime = 3.0f;
+        float blinkSpeed = 5f;
+        //float fadeInDuration = 0.5f;
+
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, maxOverlayAlpha, elapsedTime / fadeTime);
+            SetOverlayAlpha(alpha);
+            yield return null;
+        }
+
+        float maintainTime = starInvincibleDuration - fadeTime - warningTime;
+        elapsedTime = 0f;
+        while (elapsedTime < maintainTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            SetOverlayAlpha(maxOverlayAlpha);
+
+            yield return null;
+        }
+
+        elapsedTime = 0f;
+
+        float lastAlphaBeforeFade = maxOverlayAlpha;
+
+        while (elapsedTime < warningTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime < (warningTime - fadeTime))
+            {
+                float blinkWave = Mathf.Abs(Mathf.Sin(Time.time * blinkSpeed));
+                float alpha = blinkWave * maxOverlayAlpha;
+                SetOverlayAlpha(alpha);
+
+                lastAlphaBeforeFade = alpha;
+            }
+            else
+            {
+                float fadeElapsedTime = elapsedTime - (warningTime - fadeTime);
+
+                float fadeOutProgress = fadeElapsedTime / fadeTime;
+
+                float alpha = Mathf.Lerp(lastAlphaBeforeFade, 0f, fadeOutProgress);
+                SetOverlayAlpha(alpha);
+            }
+
+            yield return null;
+        }
+
+        SetOverlayAlpha(0f);
+    }
+
+    private void SetOverlayAlpha(float alpha)
+    {
+        if (invincibleOverlayImage != null)
+        {
+            Color color = invincibleOverlayImage.color;
+            color.a = alpha;
+            invincibleOverlayImage.color = color;
+        }
     }
 
     void UpdateHealthUI()
