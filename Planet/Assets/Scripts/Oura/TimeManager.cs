@@ -53,9 +53,7 @@ public class TimerManager : MonoBehaviour
             ScoreManager.Instance.scoreTitleText.enabled = false;
             ScoreManager.Instance.scoreText.enabled = false;
 
-            float hue = (Time.time * rainbowSpeed) % 1.0f;
-            Color rainbowColor = Color.HSVToRGB(hue, 1.0f, 1.0f);
-            countDownText.color = rainbowColor;
+            countDownText.color = GamingColor.GetRainbowColor(rainbowSpeed);
 
             countDownText.text = timeLimit.ToString("F0");
 
