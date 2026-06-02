@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Star Invincible Settings")]
     [SerializeField] private float starInvincibleDuration = 10f; // スターの無敵時間
     [SerializeField] private GameObject starInvincibleEffect;       // 無敵時の見た目
+    MagnetSkill magnetSkill;
 
     private Coroutine starInvincibleCoroutine;
     public bool isStarInvincible = false;
@@ -54,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
         effectAnimator = GetComponent<Animator>();
         gameOverEffect.SetActive(false);
         shootingController = GetComponent<ShootingController>();
+        magnetSkill = GetComponent<MagnetSkill>();
         originalColor = spriteRenderer.color;
         SetOverlayAlpha(0f);
     }
