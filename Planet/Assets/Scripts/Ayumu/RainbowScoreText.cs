@@ -2,8 +2,10 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreText : MonoBehaviour
+public class RainbowScoreText : MonoBehaviour
 {
+    private TextMeshPro scoreText;
+
     [Header("シーソー（回転）の設定")]
     [Tooltip("揺れる最大の角度")]
     public float maxRotationAngle = 20f;
@@ -24,10 +26,14 @@ public class ScoreText : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float fadeOutStartRatio = 0.7f;
 
+    [Header("虹色エフェクトの設定")]
+    public float rainbowSpeed = 0.5f;
+
     private RectTransform rectTransform;
 
     void Start()
     {
+        scoreText = GetComponent<TextMeshPro>();
         rectTransform = GetComponent<RectTransform>();
 
         if (rectTransform == null)
@@ -59,20 +65,25 @@ public class ScoreText : MonoBehaviour
                 float fadeProgress = (progressRatio - fadeOutStartRatio) / (1.0f - fadeOutStartRatio);
                 // Mathf.Lerpで滑らかに1から0へ落とす
                 fadeScaleMultiplier = Mathf.Lerp(1.0f, 0.0f, fadeProgress);
+
+                rectTransform.localScale *= fadeScaleMultiplier;
+            }
+            else
+            {
+                // --- 2. シーソーのアニメーション（Z軸の回転） ---
+                // 縮小に合わせて激しさも少し抑えるために、fadeScaleMultiplierを乗算（お好みで外してもOK）
+                float currentMaxRotation = maxRotationAngle * fadeScaleMultiplier;
+                float zRotation = Mathf.Sin(Time.time * rotationSpeed) * currentMaxRotation;
+                rectTransform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
+
+                // --- 3. 拡縮のアニメーション（スケール） ---
+                float scaleOffset = Mathf.Cos(Time.time * scaleSpeed) * scaleAmplitude;
+                // 基本のシーソー拡縮を計算したあと、全体の消滅倍率（fadeScaleMultiplier）を掛ける
+                Vector3 animatedScale = baseScale + new Vector3(scaleOffset, scaleOffset, 0f);
+                rectTransform.localScale = animatedScale;
             }
 
-            // --- 2. シーソーのアニメーション（Z軸の回転） ---
-            // 縮小に合わせて激しさも少し抑えるために、fadeScaleMultiplierを乗算（お好みで外してもOK）
-            float currentMaxRotation = maxRotationAngle * fadeScaleMultiplier;
-            float zRotation = Mathf.Sin(Time.time * rotationSpeed) * currentMaxRotation;
-            rectTransform.localRotation = Quaternion.Euler(0f, 0f, zRotation);
-
-            // --- 3. 拡縮のアニメーション（スケール） ---
-            float scaleOffset = Mathf.Cos(Time.time * scaleSpeed) * scaleAmplitude;
-            // 基本のシーソー拡縮を計算したあと、全体の消滅倍率（fadeScaleMultiplier）を掛ける
-            Vector3 animatedScale = baseScale + new Vector3(scaleOffset, scaleOffset, 0f);
-
-            rectTransform.localScale = animatedScale * fadeScaleMultiplier;
+            scoreText.color = GamingColor.GetRainbowColor(rainbowSpeed);
 
             time += Time.deltaTime;
 
