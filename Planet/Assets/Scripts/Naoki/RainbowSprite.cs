@@ -20,16 +20,11 @@ public class RainbowSprite : MonoBehaviour
     {
         if (spriteRenderer == null) return;
 
-        // durationが0以下のときにフリーズするのを防ぐ
         float clampedDuration = Mathf.Max(duration, 0.01f);
 
-        // ゲーム実行中、またはエディタが動いている（画面が更新されている）間の時間を加算
-        // エディタ上では Time.deltaTime が不安定になることがあるため、UnityEditorの更新に合わせます
 #if UNITY_EDITOR
         if (!Application.isPlaying)
         {
-            // エディタ停止時は、前回のフレームからの経過時間を大まかに計算
-            // （Sceneビューを動かしたり、インスペクターを触ったりすると進みます）
             hue += 0.02f / clampedDuration;
         }
         else
@@ -38,13 +33,19 @@ public class RainbowSprite : MonoBehaviour
             hue += Time.deltaTime / clampedDuration;
         }
 
-        // hueが1を超えたら0に戻す
         if (hue > 1.0f)
         {
             hue -= 1.0f;
         }
 
-        // HSVからRGBカラーに変換してスプライトに適用
-        spriteRenderer.color = Color.HSVToRGB(hue, 1.0f, 1.0f);
+        // --- ここから修正 ---
+        // 1. HSVからベースとなるRGBカラーを生成
+        Color newColor = Color.HSVToRGB(hue, 1.0f, 1.0f);
+
+        // 2. 他のスクリプトが変更したかもしれない「現在のアルファ値」を代入
+        newColor.a = spriteRenderer.color.a;
+
+        // 3. 反映
+        spriteRenderer.color = newColor;
     }
 }
