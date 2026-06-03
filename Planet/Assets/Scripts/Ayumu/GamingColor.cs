@@ -8,10 +8,8 @@ public static class GamingColor
     /// </summary>
     public static Color GetRainbowColor(float changeSpeed)
     {
-        // ===============虹色に変化するコード=================
         float hue = (Time.time * changeSpeed) % 1.0f;
         Color rainbowColor = Color.HSVToRGB(hue, 1.0f, 1.0f);
         return rainbowColor;
-        //=====================================================
     }
 }

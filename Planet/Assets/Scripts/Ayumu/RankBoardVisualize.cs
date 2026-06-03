@@ -122,16 +122,24 @@ public class RankBoardVisualize : MonoBehaviour
 
                 for (int i = 0; i < count; i++)
                 {
-                    if (ranking.users[i].id == Matching.playerId) continue;
-
                     int rank = i + 1;
                     string name = ranking.users[i].user_name;
                     int score = ranking.users[i].best_score;
 
-                    if (rank < 10)
-                        sb.Append($" {rank} | {name} {score}\n");
+                    if (ranking.users[i].id == Matching.playerId)
+                    {
+                        if (rank < 10)
+                            sb.Append($"<color=red> {rank} | {name} {score}\n</color>");
+                        else
+                            sb.Append($"<color=red>{rank} | {name} {score}\n</color>");
+                    }
                     else
-                        sb.Append($"{rank} | {name} {score}\n");
+                    {
+                        if (rank < 10)
+                            sb.Append($" {rank} | {name} {score}\n");
+                        else
+                            sb.Append($"{rank} | {name} {score}\n");
+                    }
                 }
 
                 rankingBoardText.text = sb.ToString();
