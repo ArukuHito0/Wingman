@@ -36,8 +36,10 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Star Invincible Settings")]
     [SerializeField] private float starInvincibleDuration = 10f; // スターの無敵時間
-    [SerializeField] private GameObject starInvincibleEffect;       // 無敵時の見た目
+    [SerializeField] private GameObject starInvincibleEffect;       // 無敵時のエフェクト
     [SerializeField] private SpriteRenderer starInvinciblePlayerSprite;
+    [SerializeField] private SpriteRenderer normalPlayerSprite;
+
     MagnetSkill magnetSkill;
 
     private Coroutine starInvincibleCoroutine;
@@ -66,7 +68,6 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.maxValue = maxHealth;
         UpdateHealthUI();
         SetOverlayAlpha(0f);
-        
     }
 
     // Update is called once per frame
@@ -236,7 +237,7 @@ public class PlayerHealth : MonoBehaviour
         float elapsedTime = 0f;
         float fadeTime = 0.5f;
         float warningTime = 3.0f;
-        float blinkSpeed = 5f;
+        float blinkSpeed = 15f;
         //float fadeInDuration = 0.5f;
 
         while (elapsedTime < fadeTime)
@@ -255,6 +256,7 @@ public class PlayerHealth : MonoBehaviour
 
             SetOverlayAlpha(maxOverlayAlpha);
 
+
             yield return null;
         }
 
@@ -271,7 +273,6 @@ public class PlayerHealth : MonoBehaviour
                 float blinkWave = Mathf.Abs(Mathf.Sin(Time.time * blinkSpeed));
                 float alpha = blinkWave * maxOverlayAlpha;
                 SetOverlayAlpha(alpha);
-
                 lastAlphaBeforeFade = alpha;
             }
             else
@@ -300,6 +301,16 @@ public class PlayerHealth : MonoBehaviour
         }
 
         SetInvincibleVisualAlpha(alpha);
+    }
+
+    private void SetNormalVisualAlpha(float alpha)
+    {
+        if (normalPlayerSprite != null)
+        {
+            Color color = normalPlayerSprite.color;
+            color.a = alpha;
+            normalPlayerSprite.color = color;
+        }
     }
 
     private void SetInvincibleVisualAlpha(float alpha)

@@ -95,6 +95,11 @@ public class PlanetHealth : MonoBehaviour
     /// </summary>
     private void Broken()
     {
+        if (PlayerHealth.Instance.isStarInvincible)
+        {
+            SpacePlanetSpawner.Instance.AutoSpawnPlanet();
+        }
+
         if (planet.attribute == PlanetAttribute.Explosion)
         {
             if (explosionEffect != null)
