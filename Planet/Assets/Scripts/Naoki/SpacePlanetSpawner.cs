@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class SpacePlanetSpawner : MonoBehaviour
 {
+    public static SpacePlanetSpawner Instance { get; private set; }
+
     [SerializeField] private GameObject planetPrefab;
     [SerializeField] private float spawnRadius = 12f;
     [SerializeField] private float targetRadius = 3f;
@@ -36,6 +38,11 @@ public class SpacePlanetSpawner : MonoBehaviour
     [SerializeField] private List<SpawnPhaseData> phaseList = new List<SpawnPhaseData>();
     private int currentPhaseIndex = 0;
     private float phaseTimer = 0f;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -193,7 +200,7 @@ public class SpacePlanetSpawner : MonoBehaviour
         return 0;
     }
 
-    void AutoSpawnPlanet()
+    public void AutoSpawnPlanet()
     {
         // 0番目から数えて「リストの数」未満のランダムな数字を得る
         // int autoLevelIndex = Random.Range(0, planetPrefabList.Count);
@@ -286,6 +293,11 @@ public class SpacePlanetSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        Instance = null;
     }
 
     [System.Serializable]

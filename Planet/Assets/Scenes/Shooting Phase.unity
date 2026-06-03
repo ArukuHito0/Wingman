@@ -2277,6 +2277,7 @@ MonoBehaviour:
   starInvincibleDuration: 10
   starInvincibleEffect: {fileID: 154413810}
   starInvinciblePlayerSprite: {fileID: 4497442067083134252}
+  normalPlayerSprite: {fileID: 580804773}
   isStarInvincible: 0
   invincibleOverlayImage: {fileID: 1918131876}
   maxOverlayAlpha: 0.8
@@ -4025,6 +4026,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1304807762
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1808368150614671218, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_Name
+      value: Star
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808368150614671218, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482098204597120954, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284647378284198316, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: m_Color.r
+      value: 0.79999936
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
 --- !u!1 &1334001540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,7 +5309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.44000232, b: 1, a: 1}
+  m_Color: {r: 0.03999722, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5951,10 +6025,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.6600033, a: 1}
+  m_Color: {r: 1, g: 0.059996367, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6031,3 +6105,4 @@ SceneRoots:
   - {fileID: 385831889}
   - {fileID: 678763453}
   - {fileID: 95003110}
+  - {fileID: 1304807762}
