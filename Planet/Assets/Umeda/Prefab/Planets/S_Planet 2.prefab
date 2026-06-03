@@ -378,6 +378,7 @@ MonoBehaviour:
   scoreTextPrefab: {fileID: 5804364221950065383, guid: 667b20b44b011ed429d917a248c45d94, type: 3}
   feverScoreTextPrefab: {fileID: 5804364221950065383, guid: 4c35a1c3658f0b549953f7a46b8a2e50, type: 3}
   brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
+  feverBrokenEffect: {fileID: 8979272629536203185, guid: 2ef4d6a8f6b801d46a97f1289f850de1, type: 3}
   explosionEffect: {fileID: 7117285010892048079, guid: b3d853cb15fb8f04bb1036ac9498aee5, type: 3}
 --- !u!114 &-7391565466370360871
 MonoBehaviour:

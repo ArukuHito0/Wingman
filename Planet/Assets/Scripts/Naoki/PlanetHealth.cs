@@ -39,6 +39,7 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private TextMeshPro scoreTextPrefab;
     [SerializeField] private TextMeshPro feverScoreTextPrefab;
     [SerializeField] private GameObject brokenEffect;
+    [SerializeField] private GameObject feverBrokenEffect;
     [SerializeField] private GameObject explosionEffect;
 
     private void OnEnable()
@@ -118,13 +119,27 @@ public class PlanetHealth : MonoBehaviour
     /// </summary>
     private void SpawnBrokenEffect()
     {
-        if (brokenEffect != null)
+        if (PlayerHealth.Instance.isStarInvincible)
         {
-            Instantiate(
-                brokenEffect,
-                transform.position,
-                Quaternion.identity
-            );
+            if (feverBrokenEffect != null)
+            {
+                Instantiate(
+                    feverBrokenEffect,
+                    transform.position,
+                    Quaternion.identity
+                );
+            }
+        }
+        else
+        {
+            if (brokenEffect != null)
+            {
+                Instantiate(
+                    brokenEffect,
+                    transform.position,
+                    Quaternion.identity
+                );
+            }
         }
     }
 
