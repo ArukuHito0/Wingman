@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Star Invincible Settings")]
     [SerializeField] private float starInvincibleDuration = 10f; // スターの無敵時間
     [SerializeField] private GameObject starInvincibleEffect;       // 無敵時の見た目
+    [SerializeField] private SpriteRenderer starInvinciblePlayerSprite;
     MagnetSkill magnetSkill;
 
     private Coroutine starInvincibleCoroutine;
@@ -296,6 +297,18 @@ public class PlayerHealth : MonoBehaviour
             Color color = invincibleOverlayImage.color;
             color.a = alpha;
             invincibleOverlayImage.color = color;
+        }
+
+        SetInvincibleVisualAlpha(alpha);
+    }
+
+    private void SetInvincibleVisualAlpha(float alpha)
+    {
+        if (starInvinciblePlayerSprite != null)
+        {
+            Color color = starInvinciblePlayerSprite.color;
+            color.a = alpha;
+            starInvinciblePlayerSprite.color = color;
         }
     }
 
