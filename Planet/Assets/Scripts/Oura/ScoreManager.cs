@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SocialPlatforms;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -44,6 +43,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(GetScoreAPI());
+
         scoreTextBaseScale = scoreTextRectTransform.localScale;
         scoreTextBaseRotate = scoreTextRectTransform.localRotation;
 
@@ -88,12 +89,7 @@ public class ScoreManager : MonoBehaviour
 
     public int GetHighScore()
     {
-#if UNITY_EDITOR
-        return PlayerPrefs.GetInt("HighScore", 0);
-#else
-        StartCoroutine(GetScoreAPI());
         return highScore;
-#endif
     }
 
     private IEnumerator ScoreCountUpAnimaiton(int score, int amount)
@@ -168,7 +164,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// DB上のプレイヤーのスコアを取得するコルーチン
+    /// DB上のプレイヤーのハイスコアを取得するコルーチン
     /// </summary>
     public IEnumerator GetScoreAPI()
     {

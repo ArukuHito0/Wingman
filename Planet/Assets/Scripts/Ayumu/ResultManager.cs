@@ -17,17 +17,13 @@ public class ResultManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ScoreVisualizeAnimation());
+
         var highScore = ScoreManager.Instance.GetHighScore();
         highScoreText.text = highScore > 0 ? highScore.ToString() : "---------";
 
         if (ScoreManager.Instance.GetScore() > ScoreManager.Instance.GetHighScore())
         {
-#if UNITY_EDITOR
-            PlayerPrefs.SetInt("HighScore", ScoreManager.Instance.GetScore());
-            PlayerPrefs.Save();
-#else
             StartCoroutine(ScoreManager.Instance.SendScoreAPI());
-#endif
         }
     }
 
