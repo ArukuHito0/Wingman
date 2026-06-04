@@ -6,6 +6,9 @@ public class HelpPageManager : MonoBehaviour
     [Header("ヘルプ画面の親オブジェクト（全体を消す用）")]
     [SerializeField] private GameObject helpWindow;
 
+    [Header(" ヘルプ開帳時に【非表示】にしたい他のキャンバスやUI")]
+    [SerializeField] private GameObject[] otherUIObjects;
+
     [Header("ヘルプ画面を開く/閉じるボタン")]
     [SerializeField] private Button openHelpButton;
     [SerializeField] private Button closeHelpButton;
@@ -21,17 +24,13 @@ public class HelpPageManager : MonoBehaviour
 
     void Start()
     {
-        // ボタンに機能を登録
         if (nextButton != null) nextButton.onClick.AddListener(NextPage);
         if (prevButton != null) prevButton.onClick.AddListener(PrevPage);
 
         if (openHelpButton != null) openHelpButton.onClick.AddListener(OpenHelp);
         if (closeHelpButton != null) closeHelpButton.onClick.AddListener(CloseHelp);
 
-        //  ゲーム開始時はヘルプ画面全体を非表示にする
         if (helpWindow != null) helpWindow.SetActive(false);
-
-        //  戻るボタンも、最初はゲーム画面に出ないように非表示にしておく
         if (prevButton != null) prevButton.gameObject.SetActive(false);
     }
 
@@ -40,11 +39,11 @@ public class HelpPageManager : MonoBehaviour
     {
         if (helpWindow != null)
         {
-            // 1. ヘルプ画面全体を表示する
             helpWindow.SetActive(true);
-
-            // 2. 1ページ目（0番目）を表示し、ボタンの状態を正しくセットする
             ShowPage(0);
+
+            // 他のキャンバスやUIをすべて非表示にする
+            ToggleOtherUI(false);
         }
     }
 
@@ -55,9 +54,24 @@ public class HelpPageManager : MonoBehaviour
         {
             helpWindow.SetActive(false);
         }
-
-        //  閉じたときは、戻るボタンも一緒に非表示にする
         if (prevButton != null) prevButton.gameObject.SetActive(false);
+
+        // ヘルプを閉じたら、他のUIを元通り表示する
+        ToggleOtherUI(true);
+    }
+
+    //  他のUIの一括表示・非表示を切り替える関数
+    private void ToggleOtherUI(bool isActive)
+    {
+        if (otherUIObjects == null) return;
+
+        foreach (var ui in otherUIObjects)
+        {
+            if (ui != null)
+            {
+                ui.SetActive(isActive);
+            }
+        }
     }
 
     public void ShowPage(int index)
@@ -74,10 +88,7 @@ public class HelpPageManager : MonoBehaviour
             }
         }
 
-        //  1ページ目（indexが0）なら「戻るボタン」は非表示、2ページ目以降なら表示！
         if (prevButton != null) prevButton.gameObject.SetActive(currentPageIndex > 0);
-
-        //  最終ページなら「次へボタン」は非表示、それ以外なら表示！
         if (nextButton != null) nextButton.gameObject.SetActive(currentPageIndex < panels.Length - 1);
     }
 
