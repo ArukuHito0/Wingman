@@ -147,19 +147,19 @@ public class ScoreManager : MonoBehaviour
         form.AddField(FormFields.playerId, Matching.playerId);
         form.AddField(FormFields.score, score);
 
-        using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("set_score"), form))
+        while (true)
         {
-            yield return www.SendWebRequest();
+            using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("set_score"), form))
+            {
+                yield return www.SendWebRequest();
 
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                yield break;
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    yield break;
+                }
             }
-            else
-            {
-                yield return new WaitForSeconds(0.1f);
-                yield return SendScoreAPI();
-            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -171,22 +171,22 @@ public class ScoreManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField(FormFields.playerId, Matching.playerId);
 
-        using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("get_score"), form))
+        while (true)
         {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
+            using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("get_score"), form))
             {
-                if (int.TryParse(www.downloadHandler.text, out int score))
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
                 {
-                    highScore = score;
+                    if (int.TryParse(www.downloadHandler.text, out int score))
+                    {
+                        highScore = score;
+                    }
                 }
             }
-            else
-            {
-                yield return new WaitForSeconds(0.1f);
-                yield return GetScoreAPI();
-            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

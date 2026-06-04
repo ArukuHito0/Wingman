@@ -73,8 +73,7 @@ public class Matching : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(0.1f);
-                yield return Login();
+                Debug.Log("ログイン失敗");
             }
         }
     }
@@ -96,8 +95,7 @@ public class Matching : MonoBehaviour
             }
             else
             {
-                yield return new WaitForSeconds(0.1f);
-                yield return SetUserName();
+                Debug.Log("通信失敗");
             }
         }
     }
