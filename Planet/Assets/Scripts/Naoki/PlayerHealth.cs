@@ -107,17 +107,19 @@ public class PlayerHealth : MonoBehaviour
                 switch (item.ItemId)
                 {
                     case "Star":
-                        //既にスター状態なら一度止める
-                        if (starInvincibleCoroutine != null)
-                        {
-                            StopCoroutine(starInvincibleCoroutine);
-                        }
-                        if (overlayCoroutine != null)
-                        {
-                            StopCoroutine(overlayCoroutine);
-                        }
-                        // スター状態のコルーチンをスタート
-                        starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
+                        ////既にスター状態なら一度止める
+                        //if (starInvincibleCoroutine != null)
+                        //{
+                        //    StopCoroutine(starInvincibleCoroutine);
+                        //}
+                        //if (overlayCoroutine != null)
+                        //{
+                        //    StopCoroutine(overlayCoroutine);
+                        //}
+                        //// スター状態のコルーチンをスタート
+                        //starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
+
+                        GaugeManager.Instance.GainGauge(50f);
 
                         // スターを破壊
                         Destroy(other.gameObject);
@@ -128,6 +130,25 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// ゲージ満タン時やアイテム取得時に、外部から無敵状態を起動するための関数
+    /// </summary>
+    public void ActivateStarInvincible()
+    {
+        // 既にスター状態なら一度止める
+        if (starInvincibleCoroutine != null)
+        {
+            StopCoroutine(starInvincibleCoroutine);
+        }
+        if (overlayCoroutine != null)
+        {
+            StopCoroutine(overlayCoroutine);
+        }
+
+        // スター状態のコルーチンをスタート
+        starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
     }
 
     public void TakeDamage()
