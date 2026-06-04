@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2597899107301274911}
   m_Layer: 0
   m_Name: GravityHole
-  m_TagString: Untagged
+  m_TagString: GravityHole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5002,7 +5002,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 2
-  m_Color: {r: 0.57081914, g: 0.29907423, b: 1, a: 1}
+  m_Color: {r: 0.5919686, g: 0.29561695, b: 1, a: 1}
   m_Intensity: 12.279864
   m_Range: 10
   m_SpotAngle: 30

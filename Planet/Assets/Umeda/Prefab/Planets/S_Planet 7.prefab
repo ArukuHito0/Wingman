@@ -180,6 +180,7 @@ MonoBehaviour:
   evolusionEffect: {fileID: 0}
   highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
   explosionAuraEffect: {fileID: 2000803592786541009, guid: eb848e748c1877a44aa246b244da016d, type: 3}
+  gaugeManager: {fileID: 504024296605969484, guid: 532e04a2c706a9d42af2ab023048d3f2, type: 3}
 --- !u!114 &2520386262055525241
 MonoBehaviour:
   m_ObjectHideFlags: 0

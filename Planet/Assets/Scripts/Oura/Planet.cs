@@ -28,6 +28,8 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private GameObject explosionAuraEffect;
 
+    private bool isInGravityHole = false;
+
     /// <summary>
     /// 惑星属性セット
     /// </summary>
@@ -250,14 +252,49 @@ public class Planet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(
-        Collision2D collision)
+    /// <summary>
+    /// トリガー判定（GravityHoleの出入りを監視）
+    /// </summary>
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Planet other =
+        if (other.CompareTag("GravityHole"))
+        {
+            isInGravityHole = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("GravityHole"))
+        {
+            isInGravityHole = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+            Planet other =
             collision.gameObject
             .GetComponent<Planet>();
 
         if (other == null) return;
+
+        if (isInGravityHole == true)
+        {
+            Debug.Log("スキルで惑星進化");
+            if (GaugeManager.Instance != null)
+            {
+                GaugeManager.Instance.GainGauge(10f);
+            }
+            else
+            {
+                Debug.LogError("GaugeManagerがPlanetにセットされていません！");
+            }
+        }
+        else
+        {
+            Debug.Log("普通進化");
+        }
 
         MergeWith(other);
     }

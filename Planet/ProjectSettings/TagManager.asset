@@ -11,6 +11,7 @@ TagManager:
   - FxTemporaire
   - Magnetic
   - Item
+  - GravityHole
   layers:
   - Default
   - TransparentFX
