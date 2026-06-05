@@ -12,7 +12,7 @@ public class RankingLabel : MonoBehaviour
     [SerializeField] Image highlight;
     [SerializeField] Sprite[] rankBoxSprites;
 
-    public void Initialize(int rank, int score, string name, bool isMine = false, Sprite icon = null)
+    public void Initialize(int rank, int score, string name, Sprite icon, bool isMine = false)
     {
         rankText.text = rank.ToString();
         userNameText.text = name;
