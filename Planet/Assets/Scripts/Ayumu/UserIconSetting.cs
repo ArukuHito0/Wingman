@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+
+[System.Serializable]
+public struct IconData
+{
+    public string iconName;
+    public Sprite iconSprite;
+}
 
 public class UserIconSetting : MonoBehaviour
 {
     public static UserIconSetting Instance { get; private set; }
 
-    [SerializeField]
-    public Sprite[] icons;
+    public List<IconData> iconList;
 
     [SerializeField]
     private GameObject iconContainerPrefab;
@@ -22,6 +29,9 @@ public class UserIconSetting : MonoBehaviour
 
     [SerializeField]
     private GameObject iconScrollView;
+
+    [SerializeField]
+    private TextMeshProUGUI iconNameText;
 
     private bool isOpend = false;
 
@@ -43,27 +53,27 @@ public class UserIconSetting : MonoBehaviour
 
     public void OpenOrCloseIconInventory()
     {
-        isOpend = !isOpend;
+        isOpend = !iconScrollView.active;
         iconScrollView.SetActive(isOpend);
     }
 
     private void CreateIocnContainers()
     {
-        for (int i = 0; i < icons.Length; i++)
+        for (int i = 0; i < iconList.Count; i++)
         {
-            CreateIconContainer(icons[i], i);
+            CreateIconContainer(iconList[i], i);
         }
     }
 
-    private void CreateIconContainer(Sprite iconSprite, int num)
+    private void CreateIconContainer(IconData data, int num)
     {
         UserIconContainer uic = Instantiate(iconContainerPrefab, viewContent).GetComponent<UserIconContainer>();
-        uic.Initialize(iconSprite, num);
+        uic.Initialize(data, num, iconNameText);
     }
 
     public void SetMyIcon(int idx)
     {
-        myIcon.sprite = icons[idx];
+        myIcon.sprite = iconList[idx].iconSprite;
     }
 
     public IEnumerator GetUserIconAPI()
@@ -79,7 +89,7 @@ public class UserIconSetting : MonoBehaviour
             {
                 if (int.TryParse(www.downloadHandler.text, out int idx))
                 {
-                    myIcon.sprite = icons[idx];
+                    myIcon.sprite = iconList[idx].iconSprite;
                     Debug.Log(idx);
                 }
             }

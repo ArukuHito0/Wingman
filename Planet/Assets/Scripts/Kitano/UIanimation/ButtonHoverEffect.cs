@@ -12,15 +12,6 @@ public class ButtonHoverEffect : MonoBehaviour,
     [Header("発光オブジェクト")]
     public GameObject glowObject;
 
-    [Header("ホバーSE")]
-    public AudioClip hoverSE;
-
-    [Header("クリックSE")]
-    public AudioClip clickSE;
-
-    [Header("AudioSource")]
-    public AudioSource audioSource;
-
     private Vector3 defaultScale;
 
     void Start()
@@ -47,11 +38,7 @@ public class ButtonHoverEffect : MonoBehaviour,
             glowObject.SetActive(true);
         }
 
-        // ホバーSE
-        if (hoverSE != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(hoverSE);
-        }
+        AudioManager.instance?.PlaySE("Hover");
     }
 
     // カーソルが離れた時
@@ -70,10 +57,6 @@ public class ButtonHoverEffect : MonoBehaviour,
     // クリック時
     public void OnPointerClick(PointerEventData eventData)
     {
-        // クリックSE
-        if (clickSE != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(clickSE);
-        }
+        AudioManager.instance?.PlaySE("Click");
     }
 }

@@ -40,6 +40,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip resultSE;
 
+    public AudioClip hoverSE;
+
     // 現在再生中BGM
     private string currentBGM = "";
 
@@ -154,6 +156,10 @@ public class AudioManager : MonoBehaviour
         {
             case "Click":
                 clip = ClickSE;
+                break;
+
+            case "Hover":
+                clip = hoverSE;
                 break;
 
             case "Contact":
