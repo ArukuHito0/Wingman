@@ -29,6 +29,21 @@ public class GaugeManager : MonoBehaviour
         gaugeSlider.value = currentGauge;
     }
 
+    void Update()
+    {
+        if (isFull)
+        {
+            currentGauge -= Time.deltaTime * 10f;
+
+            if (currentGauge <= 0f)
+            {
+                ResetGauge();
+            }
+
+            gaugeSlider.value = currentGauge;
+        }
+    }
+
     // ゲージを増やすメソッド（他のスクリプトから呼び出す）
     public void GainGauge(float amount)
     {
@@ -57,9 +72,9 @@ public class GaugeManager : MonoBehaviour
 
         // 無敵状態にする処理
         PlayerHealth.Instance.ActivateStarInvincible();
-
-        ResetGauge();
     }
+
+
 
     // ゲージをリセットする処理（必要に応じて使う）
     public void ResetGauge()
