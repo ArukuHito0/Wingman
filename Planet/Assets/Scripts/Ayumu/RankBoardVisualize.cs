@@ -9,10 +9,6 @@ using UnityEngine.Networking;
 
 public class RankBoardVisualize : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI myRankText;
-    [SerializeField] private TextMeshProUGUI myScoreText;
-    [SerializeField] private TextMeshProUGUI rankingBoardText;
-
     [SerializeField] private GameObject rankingLabelPrefab;
     [SerializeField] private Transform viewContent;
 
