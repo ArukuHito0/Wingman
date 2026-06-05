@@ -284,7 +284,7 @@ public class Planet : MonoBehaviour
             Debug.Log("スキルで惑星進化");
             if (GaugeManager.Instance != null)
             {
-                GaugeManager.Instance.GainGauge(10f);
+                GaugeManager.Instance.GainGauge(5f);
             }
             else
             {
