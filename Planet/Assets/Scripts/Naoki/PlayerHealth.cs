@@ -220,9 +220,11 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
+    //無敵上タオ
     private IEnumerator StarInvincibleCoroutine()
     {
         isStarInvincible = true;
+
 
         StartInvincibleOverlay();
 
