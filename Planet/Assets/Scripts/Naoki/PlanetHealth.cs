@@ -1,6 +1,7 @@
 using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlanetHealth : MonoBehaviour
 {
@@ -8,31 +9,6 @@ public class PlanetHealth : MonoBehaviour
 
     [SerializeField] private float currentHealth = 30;
     [SerializeField] private int addScoreValue = 0;
-
-    private int AddScoreValue()
-    {
-        if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
-        {
-            switch (planet.attribute)
-            {
-                case PlanetAttribute.Normal:
-                    return (addScoreValue) * 2;
-                case PlanetAttribute.Rare:
-                    return (addScoreValue * 2) * 2;
-                default:
-                    return (addScoreValue) * 2;
-            }
-        }
-        switch (planet.attribute)
-        {
-            case PlanetAttribute.Normal:
-                return addScoreValue;
-            case PlanetAttribute.Rare:
-                return addScoreValue * 2;
-            default:
-                return addScoreValue;
-        }
-    }
 
     private TextMeshPro healthText;
 
@@ -42,15 +18,20 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private GameObject feverBrokenEffect;
     [SerializeField] private GameObject explosionEffect;
 
+    private string currentSceneName = string.Empty;
+
     private void OnEnable()
     {
-        healthText.text = currentHealth.ToString("F0");
+        if(healthText != null)
+            healthText.text = currentHealth.ToString("F0");
     }
 
     private void Awake()
     {
-        healthText = transform.Find("HealthText").GetComponent<TextMeshPro>();
+        healthText = transform.Find("HealthText")?.GetComponent<TextMeshPro>();
         planet = GetComponent<Planet>();
+
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
     public void TakeDamage(int damage)
@@ -77,14 +58,22 @@ public class PlanetHealth : MonoBehaviour
         {
             if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
             {
-                ScoreManager.Instance.AddScore(AddScoreValue());
-                SpawnScoreText(AddScoreValue());
+                if (currentSceneName != "Title")
+                {
+                    ScoreManager.Instance?.AddScore(AddScoreValue());
+                    SpawnScoreText(AddScoreValue());
+                }
+
                 Broken();
             }
             else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
             {
-                ScoreManager.Instance.AddScore(AddScoreValue() / 4);
-                SpawnScoreText(AddScoreValue() / 4);
+                if (currentSceneName != "Title")
+                {
+                    ScoreManager.Instance?.AddScore(AddScoreValue() / 4);
+                    SpawnScoreText(AddScoreValue() / 4);
+                }
+
                 Broken();
             }
         }
@@ -97,7 +86,7 @@ public class PlanetHealth : MonoBehaviour
     {
         if (PlayerHealth.Instance.isStarInvincible)
         {
-            SpacePlanetSpawner.Instance.AutoSpawnPlanet();
+            SpacePlanetSpawner.Instance?.AutoSpawnPlanet();
         }
 
         if (planet.attribute == PlanetAttribute.Explosion)
@@ -160,6 +149,31 @@ public class PlanetHealth : MonoBehaviour
         else
         {
             Debug.LogWarning("ScoreManagerのインスタンスが存在しません！");
+        }
+    }
+
+    private int AddScoreValue()
+    {
+        if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
+        {
+            switch (planet.attribute)
+            {
+                case PlanetAttribute.Normal:
+                    return (addScoreValue) * 2;
+                case PlanetAttribute.Rare:
+                    return (addScoreValue * 2) * 2;
+                default:
+                    return (addScoreValue) * 2;
+            }
+        }
+        switch (planet.attribute)
+        {
+            case PlanetAttribute.Normal:
+                return addScoreValue;
+            case PlanetAttribute.Rare:
+                return addScoreValue * 2;
+            default:
+                return addScoreValue;
         }
     }
 

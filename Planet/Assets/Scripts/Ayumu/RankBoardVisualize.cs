@@ -58,7 +58,7 @@ public class RankBoardVisualize : MonoBehaviour
                     myRankingLabel = Instantiate(rankingLabelPrefab, viewContent).GetComponent<RankingLabel>();
                 }
 
-                myRankingLabel?.Initialize(myRanking.rank, myRanking.score, myRanking.name, UserIconSetting.Instance?.icons[myRanking.icon], true);
+                myRankingLabel?.Initialize(myRanking.rank, myRanking.score, myRanking.name, UserIconSetting.Instance?.iconList[myRanking.icon].iconSprite, true);
             }
         }
     }
@@ -84,7 +84,7 @@ public class RankBoardVisualize : MonoBehaviour
                 {
                     int rank = i + 1;
                     string name = rankingList.users[i].user_name;
-                    Sprite icon = UserIconSetting.Instance.icons[rankingList.users[i].user_icon];
+                    Sprite icon = UserIconSetting.Instance.iconList[rankingList.users[i].user_icon].iconSprite;
                     int score = rankingList.users[i].best_score;
 
                     if (i >= otherRankinglabelList.Count)

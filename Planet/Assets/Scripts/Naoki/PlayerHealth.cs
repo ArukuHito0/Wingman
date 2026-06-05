@@ -50,8 +50,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxOverlayAlpha = 0.8f;
     private Coroutine overlayCoroutine;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     void Awake()
     {
         Instance = this;
@@ -59,7 +57,10 @@ public class PlayerHealth : MonoBehaviour
         gameOverEffect.SetActive(false);
         shootingController = GetComponent<ShootingController>();
         magnetSkill = GetComponent<MagnetSkill>();
-        originalColor = spriteRenderer.color;
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
         SetOverlayAlpha(0f);
     }
     void Start()
@@ -95,7 +96,6 @@ public class PlayerHealth : MonoBehaviour
             {
                 TakeDamage();
             }
-            Destroy(other.gameObject);
         }
 
         //アイテム用のチェック
