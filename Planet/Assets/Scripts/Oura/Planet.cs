@@ -30,6 +30,9 @@ public class Planet : MonoBehaviour
 
     private bool isInGravityHole = false;
 
+    [Header("スキル演出用設定")]
+    [SerializeField] private GameObject orbPrefab; // オーブのプレハブをインスペクターでセット
+
     /// <summary>
     /// 惑星属性セット
     /// </summary>
@@ -282,13 +285,43 @@ public class Planet : MonoBehaviour
         if (isInGravityHole == true)
         {
             Debug.Log("スキルで惑星進化");
-            if (GaugeManager.Instance != null)
+
+            if (orbPrefab != null)
             {
-                GaugeManager.Instance.GainGauge(7.5f);
+                int spawnCount = 5; // 生成するオーブの数
+                float scatterRadius = 1.0f; // 飛び散る半径
+                float singleOrbAmount = 1.0f; // オーブ1個あたりのゲージ量
+
+                // ★ポイント1：ループの前に、3個分の合計ゲージ量をまとめて「先に」予測ゲージに反映させる
+                float totalAmount = singleOrbAmount * spawnCount;
+                GaugeManager.Instance.PredictGainGauge(totalAmount);
+
+                // ★ポイント2：3個分伸びきった「一番最後の目的地」のワールド座標を1回だけ取得する
+                Vector3 finalTargetPos = GaugeManager.Instance.GetTargetWorldPosition();
+
+                // オーブの生成ループ
+                for (int i = 0; i < spawnCount; i++)
+                {
+                    // 惑星の周りに散らす位置計算
+                    float angle = (360f / spawnCount) * i * Mathf.Deg2Rad;
+                    Vector3 spawnOffset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * scatterRadius;
+                    Vector3 spawnPosition = transform.position + spawnOffset;
+
+                    // オーブを生成
+                    GameObject spawnedOrb = Instantiate(orbPrefab, spawnPosition, Quaternion.identity);
+
+                    // 生成したオーブのスクリプトを取得
+                    OrbBezier2D orbScript = spawnedOrb.GetComponent<OrbBezier2D>();
+                    if (orbScript != null)
+                    {
+                        // ★ポイント3：全員に共通の「最後の目的地」を渡して一斉に飛ばす
+                        orbScript.CollectAndFly(finalTargetPos);
+                    }
+                }
             }
             else
             {
-                Debug.LogError("GaugeManagerがPlanetにセットされていません！");
+                Debug.LogError("Planetスクリプトのインスペクターに orbPrefab がセットされていません！");
             }
         }
         else
