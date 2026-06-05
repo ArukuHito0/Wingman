@@ -14,5 +14,6 @@ public class FormFields
     public static readonly string userId = "user_id";
     public static readonly string playerId = "player_id";
     public static readonly string userName = "user_name";
+    public static readonly string userIcon = "user_icon";
     public static readonly string score = "score";
 }
