@@ -119,7 +119,7 @@ public class PlayerHealth : MonoBehaviour
                         //// スター状態のコルーチンをスタート
                         //starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
 
-                        GaugeManager.Instance.GainGauge(50f);
+                        GaugeManager.Instance.GainGauge(20f);
 
                         // スターを破壊
                         Destroy(other.gameObject);
