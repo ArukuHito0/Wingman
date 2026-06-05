@@ -69,7 +69,7 @@ public class UserIconSetting : MonoBehaviour
     public IEnumerator GetUserIconAPI()
     {
         WWWForm form = new WWWForm();
-        form.AddField(FormFields.playerId, 2);
+        form.AddField(FormFields.playerId, Matching.playerId);
 
         using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("get_user_icon"), form))
         {
@@ -93,7 +93,7 @@ public class UserIconSetting : MonoBehaviour
     public IEnumerator SetUserIconAPI(int idx)
     {
         WWWForm form = new WWWForm();
-        form.AddField(FormFields.playerId, 2);
+        form.AddField(FormFields.playerId, Matching.playerId);
         form.AddField(FormFields.userIcon, idx);
 
         using (UnityWebRequest www = UnityWebRequest.Post(FormFields.GetFormURL("set_user_icon"), form))
