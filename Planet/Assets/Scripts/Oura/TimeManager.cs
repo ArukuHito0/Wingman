@@ -74,6 +74,8 @@ public class TimerManager : MonoBehaviour
             timeLimit = 0;
             finished = true;
 
+            AudioManager.instance.StopBGM();
+
             SceneManager.LoadScene(transitionSceneName);
         }
     }

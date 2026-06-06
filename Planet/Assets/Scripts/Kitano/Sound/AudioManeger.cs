@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip shootingBGM;
 
+    public AudioClip resultBGM;
+
     // ===== SE =====
     public AudioClip ClickSE;
 
@@ -129,6 +131,10 @@ public class AudioManager : MonoBehaviour
             case "Shooting":
                 clip = shootingBGM;
                 break;
+
+            case "Result":
+                clip = resultBGM;
+                break;
         }
 
         // 再生
@@ -210,5 +216,10 @@ public class AudioManager : MonoBehaviour
 
             Debug.Log("SE再生 : " + seName);
         }
+    }
+
+    public void StopBGM()
+    {
+        bgmSource.Stop();
     }
 }
