@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -42,6 +41,11 @@ public class Matching : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(Login());
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     public void SetUserName(string userName)

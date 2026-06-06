@@ -1,10 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.NetworkInformation;
-using System.Text;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -21,6 +16,11 @@ public class RankBoardVisualize : MonoBehaviour
     private void Start()
     {
         UpdateRanking();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     public void UpdateRanking()

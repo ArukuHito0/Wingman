@@ -218,6 +218,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayTestSound()
+    {
+        PlaySE("Click");
+    }
+
     public void StopBGM()
     {
         bgmSource.Stop();

@@ -17,7 +17,7 @@ public class IconDataDrawer : PropertyDrawer
         EditorGUIUtility.labelWidth = 70f;
 
         // ラベルを表示し、残りの領域を計算
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+        position = EditorGUI.PrefixLabel(position, label);
 
         // 元のインデントを退避させて一時的に0にする※横並びの崩れを防ぐ
         int indent = EditorGUI.indentLevel;

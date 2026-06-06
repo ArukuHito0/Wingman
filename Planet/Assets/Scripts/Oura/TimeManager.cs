@@ -2,10 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-using UnityEditor;
-using System.Collections;
-
-
 public class TimerManager : MonoBehaviour
 {
     [Header("シーソー（回転）の設定")]
