@@ -5021,7 +5021,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 0.2000001, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.47999996, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6418,19 +6418,19 @@ MonoBehaviour:
     iconSprite: {fileID: -8328990056750159554, guid: d05189fb408152946a4e66e542d97abb, type: 3}
   - iconName: LEVEL-1
     iconSprite: {fileID: 21300000, guid: c135213a5c54f2f4984eaa105cc33b20, type: 3}
-  - iconName: "\u30B7\u30F3\u30AB"
+  - iconName: LEVEL-2
     iconSprite: {fileID: 21300000, guid: c37b6465dcc722340a3a437ce8dbbe96, type: 3}
-  - iconName: "\u5730\u7403\uFF1F"
+  - iconName: LEVEL-3
     iconSprite: {fileID: 21300000, guid: 0aab17f474ae0434eb7aff4a29cc0123, type: 3}
-  - iconName: "\u30DE\u30EB\u30B9"
+  - iconName: LEVEL-4
     iconSprite: {fileID: 21300000, guid: 765aab9d7d5f75f478521312f0b8a3dd, type: 3}
-  - iconName: "\u30D7\u30EC\u30B8\u30E3\u30FC"
+  - iconName: LEVEL-5
     iconSprite: {fileID: 21300000, guid: 8d93f8b646fad08429a3686590a61bf7, type: 3}
-  - iconName: "\u3055\u3044\u306F\u3066\u306E\u661F"
+  - iconName: LEVEL-6
     iconSprite: {fileID: 21300000, guid: 4a868e28be12a6349a2742aa1909ed42, type: 3}
-  - iconName: "\u30B9\u30C8\u30FC\u30E0"
+  - iconName: LEVEL-7
     iconSprite: {fileID: 21300000, guid: 01e466e2fb6eea34ea00e20acc789c01, type: 3}
-  - iconName: "\u592A\u967D"
+  - iconName: LEVEL-8
     iconSprite: {fileID: 21300000, guid: d1633d80f997845418c21db664ba138f, type: 3}
   iconContainerPrefab: {fileID: 7537553657960565975, guid: ad67e8a462199da4ca6927bb79e582d6, type: 3}
   myIcon: {fileID: 1062119473}
@@ -8025,6 +8025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143435319}
   - component: {fileID: 1143435320}
+  - component: {fileID: 1143435321}
   m_Layer: 5
   m_Name: SEVolumeBar
   m_TagString: Untagged
@@ -8106,6 +8107,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1143435321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143435318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates: []
 --- !u!224 &1154033228 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1350826653097066364, guid: fae10546de31015409173fdeabcb6eec, type: 3}

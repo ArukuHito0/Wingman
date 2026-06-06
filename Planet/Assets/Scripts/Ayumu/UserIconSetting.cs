@@ -48,6 +48,7 @@ public class UserIconSetting : MonoBehaviour
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
         Instance = null;
     }
 

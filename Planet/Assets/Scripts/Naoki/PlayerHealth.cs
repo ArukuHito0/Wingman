@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using Unity.VisualScripting;
-using System.Data;
 
 public class PlayerHealth : MonoBehaviour
 {

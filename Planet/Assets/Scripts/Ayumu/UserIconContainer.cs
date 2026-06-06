@@ -16,6 +16,11 @@ public class UserIconContainer : MonoBehaviour
 
     public IconData iconData;
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
     public void Initialize(IconData data, int num, TextMeshProUGUI nameText)
     {
         iconImage.sprite = data.iconSprite;
