@@ -3,9 +3,13 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private ParticleSystem movingEffect;
+
     [UnitHeaderInspectable("移動設定")]
     public float acceleration = 10f;
     private float maxSpeed = 7f;
@@ -31,11 +35,14 @@ public class PlayerController : MonoBehaviour
     public IObjectPool<GameObject> gravityHolePool;
     private bool canUseGravity = true;
 
+    private string currentSceneName;
+
     public event Action<float> onUpdateCoolTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentSceneName = SceneManager.GetActiveScene().name;
         gravityHolePool = new ObjectPool<GameObject>
         (
             CreateGravityHole,       // 作成時のメソッド
@@ -70,30 +77,27 @@ public class PlayerController : MonoBehaviour
         // 1. 左クリックしている間だけ進む方向を更新
         if (Input.GetMouseButton(0))
         {
-            CursorChanger.SetCursorTexture(CursorManager.CursorType.Movement);
-
             targetDirection = ((Vector2)mousePos - rb.position).normalized;
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            movingEffect.Play();
+        }
         if (Input.GetMouseButtonUp(0))
         {
-            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            CursorChanger.SetCursorTexture(CursorManager.CursorType.Skill);
+            movingEffect.Stop();
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
-
-            if (canUseGravity)
+            if (canUseGravity && currentSceneName == "Shooting Phase")
             {
                 UseGravity();
             }
         }
+
+        CursorChaange();
     }
 
     private void FixedUpdate()
@@ -197,6 +201,32 @@ public class PlayerController : MonoBehaviour
 
         AudioManager.instance.PlaySE("GravityCharged");
         canUseGravity = true;
+    }
+
+    private void CursorChaange()
+    {
+        if (currentSceneName == "Title") return;
+
+        if (Input.GetMouseButton(0))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Movement);
+
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Skill);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
+        }
     }
 
     // GravityHole

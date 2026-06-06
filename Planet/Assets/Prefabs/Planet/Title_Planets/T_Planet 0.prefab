@@ -174,11 +174,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Planet
   level: 0
   attribute: 0
-  nextPlanetPrefab: {fileID: 2448116203234295513, guid: 607c14c731b91fc499cfd7e270f36978, type: 3}
+  nextPlanetPrefab: {fileID: 2448116203234295513, guid: 13108f8ea6d315e4c8a38ca6ad12c70e, type: 3}
   explosionPrefab: {fileID: 0}
   evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
   highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
   explosionAuraEffect: {fileID: 2000803592786541009, guid: eb848e748c1877a44aa246b244da016d, type: 3}
+  orbPrefab: {fileID: 0}
 --- !u!114 &4126675957675358166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +195,9 @@ MonoBehaviour:
   currentHealth: 20
   addScoreValue: 100
   scoreTextPrefab: {fileID: 5804364221950065383, guid: 667b20b44b011ed429d917a248c45d94, type: 3}
+  feverScoreTextPrefab: {fileID: 0}
   brokenEffect: {fileID: 6916441997066634304, guid: 64adbe0cce780de4cb627e3abf570ac6, type: 3}
+  feverBrokenEffect: {fileID: 0}
   explosionEffect: {fileID: 7117285010892048079, guid: b3d853cb15fb8f04bb1036ac9498aee5, type: 3}
 --- !u!114 &1626403090267287824
 MonoBehaviour:

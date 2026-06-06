@@ -2,20 +2,24 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI newRecordText;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button titleButton;
 
     [SerializeField] private int[] textRotationAngles;
     [SerializeField] private float animationTime;
 
-    private bool isAnimationEnd = false;
-
     private void Start()
     {
+        playButton.interactable = false;
+        titleButton.interactable = false;
+
         StartCoroutine(ScoreVisualizeAnimation());
 
         var highScore = ScoreManager.Instance.GetHighScore();
@@ -27,12 +31,16 @@ public class ResultManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void ReturnTitle()
     {
-        if (Input.GetMouseButtonDown(0) && isAnimationEnd)
-        {
-            SceneManager.LoadScene("Title");
-        }
+        SceneManager.LoadScene("Title");
+    }
+
+    public void Replay()
+    {
+
+        SceneManager.LoadScene("Shooting Phase");
+
     }
 
     private IEnumerator ScoreVisualizeAnimation()
@@ -72,6 +80,12 @@ public class ResultManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        isAnimationEnd = true;
+
+        playButton.interactable = true;
+        titleButton.interactable = true;
+
+        yield return new WaitForSeconds(0.75f);
+
+        AudioManager.instance.PlayBGM("Result");
     }
 }
