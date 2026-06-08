@@ -14,19 +14,34 @@ public class RankingLabel : MonoBehaviour
 
     public void Initialize(int rank, int score, string name, Sprite icon, bool isMine = false)
     {
-        rankText.text = rank.ToString();
+        if (rank == 0)
+        {
+            rankText.text = "-";
+        }
+        else
+        {
+            rankText.text = rank.ToString();
+
+            if (rank <= 3)
+            {
+                rankBox.sprite = rankBoxSprites[rank - 1];
+            }
+        }
+
+        if (score == 0)
+        {
+            scoreText.text = "----- -----";
+        }
+        else
+        {
+            scoreText.text = score.ToString();
+        }
+
         userNameText.text = name;
-        scoreText.text = score.ToString();
 
         if (icon != null)
             userIcon.sprite = icon;
 
         highlight.enabled = isMine;
-
-        if (rank <= 3)
-        {
-            rankBox.sprite = rankBoxSprites[rank - 1];
-        }
-
     }
 }
