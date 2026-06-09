@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
             CursorChanger.SetCursorTexture(CursorManager.CursorType.Default);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && canUseGravity)
         {
             CursorChanger.SetCursorTexture(CursorManager.CursorType.Skill);
         }
