@@ -30,8 +30,18 @@ public class Planet : MonoBehaviour
 
     private bool isInGravityHole = false;
 
-    [Header("スキル演出用設定")]
-    [SerializeField] private GameObject orbPrefab; // オーブのプレハブをインスペクターでセット
+    [Header("進化時のオーブ生成の設定")]
+    [SerializeField, Header("オーブのプレハブ")]
+    private GameObject orbPrefab; // オーブのプレハブをインスペクターでセット
+
+    [SerializeField, Header("スポーンするオーブ数")]
+    private int spawnCount = 5;             // 生成するオーブの数
+
+    [SerializeField, Header("オーブの飛散する半径")]
+    private float scatterRadius = 1.0f;     // 飛び散る半径
+
+    [SerializeField, Header("進化時のゲージ上昇量")]
+    private float gaugeAmount = 10f;
 
     /// <summary>
     /// 惑星属性セット
@@ -288,13 +298,8 @@ public class Planet : MonoBehaviour
 
             if (orbPrefab != null)
             {
-                int spawnCount = 5; // 生成するオーブの数
-                float scatterRadius = 1.0f; // 飛び散る半径
-                float singleOrbAmount = 1.0f; // オーブ1個あたりのゲージ量
-
                 // ★ポイント1：ループの前に、3個分の合計ゲージ量をまとめて「先に」予測ゲージに反映させる
-                float totalAmount = singleOrbAmount * spawnCount;
-                GaugeManager.Instance.PredictGainGauge(totalAmount);
+                GaugeManager.Instance.PredictGainGauge(gaugeAmount);
 
                 // ★ポイント2：3個分伸びきった「一番最後の目的地」のワールド座標を1回だけ取得する
                 Vector3 finalTargetPos = GaugeManager.Instance.GetTargetWorldPosition();

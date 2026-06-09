@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class OrbBezier2D : MonoBehaviour
 {
-    [SerializeField] private float gaugeValueAmount = 1.0f; // このオーブで増えるゲージ量
     [SerializeField] private float flyDuration = 1f;     // 飛んでいく時間
     [SerializeField] private float curveStrength = 100f;   // カーブの膨らみ具合
 
@@ -23,7 +22,7 @@ public class OrbBezier2D : MonoBehaviour
         if (other.CompareTag("Player") && !isCollected)
         {
             // 単体の時は、自分で予測ゲージを伸ばして、その場所を取得して飛ぶ
-            GaugeManager.Instance.PredictGainGauge(gaugeValueAmount);
+            //GaugeManager.Instance.PredictGainGauge(gaugeValueAmount);
             Vector3 targetPos = GaugeManager.Instance.GetTargetWorldPosition();
             CollectAndFly(targetPos);
         }
@@ -87,7 +86,7 @@ public class OrbBezier2D : MonoBehaviour
         }
 
         // 4. 【到着】実際のゲージの数値を増やし、前面ゲージをそこまで追いつかせる
-        GaugeManager.Instance.GainGauge(gaugeValueAmount);
+        GaugeManager.Instance.GainGauge();
 
         // オブジェクトを破棄
         Destroy(gameObject);

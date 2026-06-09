@@ -362,6 +362,9 @@ MonoBehaviour:
   highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
   explosionAuraEffect: {fileID: 2000803592786541009, guid: eb848e748c1877a44aa246b244da016d, type: 3}
   orbPrefab: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
+  spawnCount: 5
+  scatterRadius: 3
+  gaugeAmount: 10
 --- !u!114 &1554615722755426576
 MonoBehaviour:
   m_ObjectHideFlags: 0

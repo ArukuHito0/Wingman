@@ -4963,9 +4963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b551de0fdf0e9b40983210b2936be42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrbBezier2D
-  gaugeValueAmount: 1
-  flyDuration: 1
-  curveStrength: 100
+  flyDuration: 0.7
+  curveStrength: 70
 --- !u!58 &374086417236152094
 CircleCollider2D:
   m_ObjectHideFlags: 0
