@@ -55,6 +55,8 @@ public class ScoreManager : MonoBehaviour
     // 加点
     public void AddScore(int value)
     {
+        if(TimerManager.Instance.finished) return;
+
         UpdateUI(score, value);
         score += value;
     }

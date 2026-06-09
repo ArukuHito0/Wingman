@@ -118,6 +118,13 @@ public class Planet : MonoBehaviour
                 );
             }
 
+            if (isInGravityHole == true)
+            {
+                Debug.Log("スキルで太陽爆発");
+
+                orbSpawner.SpawnOrb();
+            }
+
             Destroy(other.gameObject);
             Destroy(gameObject);
 
