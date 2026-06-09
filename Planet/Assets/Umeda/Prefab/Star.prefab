@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5407154865039121231}
   - component: {fileID: -7147377174157747964}
   - component: {fileID: 6772450614185289472}
+  - component: {fileID: 4732811183931917415}
   m_Layer: 10
   m_Name: Star
   m_TagString: Item
@@ -80,7 +81,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -137,8 +138,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Attractor
   targetTags:
   - Player
-  speed: 2
+  speed: 4
   detectionRadius: 2
+--- !u!114 &4732811183931917415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808368150614671218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60304b43973c26544898feddb22afa2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrbSpawner
+  orbPrefab: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
+  spawnCount: 10
+  scatterRadius: 1
+  gaugeAmount: 30
 --- !u!1 &2564515350086655592
 GameObject:
   m_ObjectHideFlags: 0
@@ -5360,7 +5377,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7969567969453657338, guid: 87e3f863d8a92194e92e7043a05fd789, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.2185942, a: 1}
+  m_Color: {r: 0, g: 0.15999866, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

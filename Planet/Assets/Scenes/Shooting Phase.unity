@@ -2745,6 +2745,7 @@ MonoBehaviour:
   isStarInvincible: 0
   invincibleOverlayImage: {fileID: 1918131876}
   maxOverlayAlpha: 0.8
+  isFlashing: 0
 --- !u!114 &533646617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3777,7 +3778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0000054836273, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.27999568, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5820,7 +5821,7 @@ MonoBehaviour:
   - minSpeed: 0.5
     maxSpeed: 1
   - minSpeed: 5
-    maxSpeed: 8
+    maxSpeed: 5
   autoSpawnMode: 0
   phaseList:
   - phaseName: Phase 1
@@ -5926,6 +5927,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.79999936
       objectReference: {fileID: 0}
+    - target: {fileID: 4732811183931917415, guid: 0050fdd73dc658e4b89b5899c3ecdd00, type: 3}
+      propertyPath: orbPrefab
+      value: 
+      objectReference: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8297,7 +8302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0000054836273, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.27999568, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9642,7 +9647,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.0000075101852, a: 1}
+  m_Color: {r: 0, g: 0.58000505, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

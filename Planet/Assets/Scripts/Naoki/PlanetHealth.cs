@@ -55,7 +55,15 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
+            if (PlayerHealth.Instance != null)
+            {
+                if (PlayerHealth.Instance.isFlashing)
+                {
+                    return;
+                }
+            }
+
+            if (PlayerHealth.Instance.isStarInvincible == true)
             {
                 if (currentSceneName != "Title")
                 {
@@ -65,7 +73,7 @@ public class PlanetHealth : MonoBehaviour
 
                 Broken();
             }
-            else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
+            else if(PlayerHealth.Instance.isStarInvincible == false)
             {
                 if (currentSceneName != "Title")
                 {

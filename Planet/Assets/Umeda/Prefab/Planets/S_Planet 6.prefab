@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 9023470782391491050}
   - component: {fileID: 4300995984964160259}
   - component: {fileID: -787173127806770303}
+  - component: {fileID: -269734505891515460}
   m_Layer: 6
   m_Name: S_Planet 6
   m_TagString: Planet
@@ -180,10 +181,6 @@ MonoBehaviour:
   evolusionEffect: {fileID: 4386929455867179297, guid: af1a9dfecda3f9e4d8d31ae1e1d769c9, type: 3}
   highlightEffect: {fileID: 6988147054543909004, guid: c5bcf830f8537464792a0b7d2ea2f0e4, type: 3}
   explosionAuraEffect: {fileID: 2000803592786541009, guid: eb848e748c1877a44aa246b244da016d, type: 3}
-  orbPrefab: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
-  spawnCount: 15
-  scatterRadius: 4
-  gaugeAmount: 25
 --- !u!114 &9023470782391491050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +229,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetCollisionFilter
   planetID: 6
+--- !u!114 &-269734505891515460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303545137729422076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60304b43973c26544898feddb22afa2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrbSpawner
+  orbPrefab: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
+  spawnCount: 10
+  scatterRadius: 4
+  gaugeAmount: 25
 --- !u!1 &8316222378699202559
 GameObject:
   m_ObjectHideFlags: 0
