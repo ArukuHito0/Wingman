@@ -4898,7 +4898,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 1, g: 0.53999996, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.100026965, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14550,6 +14550,7 @@ MonoBehaviour:
   titleBGM: {fileID: 8300000, guid: a060cdeb73e285e4a8a40ef1bbe09095, type: 3}
   puzzleBGM: {fileID: 8300000, guid: d7c7f5a41b38d1646b037018620df19a, type: 3}
   shootingBGM: {fileID: 8300000, guid: 53f58803fef75c9438cffc3d3759eea6, type: 3}
+  invincibleBGM: {fileID: 8300000, guid: 527b76f5a8b93ea4a857988416e402d4, type: 3}
   resultBGM: {fileID: 8300000, guid: 62d30199bc9fb8c4584b699c50adec96, type: 3}
   ClickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
   ContactSE: {fileID: 8300000, guid: c1fd1c9a4b394ed4b95d0cb3761ae8fc, type: 3}
