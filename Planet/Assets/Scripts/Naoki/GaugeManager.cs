@@ -74,6 +74,8 @@ public class GaugeManager : MonoBehaviour
         // 予測の数値を増やして、背面スライダーをパッと反映
         predictedGauge = Mathf.Clamp(predictedGauge + amount, 0f, maxGauge);
         predictionGaugeSlider.value = predictedGauge;
+
+        Debug.Log($"<color=green>スペシャルゲージが<color=red>【{amount}】</color>増加した</color>");
     }
 
     // 2. 【改造】オーブが到着したときに、実際のゲージ数値を増やすメソッド

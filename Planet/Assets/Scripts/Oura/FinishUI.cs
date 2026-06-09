@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class FinishUI : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class FinishUI : MonoBehaviour
     [SerializeField] private float bounceDuration = 0.15f;
     [SerializeField] private float waitTime = 1.0f;
     [SerializeField] private float fadeDuration = 0.5f;
+
+    [SerializeField] private Image fadeCover;
+    [SerializeField] private float fadeOutTime;
 
     private void Start()
     {
@@ -45,6 +49,10 @@ public class FinishUI : MonoBehaviour
 
     IEnumerator FinishSequence()
     {
+        GetComponent<Canvas>().enabled = true;
+
+        Time.timeScale = 0.5f;
+
         finishText.gameObject.SetActive(true);
 
         Color color = finishText.color;
@@ -126,5 +134,29 @@ public class FinishUI : MonoBehaviour
         }
 
         finishText.gameObject.SetActive(false);
+
+        Time.timeScale = 1;
+
+        yield return FadeOut();
+
+        TimerManager.Instance.Transition();
+    }
+
+    IEnumerator FadeOut()
+    {
+        float time = 0f;
+        Color color = fadeCover.color;
+
+        while (time < fadeOutTime)
+        {
+            time += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(0, 1, time / fadeOutTime);
+            fadeCover.color = new Color(color.r, color.g, color.b, alpha);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
     }
 }

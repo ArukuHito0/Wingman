@@ -71,7 +71,11 @@ public class GameStartUI : MonoBehaviour
         // STARTフェードアウト
         yield return StartCoroutine(FadeOut(startText, 0.5f));
 
+        TimerManager.Instance?.StartTimer();
+
         startText.gameObject.SetActive(false);
+
+        GetComponent<Canvas>().enabled = false;
     }
 
     IEnumerator BounceText(TextMeshProUGUI text)
