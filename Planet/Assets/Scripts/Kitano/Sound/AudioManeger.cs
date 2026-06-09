@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip shootingBGM;
 
+    public AudioClip invincibleBGM;
+
     public AudioClip resultBGM;
 
     // ===== SE =====
@@ -132,6 +134,10 @@ public class AudioManager : MonoBehaviour
                 clip = shootingBGM;
                 break;
 
+            case "Invincible":
+                clip = invincibleBGM;
+                break;
+
             case "Result":
                 clip = resultBGM;
                 break;
@@ -214,7 +220,7 @@ public class AudioManager : MonoBehaviour
         {
             seSource.PlayOneShot(clip);
 
-            Debug.Log("SE再生 : " + seName);
+            //Debug.Log("SE再生 : " + seName);
         }
     }
 

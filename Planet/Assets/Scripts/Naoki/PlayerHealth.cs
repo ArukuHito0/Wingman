@@ -190,12 +190,19 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator StarInvincibleCoroutine()
     {
         isStarInvincible = true;
-
+        
+        AudioManager.instance.StopBGM();
+        yield return null;
+        AudioManager.instance.PlayBGM("Invincible");
 
         StartInvincibleOverlay();
 
         yield return new WaitForSeconds(starInvincibleDuration);
         isStarInvincible = false;
+
+        AudioManager.instance.StopBGM();
+        yield return null;
+        AudioManager.instance.PlayBGM("Shooting");
 
         StopInvincibleOverlay();
     }
