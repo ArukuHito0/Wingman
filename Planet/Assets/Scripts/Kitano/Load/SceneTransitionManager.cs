@@ -48,28 +48,31 @@ public class SceneTransitionManager : MonoBehaviour
 
     private Color originalColor;
 
+    private RectTransform canvasRect;
+
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         transitionImage.gameObject.SetActive(false);
+
+        canvasRect = transitionImage.canvas.GetComponent<RectTransform>();
     }
 
     public void StartTransition(
         string sceneName,
         Sprite sprite,
         RectTransform buttonRect,
-        GameObject buttonObject
-    )
+        GameObject buttonObject)
     {
         if (isTransitioning) return;
 
@@ -78,17 +81,14 @@ public class SceneTransitionManager : MonoBehaviour
                 sceneName,
                 sprite,
                 buttonRect,
-                buttonObject
-            )
-        );
+                buttonObject));
     }
 
     IEnumerator TransitionCoroutine(
         string sceneName,
         Sprite sprite,
         RectTransform buttonRect,
-        GameObject buttonObject
-    )
+        GameObject buttonObject)
     {
         isTransitioning = true;
 
@@ -97,134 +97,121 @@ public class SceneTransitionManager : MonoBehaviour
         transitionImage.sprite = sprite;
 
         originalColor = Color.white;
-
         transitionImage.color = originalColor;
 
         RectTransform rect = transitionImage.rectTransform;
 
-        // ===== 初期設定 =====
-
+        // 初期設定
         Vector3 buttonPos = buttonRect.position;
 
-        rect.position = buttonPos;
-
         rect.sizeDelta = buttonRect.sizeDelta;
-
         rect.localScale = Vector3.one;
-
         rect.rotation = Quaternion.identity;
 
-        // ===== ボタン下移動 =====
-
-        Vector3 buttonTargetPos =
-            buttonPos + Vector3.down * Screen.height;
-
-        // ===== TransitionImage下スタート =====
-
+        // 下からスタート
         Vector3 startPos =
             buttonPos + Vector3.down * Screen.height;
 
         rect.position = startPos;
 
-        // ===== 中央位置 =====
-
-        Vector3 centerPos =
-            new Vector3(
-                Screen.width / 2f,
-                Screen.height / 2f,
-                0f
-            );
+        // ボタンの飛び先
+        Vector3 buttonTargetPos =
+            buttonPos + Vector3.down * Screen.height;
 
         // ===== スライド =====
 
         Vector3 velocity = Vector3.zero;
 
-        while (
-            Vector3.Distance(rect.position, centerPos)
-            > stopDistance
-        )
+        while (true)
         {
+            // 現在のCanvas中心
+            Vector3 centerPos =
+                canvasRect.TransformPoint(canvasRect.rect.center);
+
             // ボタンを下へ
             buttonRect.position = Vector3.MoveTowards(
                 buttonRect.position,
                 buttonTargetPos,
-                slideSpeed * Time.deltaTime
-            );
+                slideSpeed * Time.deltaTime);
 
-            // Imageをバネっぽく中央へ
+            // Imageを中央へ
             rect.position = Vector3.SmoothDamp(
                 rect.position,
                 centerPos,
                 ref velocity,
-                slideSmoothTime
-            );
+                slideSmoothTime);
+
+            if (Vector3.Distance(rect.position, centerPos)
+                <= stopDistance)
+            {
+                break;
+            }
 
             yield return null;
         }
 
-        // 最終位置固定
-        rect.position = centerPos;
+        rect.position =
+            canvasRect.TransformPoint(canvasRect.rect.center);
 
         // ボタン非表示
         buttonObject.SetActive(false);
 
-        // 少し停止
         yield return new WaitForSeconds(centerWaitTime);
-
-        // ===== 必要scale計算 =====
-
-        float screenDiagonal =
-            Mathf.Sqrt(
-                Screen.width * Screen.width +
-                Screen.height * Screen.height
-            );
-
-        float imageSize =
-            Mathf.Max(
-                rect.rect.width,
-                rect.rect.height
-            );
-
-        float targetScale =
-            (screenDiagonal / imageSize)
-            * screenCoverMultiplier;
 
         // ===== 拡大 =====
 
-        while (rect.localScale.x < targetScale)
+        float targetScale = 1f;
+
+        while (true)
         {
+            float screenDiagonal =
+                Mathf.Sqrt(
+                    Screen.width * Screen.width +
+                    Screen.height * Screen.height);
+
+            float imageSize =
+                Mathf.Max(
+                    rect.rect.width,
+                    rect.rect.height);
+
+            targetScale =
+                (screenDiagonal / imageSize)
+                * screenCoverMultiplier;
+
+            if (rect.localScale.x >= targetScale)
+            {
+                rect.localScale =
+                    Vector3.one * targetScale;
+                break;
+            }
+
             rect.Rotate(
                 0f,
                 0f,
-                expandRotateSpeed * Time.deltaTime
-            );
+                expandRotateSpeed * Time.deltaTime);
 
             rect.localScale = Vector3.MoveTowards(
                 rect.localScale,
                 Vector3.one * targetScale,
-                expandSpeed * Time.deltaTime
-            );
+                expandSpeed * Time.deltaTime);
 
-            // scale割合
             float t =
                 rect.localScale.x / targetScale;
 
-            // カーブ適用
             float fadeT =
                 blackFadeCurve.Evaluate(t);
 
-            // 白 → 黒
             transitionImage.color =
                 Color.Lerp(
                     originalColor,
                     Color.black,
-                    fadeT
-                );
+                    fadeT);
 
             yield return null;
         }
 
-        rect.localScale = Vector3.one * targetScale;
+        rect.localScale =
+            Vector3.one * targetScale;
 
         transitionImage.color = Color.black;
 
@@ -232,13 +219,13 @@ public class SceneTransitionManager : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
 
-        // 1フレーム待つ
         yield return null;
 
-        // RectTransform再取得
+        // 再取得
         rect = transitionImage.rectTransform;
+        canvasRect =
+            transitionImage.canvas.GetComponent<RectTransform>();
 
-        // 少し待つ
         yield return new WaitForSeconds(waitTime);
 
         // ===== 縮小 =====
@@ -248,30 +235,24 @@ public class SceneTransitionManager : MonoBehaviour
             rect.Rotate(
                 0f,
                 0f,
-                -shrinkRotateSpeed * Time.deltaTime
-            );
+                -shrinkRotateSpeed * Time.deltaTime);
 
             rect.localScale = Vector3.MoveTowards(
                 rect.localScale,
                 Vector3.zero,
-                shrinkSpeed * Time.deltaTime
-            );
+                shrinkSpeed * Time.deltaTime);
 
-            // scale割合
             float t =
                 rect.localScale.x / targetScale;
 
-            // カーブ適用
             float fadeT =
                 blackFadeCurve.Evaluate(t);
 
-            // 黒 → 白
             transitionImage.color =
                 Color.Lerp(
                     originalColor,
                     Color.black,
-                    fadeT
-                );
+                    fadeT);
 
             yield return null;
         }
