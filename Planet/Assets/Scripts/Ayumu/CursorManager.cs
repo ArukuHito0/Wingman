@@ -39,6 +39,8 @@ public class CursorManager : MonoBehaviour
     private void Start()
     {
         SetCursorTexture(CursorType.Default);
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void SetCursorTexture(CursorType mode)

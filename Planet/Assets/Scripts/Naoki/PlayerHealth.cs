@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxOverlayAlpha = 0.8f;
     private Coroutine overlayCoroutine;
 
-    private 
+    public bool isFlashing = false;
 
     void Awake()
     {
@@ -92,42 +92,9 @@ public class PlayerHealth : MonoBehaviour
         if (other.CompareTag("Planet"))
         {
             // スター状態でなければダメージを受ける
-            if (!isStarInvincible)
+            if (!isStarInvincible && !isFlashing)
             {
                 TakeDamage();
-            }
-        }
-
-        //アイテム用のチェック
-        else if (other.CompareTag("Item"))
-        {
-            ItemProperty item = other.GetComponent<ItemProperty>();
-            if (item!= null)
-            {
-                switch (item.ItemId)
-                {
-                    case "Star":
-                        ////既にスター状態なら一度止める
-                        //if (starInvincibleCoroutine != null)
-                        //{
-                        //    StopCoroutine(starInvincibleCoroutine);
-                        //}
-                        //if (overlayCoroutine != null)
-                        //{
-                        //    StopCoroutine(overlayCoroutine);
-                        //}
-                        //// スター状態のコルーチンをスタート
-                        //starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
-
-                        GaugeManager.Instance.AddGaugeDirect(20f);
-
-                        // スターを破壊
-                        Destroy(other.gameObject);
-                        break;
-
-                    default:
-                        break;
-                }
             }
         }
     }
@@ -153,7 +120,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage()
     {
-
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
@@ -175,7 +141,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerCollider != null)
         {
-            playerCollider.enabled = false;
+            isFlashing = true;
             if (shootingController  != null)
             {
                 shootingController.IsShootingFalse();
@@ -211,7 +177,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerCollider != null)
         {
-            playerCollider.enabled = true;
+            isFlashing = false;
             if (shootingController != null)
             {
                 shootingController.IsShootingTrue();

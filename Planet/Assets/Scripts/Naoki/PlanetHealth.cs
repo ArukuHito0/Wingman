@@ -17,6 +17,8 @@ public class PlanetHealth : MonoBehaviour
     [SerializeField] private GameObject feverBrokenEffect;
     [SerializeField] private GameObject explosionEffect;
 
+    private OrbSpawner orbSpawner;
+
     private string currentSceneName = string.Empty;
 
     private void OnEnable()
@@ -29,6 +31,7 @@ public class PlanetHealth : MonoBehaviour
     {
         healthText = transform.Find("HealthText")?.GetComponent<TextMeshPro>();
         planet = GetComponent<Planet>();
+        orbSpawner = GetComponent<OrbSpawner>();
 
         currentSceneName = SceneManager.GetActiveScene().name;
     }
@@ -55,7 +58,15 @@ public class PlanetHealth : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == true)
+            if (PlayerHealth.Instance != null)
+            {
+                if (PlayerHealth.Instance.isFlashing)
+                {
+                    return;
+                }
+            }
+
+            if (PlayerHealth.Instance.isStarInvincible == true)
             {
                 if (currentSceneName != "Title")
                 {
@@ -65,7 +76,7 @@ public class PlanetHealth : MonoBehaviour
 
                 Broken();
             }
-            else if (PlayerHealth.Instance != null && PlayerHealth.Instance.isStarInvincible == false)
+            else if(PlayerHealth.Instance.isStarInvincible == false)
             {
                 if (currentSceneName != "Title")
                 {
@@ -181,6 +192,14 @@ public class PlanetHealth : MonoBehaviour
     /// </summary>
     private void SpawnScoreText(int score)
     {
+        if (TimerManager.Instance != null)
+        {
+            if (TimerManager.Instance.finished)
+            {
+                return;
+            }
+        }
+
         if (PlayerHealth.Instance.isStarInvincible)
         {
             if (feverScoreTextPrefab != null)

@@ -4622,7 +4622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1194753411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7265,6 +7265,7 @@ MonoBehaviour:
   titleBGM: {fileID: 0}
   puzzleBGM: {fileID: 8300000, guid: d7c7f5a41b38d1646b037018620df19a, type: 3}
   shootingBGM: {fileID: 8300000, guid: 0672b9ec5c5a3674ea752b19a5cc956a, type: 3}
+  resultBGM: {fileID: 0}
   ClickSE: {fileID: 8300000, guid: 25ee611061edb8e45ab93514f127bd40, type: 3}
   ContactSE: {fileID: 8300000, guid: c1fd1c9a4b394ed4b95d0cb3761ae8fc, type: 3}
   evolutionSE: {fileID: 0}
@@ -7276,6 +7277,7 @@ MonoBehaviour:
   shotHitSE: {fileID: 0}
   planetBreakSE: {fileID: 0}
   resultSE: {fileID: 0}
+  hoverSE: {fileID: 0}
 --- !u!4 &1821396044
 Transform:
   m_ObjectHideFlags: 0
@@ -8839,9 +8841,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
   hoverScale: {x: 0.55, y: 0.55, z: 0.55}
   glowObject: {fileID: 0}
-  hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
-  clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
-  audioSource: {fileID: 0}
 --- !u!222 &978112164522367811
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11242,9 +11241,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   glowObject: {fileID: 0}
-  hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
-  clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
-  audioSource: {fileID: 0}
 --- !u!114 &5201174873971441061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12792,9 +12788,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
   hoverScale: {x: 0.55, y: 0.55, z: 0.55}
   glowObject: {fileID: 0}
-  hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
-  clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
-  audioSource: {fileID: 0}
 --- !u!222 &7429737384989497533
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13332,9 +13325,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHoverEffect
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   glowObject: {fileID: 0}
-  hoverSE: {fileID: 8300000, guid: cb619c51ee3d2c64db7a21abeea875c5, type: 3}
-  clickSE: {fileID: 8300000, guid: 49a8d4bff931e4e46be6178037b248a4, type: 3}
-  audioSource: {fileID: 0}
 --- !u!222 &8577707650261754081
 CanvasRenderer:
   m_ObjectHideFlags: 0

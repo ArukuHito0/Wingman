@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class SpacePlanetSpawner : MonoBehaviour
 {
@@ -68,6 +69,9 @@ public class SpacePlanetSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(TimerManager.Instance != null)
+            if (!TimerManager.Instance.isStart) return;
+
         currentSpawnInterval = spawnInterval;
         phaseTimer += Time.deltaTime;
 
@@ -110,6 +114,7 @@ public class SpacePlanetSpawner : MonoBehaviour
                 }
             }
         }
+
         CheckAndDespawn();  //削除のチェック
     }
 

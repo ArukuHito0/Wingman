@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Events;
 
 public class TimerManager : MonoBehaviour
 {
+    public static TimerManager Instance { get; private set; }
+
     [Header("シーソー（回転）の設定")]
     [Tooltip("揺れる最大の角度")]
     public float maxRotationAngle = 20f;
@@ -21,6 +24,7 @@ public class TimerManager : MonoBehaviour
     public float timeLimit = 120f;
     public float countDownStartTime = 10;
 
+    public bool isStart = false;
     public bool finished = false;
 
     public string transitionSceneName = string.Empty;
@@ -32,14 +36,25 @@ public class TimerManager : MonoBehaviour
 
     private RectTransform countDownTextTransform;
 
+    public UnityEvent onTimerEnd;
+
     private void Awake()
     {
         countDownText.text = string.Empty;
         countDownTextTransform = countDownText.GetComponent<RectTransform>();
+
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        Instance = null;
     }
 
     void Update()
     {
+        if (!isStart) return;
+
         if (finished) return;
 
         timeLimit -= Time.deltaTime;
@@ -70,9 +85,19 @@ public class TimerManager : MonoBehaviour
             timeLimit = 0;
             finished = true;
 
-            AudioManager.instance.StopBGM();
-
-            SceneManager.LoadScene(transitionSceneName);
+            onTimerEnd?.Invoke();
         }
+    }
+
+    public void StartTimer()
+    {
+        isStart = true;
+    }
+
+    public void Transition()
+    {
+        AudioManager.instance.StopBGM();
+
+        SceneManager.LoadScene(transitionSceneName);
     }
 }

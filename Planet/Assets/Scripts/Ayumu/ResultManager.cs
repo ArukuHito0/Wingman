@@ -17,6 +17,8 @@ public class ResultManager : MonoBehaviour
 
     private void Start()
     {
+        CursorManager.Instance.SetCursorTexture(CursorManager.CursorType.Default);
+
         playButton.interactable = false;
         titleButton.interactable = false;
 
