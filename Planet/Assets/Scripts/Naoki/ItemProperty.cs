@@ -9,12 +9,23 @@ public class ItemProperty : MonoBehaviour
     // プレイヤーからIDを読み取るための公開プロパティ
     public string ItemId => itemId;
 
+    private OrbSpawner orbSpawner;
+
+    private void Awake()
+    {
+        orbSpawner = GetComponent<OrbSpawner>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            if (itemId == "Star")
+            {
+                orbSpawner.SpawnOrb();
+            }
+
             Destroy(gameObject);
         }
-
     }
 }
