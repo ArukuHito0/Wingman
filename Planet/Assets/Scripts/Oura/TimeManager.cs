@@ -46,6 +46,11 @@ public class TimerManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
+
     void Update()
     {
         if (!isStart) return;

@@ -183,7 +183,7 @@ MonoBehaviour:
   orbPrefab: {fileID: 7240510230499880736, guid: 7d7c593bdd278f14ab6bfa0e838a9b3b, type: 3}
   spawnCount: 7
   scatterRadius: 3
-  gaugeAmount: 10
+  gaugeAmount: 15
 --- !u!114 &9114930327048223523
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -69,7 +69,8 @@ public class SpacePlanetSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((bool)!TimerManager.Instance?.isStart) return;
+        if(TimerManager.Instance != null)
+            if (!TimerManager.Instance.isStart) return;
 
         currentSpawnInterval = spawnInterval;
         phaseTimer += Time.deltaTime;
