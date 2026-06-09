@@ -5,12 +5,18 @@ public class RandomButtonDesign : MonoBehaviour
 {
     [Header("ボタンImage")]
     public Image targetImage;
+    private Image buttonImage;
 
     [Header("ランダム候補")]
     public Sprite[] randomSprites;
 
     [HideInInspector]
     public Sprite selectedSprite;
+
+    private void Awake()
+    {
+        buttonImage = GetComponent<Image>();
+    }
 
     void Start()
     {
@@ -21,5 +27,6 @@ public class RandomButtonDesign : MonoBehaviour
         selectedSprite = randomSprites[index];
 
         targetImage.sprite = selectedSprite;
+        buttonImage.sprite = selectedSprite;
     }
 }

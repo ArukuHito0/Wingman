@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,9 @@ public class ButtonHoverEffect : MonoBehaviour,
 {
     [Header("拡大倍率")]
     public Vector3 hoverScale = new Vector3(1.1f, 1.1f, 1.1f);
+
+    [SerializeField]
+    private Transform playTextTF;
 
     [Header("発光オブジェクト")]
     public GameObject glowObject;

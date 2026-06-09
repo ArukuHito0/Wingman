@@ -1,6 +1,9 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using WebGLSupport;
 
 /// <summary>
 /// マッチングに関しての関数をまとめたクラス
@@ -34,13 +37,32 @@ public class Matching : MonoBehaviour
         }
     }
 
-    private string userName = string.Empty;
+    public static string userName
+    {
+        get
+        {
+            return PlayerPrefs.GetString("UserName", "");
+        }
+        private set
+        {
+            PlayerPrefs.SetString("UserName", value);
+            PlayerPrefs.Save();
+        }
+    }
 
     private bool isLoggedIn = false;
+
+    [SerializeField]
+    private TMP_InputField userNameIF;
 
     private void Awake()
     {
         StartCoroutine(Login());
+    }
+
+    private void Start()
+    {
+        userNameIF.text = userName;
     }
 
     private void OnDestroy()
@@ -50,7 +72,7 @@ public class Matching : MonoBehaviour
 
     public void SetUserName(string userName)
     {
-        this.userName = userName;
+        Matching.userName = userName;
         StartCoroutine(SetUserName());
     }
 

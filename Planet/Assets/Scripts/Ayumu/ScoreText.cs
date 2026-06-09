@@ -26,6 +26,22 @@ public class ScoreText : MonoBehaviour
 
     private RectTransform rectTransform;
 
+    private Coroutine activeAnim;
+
+    private void OnEnable()
+    {
+        StartAnim();
+    }
+
+    private void OnDisable()
+    {
+        if (activeAnim != null)
+        {
+            StopCoroutine(activeAnim);
+            activeAnim = null;
+        }
+    }
+
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -36,7 +52,18 @@ public class ScoreText : MonoBehaviour
             return; // 早期リターンしてコルーチン起動を防ぐ
         }
 
-        StartCoroutine(Animation());
+        StartAnim();
+    }
+
+    private void StartAnim()
+    {
+        if (activeAnim != null)
+        {
+            StopCoroutine(activeAnim);
+            activeAnim = null;
+        }
+
+        activeAnim = StartCoroutine(Animation());
     }
 
     private IEnumerator Animation()
