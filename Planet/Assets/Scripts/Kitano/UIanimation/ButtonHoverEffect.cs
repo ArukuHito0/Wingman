@@ -61,7 +61,15 @@ public class ButtonHoverEffect : MonoBehaviour,
     // クリック時
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 元サイズに戻す
         transform.localScale = defaultScale;
+
+        // 発光OFF
+        if (glowObject != null)
+        {
+            glowObject.SetActive(false);
+        }
+
         AudioManager.instance?.PlaySE("Click");
     }
 }
