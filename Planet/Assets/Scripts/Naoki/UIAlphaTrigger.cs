@@ -9,7 +9,9 @@ public class UIAlphaTrigger : MonoBehaviour
     // プレイヤーが入ったとき
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        //if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        if (other.CompareTag("Player"))
+
         {
             isPlayerInside = true;
         }
@@ -18,7 +20,8 @@ public class UIAlphaTrigger : MonoBehaviour
     // プレイヤーが中にいる間（念のためのバックアップ）
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        //if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        if (other.CompareTag("Player"))
         {
             isPlayerInside = true;
         }
@@ -27,7 +30,8 @@ public class UIAlphaTrigger : MonoBehaviour
     // プレイヤーが出ていったとき
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        //if (other.CompareTag("Player") || other.CompareTag("Planet"))
+        if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
         }
