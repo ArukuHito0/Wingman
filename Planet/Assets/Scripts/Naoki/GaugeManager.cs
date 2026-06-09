@@ -77,12 +77,11 @@ public class GaugeManager : MonoBehaviour
     }
 
     // 2. 【改造】オーブが到着したときに、実際のゲージ数値を増やすメソッド
-    public void GainGauge(float amount)
+    public void GainGauge()
     {
         if (isFull) return;
 
-        currentGauge += amount;
-        currentGauge = Mathf.Clamp(currentGauge, 0f, maxGauge);
+        currentGauge = predictedGauge;
 
         // 満タンになったかチェック
         if (currentGauge >= maxGauge)
@@ -100,7 +99,7 @@ public class GaugeManager : MonoBehaviour
         PredictGainGauge(amount);
 
         // 2. 前面のメインゲージの目標値を増やす（これで自動的にUpdateで滑らかに追いつきます）
-        GainGauge(amount);
+        GainGauge();
     }
 
     // オーブの目的地（予測ゲージの先端）のワールド座標を計算して返すメソッド
