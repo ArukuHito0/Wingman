@@ -3460,6 +3460,16 @@ MonoBehaviour:
   isStarInvincible: 0
   invincibleOverlayImage: {fileID: 0}
   maxOverlayAlpha: 0.8
+  isFlashing: 0
+  normalPitch: 1
+  firstStage:
+    startTime: 0
+    targetPitch: 0
+    changeDuration: 0
+  secondStage:
+    startTime: 0
+    targetPitch: 0
+    changeDuration: 0
 --- !u!114 &452751425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4898,7 +4908,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 0, g: 0.100026965, b: 1, a: 1}
+  m_Color: {r: 0.80000347, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

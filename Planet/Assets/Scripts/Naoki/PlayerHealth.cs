@@ -50,6 +50,43 @@ public class PlayerHealth : MonoBehaviour
 
     public bool isFlashing = false;
 
+    //kitano
+    [System.Serializable]
+    public class BGMSpeedStage
+    {
+        [Tooltip("無敵開始から何秒後にこの段階へ入るか")]
+        public float startTime;
+
+        [Tooltip("目標となるBGM速度")]
+        public float targetPitch = 1f;
+
+        [Tooltip("この速度まで変化するのにかける時間")]
+        public float changeDuration = 1f;
+    }
+    [Header("Invincible BGM Speed")]
+
+    [SerializeField]
+    private float normalPitch = 1f;
+
+    [SerializeField]
+    private BGMSpeedStage firstStage = new BGMSpeedStage()
+    {
+        startTime = 0f,
+        targetPitch = 1f,
+        changeDuration = 0.5f
+    };
+
+    [SerializeField]
+    private BGMSpeedStage secondStage = new BGMSpeedStage()
+    {
+        startTime = 5f,
+        targetPitch = 1.5f,
+        changeDuration = 5f
+    };
+
+    private Coroutine bgmSpeedCoroutine;
+    //kitano end
+
     void Awake()
     {
         Instance = this;
@@ -190,15 +227,32 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator StarInvincibleCoroutine()
     {
         isStarInvincible = true;
-        
+
         AudioManager.instance.StopBGM();
         yield return null;
         AudioManager.instance.PlayBGM("Invincible");
 
+        // BGM速度変化開始
+        if (bgmSpeedCoroutine != null)
+        {
+            StopCoroutine(bgmSpeedCoroutine);
+        }
+
+        bgmSpeedCoroutine = StartCoroutine(InvincibleBGMSpeedCoroutine());
+
         StartInvincibleOverlay();
 
         yield return new WaitForSeconds(starInvincibleDuration);
+
         isStarInvincible = false;
+
+        // BGM速度を元に戻す
+        AudioManager.instance.bgmSource.pitch = normalPitch;
+
+        if (bgmSpeedCoroutine != null)
+        {
+            StopCoroutine(bgmSpeedCoroutine);
+        }
 
         AudioManager.instance.StopBGM();
         yield return null;
@@ -361,5 +415,62 @@ public class PlayerHealth : MonoBehaviour
     public void OnAnimationComplete()
     {
         gameOverEffect.SetActive(false);
+    }
+    private IEnumerator InvincibleBGMSpeedCoroutine()
+    {
+        AudioSource bgm = AudioManager.instance.bgmSource;
+
+        // 通常速度
+        bgm.pitch = normalPitch;
+
+        // ===== 第一段階まで待機 =====
+        yield return new WaitForSeconds(firstStage.startTime);
+
+        // 第一段階へ徐々に変化
+        float elapsedTime = 0f;
+        float startPitch = bgm.pitch;
+
+        while (elapsedTime < firstStage.changeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            bgm.pitch = Mathf.Lerp(
+                startPitch,
+                firstStage.targetPitch,
+                elapsedTime / firstStage.changeDuration);
+
+            yield return null;
+        }
+
+        bgm.pitch = firstStage.targetPitch;
+
+        // ===== 第二段階まで待機 =====
+        float waitTime =
+            secondStage.startTime
+            - firstStage.startTime
+            - firstStage.changeDuration;
+
+        if (waitTime > 0)
+        {
+            yield return new WaitForSeconds(waitTime);
+        }
+
+        // 第二段階へ徐々に変化
+        elapsedTime = 0f;
+        startPitch = bgm.pitch;
+
+        while (elapsedTime < secondStage.changeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            bgm.pitch = Mathf.Lerp(
+                startPitch,
+                secondStage.targetPitch,
+                elapsedTime / secondStage.changeDuration);
+
+            yield return null;
+        }
+
+        bgm.pitch = secondStage.targetPitch;
     }
 }
