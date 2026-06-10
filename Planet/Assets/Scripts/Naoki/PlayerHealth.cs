@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private bool useSmoothFlash = false;
     private Coroutine flashCoroutine;
     private Color originalColor;
-    [SerializeField] private Collider2D playerCollider;
 
     [SerializeField] private Gradient healthGradient;   // インスペクターで色を指定
     [SerializeField] private Image healthFillImage;     // スライダーのFillオブジェクトを指定
@@ -151,6 +150,8 @@ public class PlayerHealth : MonoBehaviour
             StopCoroutine(overlayCoroutine);
         }
 
+        CancelDamageFlash();    // 無敵時間を強制キャンセル
+
         // スター状態のコルーチンをスタート
         starInvincibleCoroutine = StartCoroutine(StarInvincibleCoroutine());
     }
@@ -172,13 +173,36 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUI();
     }
 
-    private IEnumerator DamageFlashCoroutine()
+    /// <summary>
+    /// ダメージ中に無敵状態になったとき、無敵時間を強制キャンセルさせる
+    /// </summary>
+    private void CancelDamageFlash()
+    {
+        if (flashCoroutine == null) return;
+
+        StopCoroutine(flashCoroutine);
+        flashCoroutine = null;
+
+        isFlashing = false;
+        if (shootingController != null)
+        {
+            shootingController.IsShootingTrue();
+        }
+        spriteRenderer.color = originalColor;
+    }
+
+    /// <summary>
+    /// ダメージ時の無敵時間(引数にtrueを渡すことで、無敵時間中も弾を発射することができる)
+    /// </summary>
+    /// <param name="canShooting"></param>
+    /// <returns></returns>
+    private IEnumerator DamageFlashCoroutine(bool canShooting = false)
     {
         float elapsedTime = 0f;
+        isFlashing = true;
 
-        if (playerCollider != null)
+        if (!canShooting)
         {
-            isFlashing = true;
             if (shootingController  != null)
             {
                 shootingController.IsShootingFalse();
@@ -212,18 +236,19 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
 
-        if (playerCollider != null)
+        if (!canShooting)
         {
-            isFlashing = false;
             if (shootingController != null)
             {
                 shootingController.IsShootingTrue();
             }
         }
+
+        isFlashing = false;
         spriteRenderer.color = originalColor;
     }
 
-    //無敵上タオ
+    //無敵状態
     private IEnumerator StarInvincibleCoroutine()
     {
         isStarInvincible = true;
@@ -259,6 +284,8 @@ public class PlayerHealth : MonoBehaviour
         AudioManager.instance.PlayBGM("Shooting");
 
         StopInvincibleOverlay();
+
+        yield return DamageFlashCoroutine(true);
     }
 
     private void StartInvincibleOverlay()

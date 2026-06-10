@@ -3420,7 +3420,6 @@ MonoBehaviour:
   flashSpeed: 20
   minAlpha: 0.25
   useSmoothFlash: 0
-  playerCollider: {fileID: 452751427}
   healthGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -4908,7 +4907,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d80aaed84dd68a940abfb6d397a87c17, type: 3}
-  m_Color: {r: 0.80000347, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.079990745, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
